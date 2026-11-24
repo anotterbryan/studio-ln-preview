@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Studio LN — Templates and Tools (Private Preview)</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Bodoni+Moda:ital,wght@0,500;0,700;1,400&family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=Oswald:wght@400;600&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="img/brand/s-mark.png">
+<link rel="stylesheet" href="vendor/fonts.css">
+<style id="page-style"></style>
 <style>
 :root{--ink:#0b0b0b;--ivory:#fff7f5;--paper:#fff;--clay:#066e87;--muted:#5e6466;--line:#e8dedb;--soft:#f6eeec}
 *{box-sizing:border-box}
@@ -44,6 +44,7 @@ h1.big{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(40
 h2.sec{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:42px;margin:48px 0 6px}
 .sub{color:var(--muted);margin:0 0 22px}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 22px}
+.chip,.btn.sm,.styles button,.fmt .fh button,.seg button{min-height:38px}
 .chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 13px;font-size:13px;cursor:pointer}
 .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;padding-bottom:64px}
@@ -81,83 +82,126 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
 /* ---------- COA certificate ---------- */
 .cert-scale{transform-origin:top left}
 .cert{width:816px;height:1056px;position:relative;overflow:hidden;background:var(--c-bg);color:var(--c-ink);font-family:var(--c-bf);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cert.land{width:1056px;height:816px}
 .cert .c-frame{position:absolute;inset:calc(18px + var(--i)*4px);border:calc(var(--i)*1.2px) solid var(--c-acc);pointer-events:none}
 .cert .c-frame2{position:absolute;inset:calc(28px + var(--i)*5px);border:1px solid var(--c-acc);opacity:calc(var(--i)/3);pointer-events:none}
 .cert .c-deco{position:absolute;inset:0;pointer-events:none}
-.cert .c-in{position:absolute;inset:96px 92px 80px;display:flex;flex-direction:column}
+.cert .c-in{position:absolute;inset:84px 92px 62px;display:flex;flex-direction:column;overflow:hidden}
+.cert.land .c-in{inset:64px 84px 52px}
+.cert .c-logo{height:44px;max-width:220px;object-fit:contain;align-self:var(--c-self);margin-bottom:12px}
 .cert .c-kick{font:500 11px var(--c-bf);letter-spacing:.32em;text-transform:uppercase;color:var(--c-acc);text-align:var(--c-align)}
 .cert .c-title{font-family:var(--c-hf);font-weight:var(--c-hw);font-size:var(--c-hs);line-height:1.02;margin:12px 0 0;text-align:var(--c-align);letter-spacing:var(--c-hl);text-transform:var(--c-ht)}
-.cert .c-rule{height:calc(var(--i)*1.5px);width:calc(60px + var(--i)*30px);background:var(--c-acc);margin:22px 0;align-self:var(--c-self)}
-.cert .c-stmt{font-size:14.5px;line-height:1.6;margin:0 0 30px;text-align:var(--c-align);font-style:var(--c-sty)}
-.cert .c-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:34px;row-gap:20px}
+.cert.land .c-title{font-size:calc(var(--c-hs)*.74);margin-top:8px}
+.cert .c-rule{height:calc(var(--i)*1.5px);width:calc(60px + var(--i)*30px);background:var(--c-acc);margin:16px 0;align-self:var(--c-self);flex:none}
+.cert.land .c-rule{margin:14px 0}
+.cert .c-stmt{font-size:14px;line-height:1.5;margin:0 0 18px;text-align:var(--c-align);font-style:var(--c-sty)}
+.cert.land .c-stmt{margin-bottom:18px}
+.cert .c-cols{display:flex;flex-direction:column;gap:16px}
+.cert.land .c-cols{flex-direction:row;gap:30px;align-items:flex-start}
+.cert .c-photo{height:176px;display:flex;align-items:center;justify-content:center;border:1px solid var(--c-line);padding:8px;background:var(--c-box)}
+.cert.land .c-photo{flex:0 0 290px;height:250px}
+.cert .c-photo img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.cert .c-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:34px;row-gap:13px;flex:1}
+.cert.land .c-grid.g3{grid-template-columns:1fr 1fr 1fr}
 .cert .c-f.full{grid-column:1/-1}
 .cert .c-l{font:600 9.5px var(--c-bf);letter-spacing:.22em;text-transform:uppercase;color:var(--c-acc)}
-.cert .c-v{font-size:16px;min-height:26px;padding:4px 0 5px;border-bottom:1px solid var(--c-line);background:var(--c-box);padding-left:var(--c-boxpad)}
-.cert .c-foot{margin-top:auto;display:flex;align-items:flex-end;gap:36px}
-.cert .c-seal{width:108px;height:108px;border-radius:50%;border:calc(1px + var(--i)*1px) solid var(--c-acc);display:flex;align-items:center;justify-content:center;flex-direction:column;font:600 9px var(--c-bf);letter-spacing:.2em;text-transform:uppercase;color:var(--c-acc);text-align:center;flex:none;outline:1px solid var(--c-acc);outline-offset:-9px}
+.cert .c-v{font-size:15px;min-height:24px;padding:3px 0 4px;border-bottom:1px solid var(--c-line);background:var(--c-box);padding-left:var(--c-boxpad);overflow-wrap:anywhere}
+.cert .c-foot{margin-top:auto;padding-top:12px;display:flex;align-items:flex-end;gap:30px;flex:none}
+.cert .c-seal{width:92px;height:92px;border-radius:50%;border:calc(1px + var(--i)*1px) solid var(--c-acc);display:flex;align-items:center;justify-content:center;flex-direction:column;font:600 9px var(--c-bf);letter-spacing:.2em;text-transform:uppercase;color:var(--c-acc);text-align:center;flex:none;outline:1px solid var(--c-acc);outline-offset:-9px}
+.cert.land .c-seal{width:88px;height:88px}
 .cert .c-seal b{font-family:var(--c-hf);font-size:22px;letter-spacing:.04em;margin:2px 0}
 .cert .c-sig{flex:1}
 .cert .c-sigline{border-bottom:1px solid var(--c-ink);height:40px}
 .cert .c-siglab{display:flex;justify-content:space-between;font:600 9.5px var(--c-bf);letter-spacing:.2em;text-transform:uppercase;color:var(--c-acc);margin-top:6px}
-.cert .c-web{text-align:center;font-size:12px;color:var(--c-mute);margin-top:18px}
+.cert .c-qr{flex:none;text-align:center;font:600 8px var(--c-bf);letter-spacing:.18em;text-transform:uppercase;color:var(--c-acc)}
+.cert .c-qr img{width:76px;height:76px;display:block;background:#fff;padding:5px;margin:0 auto 5px;image-rendering:pixelated}
+.cert .c-web{text-align:center;font-size:12px;color:var(--c-mute);margin-top:10px;flex:none;min-height:14px}
+#print-root{position:absolute;left:-99999px;top:0}
 @media print{
-  @page{size:letter;margin:0}
-  body *{visibility:hidden}
-  #cert,#cert *{visibility:visible}
-  #cert{position:fixed;left:0;top:0}
-  .cert-scale{transform:none!important}
+  body>*:not(#print-root){display:none!important}
+  body{background:#fff}
+  #print-root{position:static}
+  #print-root .cert{break-after:page;page-break-after:always}
 }
+.coa-batch{background:var(--soft);border-radius:10px;padding:12px;margin-bottom:12px}
+.coa-batch .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;font-size:13px}
 
 /* ---------- Event kit art ---------- */
 .kit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
 @media(max-width:560px){.kit-grid{grid-template-columns:1fr}}
 .fmt{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px}
-.fmt .fh{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin:0 0 8px}
+.fmt .fh{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin:0 0 8px}
+.fmt .fh button{font:500 11px Inter,sans-serif;border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 9px;cursor:pointer;color:var(--ink)}
 .fmt .box{position:relative;overflow:hidden;border-radius:4px}
 .fmt .box > .art{transform-origin:top left;position:absolute;top:0;left:0}
-.art{position:relative;overflow:hidden;background:var(--k-bg);color:var(--k-fg);font-family:var(--k-bf)}
-.art .a-photo{position:absolute;background:#cfc6b8 center/cover no-repeat;display:flex;align-items:center;justify-content:center;color:rgba(0,0,0,.35);font:500 calc(var(--u)*2.6) Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase}
-.art .a-shade{position:absolute;inset:0}
-.art .a-logo{position:absolute;top:calc(var(--u)*5);left:calc(var(--u)*5);width:calc(var(--u)*11);height:calc(var(--u)*11);border-radius:50%;border:calc(var(--u)*.35) dashed currentColor;display:flex;align-items:center;justify-content:center;font:600 calc(var(--u)*1.9) Inter,sans-serif;letter-spacing:.1em;background:center/contain no-repeat;z-index:3}
-.art .a-logo.has{border:0}
-.art .a-body{position:absolute;display:flex;flex-direction:column;z-index:2}
-.art .a-kick{font:600 calc(var(--u)*2.6) var(--k-bf);letter-spacing:.24em;text-transform:uppercase;color:var(--k-acc);overflow:hidden;max-height:calc(var(--u)*7)}
-.art .a-title{font-family:var(--k-hf);font-weight:var(--k-hw);line-height:.95;text-transform:var(--k-ht);overflow:hidden;height:var(--tH);display:flex;align-items:flex-end;margin:calc(var(--u)*1.5) 0}
-.art .a-title span{display:block;width:100%;overflow-wrap:break-word}
-.art .a-meta{font:500 calc(var(--u)*3.1) var(--k-bf);display:flex;gap:calc(var(--u)*2.5);flex-wrap:wrap;padding-top:calc(var(--u)*1.6);border-top:calc(var(--u)*.3) solid var(--k-acc)}
-.art .a-desc{font-size:calc(var(--u)*2.7);line-height:1.4;opacity:.9;margin-top:calc(var(--u)*2);overflow:hidden;max-height:var(--dH)}
-/* marquee: photo full bleed */
-.art.L-marquee .a-photo{inset:0}
-.art.L-marquee .a-shade{background:linear-gradient(180deg,rgba(0,0,0,0) 25%,rgba(0,0,0,.78) 100%)}
-.art.L-marquee{--k-fg:#fff}
-.art.L-marquee .a-body{left:calc(var(--u)*6);right:calc(var(--u)*6);bottom:calc(var(--u)*6)}
-/* split */
-.art.L-split .a-photo{left:0;top:0;right:0;height:48%}
-.art.L-split.wide .a-photo{height:auto;bottom:0;right:50%}
-.art.L-split .a-body{left:calc(var(--u)*6);right:calc(var(--u)*6);top:calc(48% + var(--u)*4);bottom:calc(var(--u)*5);justify-content:flex-end}
-.art.L-split.wide .a-body{left:calc(50% + var(--u)*5);top:calc(var(--u)*6)}
-.art.L-split .a-logo{background-color:var(--k-bg)}
-/* poster */
-.art.L-poster .a-photo{right:calc(var(--u)*6);bottom:calc(var(--u)*6);width:calc(var(--u)*30);height:calc(var(--u)*30);border-radius:50%}
-.art.L-poster .a-body{left:calc(var(--u)*6);right:calc(var(--u)*6);top:calc(var(--u)*19);bottom:calc(var(--u)*38)}
-.art.L-poster.wide .a-body{right:calc(var(--u)*42);bottom:calc(var(--u)*6)}
-.art.L-poster.wide .a-photo{width:calc(var(--u)*34);height:calc(var(--u)*34);top:50%;margin-top:calc(var(--u)*-17)}
+.art{position:relative;overflow:hidden;background:var(--k-bg);color:var(--k-fg);font-family:var(--k-bf);--T:calc(var(--u)*19 + var(--st,0px));--B:calc(var(--u)*6 + var(--sb,0px))}
+.art .a-photo{position:absolute;background:center/cover no-repeat;display:flex;align-items:center;justify-content:center;font:500 calc(var(--u)*2.6) Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase}
 .art .a-photo.has{color:transparent}
-.art .a-photo:not(.has){background-color:color-mix(in srgb,var(--k-bg) 82%,#fff);color:color-mix(in srgb,var(--k-bg) 55%,#fff)}
-.art.L-marquee .a-photo:not(.has){background-color:var(--k-bg)}
-.art.L-marquee.wide .a-body{right:38%}
-.art.L-split .a-body,.art.L-poster .a-body{color:var(--k-fg)}
-.art .a-logo{top:calc(var(--u)*5 + var(--st,0px))}
-.art.L-marquee .a-body{bottom:calc(var(--u)*6 + var(--sb,0px))}
-.art.L-split .a-body{bottom:calc(var(--u)*5 + var(--sb,0px))}
+.art .a-photo:not(.has){background-color:color-mix(in srgb,var(--k-bg) 82%,#888);color:color-mix(in srgb,var(--k-fg) 45%,transparent)}
+.art .a-shade,.art .a-frame{position:absolute;inset:0;pointer-events:none;display:none}
+.art .a-logo{position:absolute;top:calc(var(--u)*5 + var(--st,0px));left:calc(var(--u)*5);width:calc(var(--u)*11);height:calc(var(--u)*11);border-radius:50%;border:calc(var(--u)*.35) dashed currentColor;display:flex;align-items:center;justify-content:center;font:600 calc(var(--u)*1.9) Inter,sans-serif;letter-spacing:.1em;background:center/contain no-repeat;z-index:3}
+.art .a-logo.has{border:0}
+.art .a-body{position:absolute;display:flex;flex-direction:column;z-index:2;left:calc(var(--u)*6);right:calc(var(--u)*6);top:var(--T);bottom:var(--B)}
+.art .a-kick{flex:none;font:600 calc(var(--u)*2.6) var(--k-bf);letter-spacing:.24em;text-transform:uppercase;color:var(--k-acct);overflow:hidden;max-height:calc(var(--u)*7)}
+.art .a-title{flex:1;min-height:0;font-family:var(--k-hf);font-weight:var(--k-hw);line-height:.98;text-transform:var(--k-ht);overflow:hidden;display:flex;align-items:flex-end;margin:calc(var(--u)*1.5) 0}
+.art .a-title>span{display:block;width:100%;overflow-wrap:break-word}
+.art .a-title .l1,.art .a-title .l2{display:block}
+.art .a-meta{flex:none;font:500 calc(var(--u)*3.1) var(--k-bf);display:flex;gap:calc(var(--u)*.6) calc(var(--u)*2.5);flex-wrap:wrap;padding-top:calc(var(--u)*1.6);border-top:calc(var(--u)*.3) solid var(--k-acct)}
+.art .a-desc{flex:none;font-size:calc(var(--u)*2.7);line-height:1.4;opacity:.9;margin-top:calc(var(--u)*2);overflow:hidden;max-height:var(--dH)}
+.art.hs-outline .a-title .l2{color:transparent;-webkit-text-stroke:max(1px,calc(var(--u)*.22)) var(--k-fg)}
+.art.hs-accent .a-title .l2{color:var(--k-acct)}
+.art.hs-mixed .a-title .l1{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;text-transform:none;font-size:.6em;line-height:1.1;margin-bottom:.08em}
+.art.hs-stack .a-title .l1{font-family:var(--k-bf);font-weight:300;text-transform:none;font-size:.55em;letter-spacing:.02em}
 .art.ultra .a-logo{width:calc(var(--u)*16);height:calc(var(--u)*16)}
 .art.ultra .a-kick{font-size:calc(var(--u)*4)}
 .art.ultra .a-meta{font-size:calc(var(--u)*4.6)}
-.art.L-marquee.ultra .a-body{left:calc(var(--u)*24);right:30%;bottom:calc(var(--u)*8)}
+.art.ultra .a-body{left:calc(var(--u)*24);top:calc(var(--u)*6);bottom:calc(var(--u)*6)}
+/* marquee */
+.art.L-marquee .a-photo{inset:0}
+.art.L-marquee.pho .a-shade{display:block;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.2) 30%,rgba(0,0,0,.8) 100%)}
+.art.L-marquee:not(.pho) .a-photo{display:none}
+.art.L-marquee.wide .a-body{right:38%}
+.art.L-marquee.ultra .a-body{right:30%}
+/* frame */
+.art.L-frame .a-photo{inset:0}
+.art.L-frame.pho .a-shade{display:block;background:rgba(0,0,0,.52)}
+.art.L-frame:not(.pho) .a-photo{display:none}
+.art.L-frame .a-frame{display:block;inset:calc(var(--u)*4);border:calc(var(--u)*.4) solid var(--k-acct)}
+.art.L-frame .a-logo{left:calc(50% - var(--u)*5.5);top:calc(var(--u)*8 + var(--st,0px))}
+.art.L-frame .a-body{left:calc(var(--u)*11);right:calc(var(--u)*11);top:calc(var(--u)*23 + var(--st,0px));bottom:calc(var(--u)*10 + var(--sb,0px));text-align:center}
+.art.L-frame .a-title{align-items:center}
+.art.L-frame .a-meta{justify-content:center}
+.art.L-frame.ultra .a-logo{left:calc(var(--u)*9);top:calc(50% - var(--u)*8)}
+.art.L-frame.ultra .a-body{left:calc(var(--u)*30);right:calc(var(--u)*30);top:calc(var(--u)*8);bottom:calc(var(--u)*8)}
+/* split */
+.art.L-split .a-photo{left:0;top:0;right:0;height:46%}
+.art.L-split .a-logo{background-color:var(--k-bg)}
+.art.L-split .a-body{top:calc(46% + var(--u)*4)}
+.art.L-split.wide .a-photo{height:auto;bottom:0;right:50%}
+.art.L-split.wide .a-body{left:calc(50% + var(--u)*5);top:calc(var(--u)*6)}
 .art.L-split.ultra .a-photo{right:62%}
-.art.L-split.ultra .a-body{left:calc(38% + var(--u)*6);top:calc(var(--u)*8);bottom:calc(var(--u)*8)}
-.art.L-poster.ultra .a-body{left:calc(var(--u)*24);right:calc(var(--u)*80);top:calc(var(--u)*8);bottom:calc(var(--u)*8)}
-.art.L-poster.ultra .a-photo{width:calc(var(--u)*76);height:calc(var(--u)*76);top:50%;margin-top:calc(var(--u)*-38)}
+.art.L-split.ultra .a-body{left:calc(38% + var(--u)*6)}
+/* poster */
+.art.L-poster .a-photo{right:calc(var(--u)*6);bottom:var(--B);width:calc(var(--u)*30);height:calc(var(--u)*30);border-radius:50%}
+.art.L-poster .a-body{bottom:calc(var(--B) + var(--u)*34)}
+.art.L-poster.wide .a-photo{width:calc(var(--u)*34);height:calc(var(--u)*34);top:50%;bottom:auto;margin-top:calc(var(--u)*-17)}
+.art.L-poster.wide .a-body{right:calc(var(--u)*46);bottom:calc(var(--u)*6)}
+.art.L-poster.ultra .a-photo{width:calc(var(--u)*76);height:calc(var(--u)*76);margin-top:calc(var(--u)*-38)}
+.art.L-poster.ultra .a-body{right:calc(var(--u)*88)}
+/* block */
+.art.L-block .a-photo{left:calc(var(--u)*6);right:calc(var(--u)*8);top:var(--T);height:34%;box-shadow:calc(var(--u)*2) calc(var(--u)*2) 0 var(--k-acc)}
+.art.L-block .a-body{top:calc(var(--T) + 34% + var(--u)*6)}
+.art.L-block.wide .a-photo{left:54%;top:calc(var(--u)*7);bottom:calc(var(--u)*9);height:auto}
+.art.L-block.wide .a-body{right:50%;top:var(--T)}
+.art.L-block.ultra .a-photo{left:64%;top:calc(var(--u)*8);bottom:calc(var(--u)*10)}
+.art.L-block.ultra .a-body{right:40%;top:calc(var(--u)*6)}
+/* strip */
+.art.L-strip .a-photo{left:0;right:0;bottom:0;height:30%}
+.art.L-strip .a-body{bottom:calc(30% + var(--u)*5)}
+.art.L-strip.wide .a-photo{left:68%;top:0;height:auto}
+.art.L-strip.wide .a-body{right:calc(32% + var(--u)*5);bottom:calc(var(--u)*6)}
+.art.L-strip.ultra .a-photo{left:72%}
+.art.L-strip.ultra .a-body{right:calc(28% + var(--u)*6)}
 .plat-h{font:500 13px Inter,sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin:22px 0 10px}
 .plat-h:first-child{margin-top:0}
 .szl{display:flex;flex-wrap:wrap;gap:6px 12px;margin:0 0 10px;font-size:13px}
@@ -211,12 +255,6 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
 .upsell .box{position:relative}
 .upsell .wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:5;pointer-events:none;font:600 11px Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);background:repeating-linear-gradient(-30deg,rgba(0,0,0,.0) 0 40px,rgba(0,0,0,.12) 40px 42px)}
 @media(max-width:560px){.upsell .kit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.art .a-title span.l1,.art .a-title span.l2{display:block}
-.art.hs-outline .a-title .l2{color:transparent;-webkit-text-stroke:max(1px,calc(var(--u)*.22)) var(--k-fg)}
-.art.L-marquee.hs-outline .a-title .l2{-webkit-text-stroke-color:#fff}
-.art.hs-accent .a-title .l2{color:var(--k-acc)}
-.art.hs-mixed .a-title .l1{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;text-transform:none;font-size:.6em;line-height:1.1;margin-bottom:.08em}
-.art.hs-stack .a-title .l1{font-family:var(--k-bf);font-weight:300;text-transform:none;font-size:.55em;letter-spacing:.02em}
 #fx-out figure{margin:0;width:110px;font-size:11px;color:var(--muted);text-align:center}
 #fx-out img{width:100%;border-radius:6px;border:1px solid var(--line);display:block;margin-bottom:4px}
 </style>
@@ -270,34 +308,54 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
 <section class="page" id="p-coa">
   <div class="wrap">
     <h2 class="sec">Certificate of authenticity builder</h2>
-    <p class="sub">Fill in your piece, choose a style and strength, then download a letter-size PDF.</p>
+    <p class="sub">Fill in one piece, or upload a spreadsheet to make a certificate for every piece at once. Add a photo and a scan-to-verify code, then download.</p>
     <div class="tool">
       <div class="panel" id="coa-form">
         <h3>Style</h3><p class="hint">Every style is built to look professional. Strength goes from subtle to bold.</p>
         <div class="styles" id="coa-styles"></div>
         <div class="fld"><label>Strength: <b id="int-lab">Balanced</b></label><input type="range" id="coa-int" min="1" max="3" step="1" value="2"></div>
+        <div class="seg" id="coa-orient"><button data-o="p" class="on">Portrait</button><button data-o="l">Landscape</button></div>
         <div class="divider"></div>
-        <h3>Your piece</h3><p class="hint">Fields change to fit your medium.</p>
-        <div class="fld"><label>Medium</label><select id="f-medium"></select></div>
-        <div class="fld"><label>Artist</label><input id="f-artist" value="Jordan Ellis"></div>
-        <div class="fld"><label>Title of work</label><input id="f-title" value="Low Tide at Dusk"></div>
+        <h3>Your piece</h3><p class="hint">Fields change to fit your medium. Blank optional fields are left off.</p>
+        <div class="fld"><label for="f-medium">Medium</label><select id="f-medium"></select></div>
+        <div class="fld"><label for="f-artist">Artist</label><input id="f-artist" value="Jordan Ellis"></div>
+        <div class="fld"><label for="f-title">Title of work</label><input id="f-title" value="Low Tide at Dusk"></div>
         <div class="two">
-          <div class="fld"><label>Year created</label><input id="f-year" value="2026"></div>
-          <div class="fld"><label id="l-detail">Surface</label><input id="f-detail" value="Oil on linen"></div>
+          <div class="fld"><label for="f-year">Year created</label><input id="f-year" value="2026"></div>
+          <div class="fld"><label id="l-detail" for="f-detail">Surface</label><input id="f-detail" value="Oil on linen"></div>
         </div>
         <div class="two">
-          <div class="fld"><label id="l-dims">Dimensions</label><input id="f-dims" value="24 × 36 in"></div>
-          <div class="fld"><label id="l-ed">Edition</label><input id="f-ed" value="Original, 1 of 1"></div>
+          <div class="fld"><label id="l-dims" for="f-dims">Dimensions</label><input id="f-dims" value="24 × 36 in"></div>
+          <div class="fld"><label id="l-ed" for="f-ed">Edition</label><input id="f-ed" value="Original, 1 of 1"></div>
         </div>
-        <div class="fld"><label>Collector (optional)</label><input id="f-coll" value=""></div>
-        <div class="fld"><label>Notes and provenance (optional)</label><textarea id="f-notes"></textarea></div>
-        <div class="fld"><label>Studio or website</label><input id="f-web" value="jordanellis.art"></div>
-        <div class="btns"><button class="btn" id="coa-print">Download PDF</button><button class="btn ghost" id="coa-new">New certificate no.</button></div>
-        <p class="hint" style="margin-top:10px">Download opens your print dialog. Choose "Save as PDF".</p>
+        <div class="two">
+          <div class="fld"><label for="f-no">Certificate no.</label><input id="f-no"></div>
+          <div class="fld"><label for="f-date">Date issued</label><input id="f-date"></div>
+        </div>
+        <div class="fld"><label for="f-loc">Where it was made (optional)</label><input id="f-loc"></div>
+        <div class="fld"><label for="f-coll">Collector (optional)</label><input id="f-coll"></div>
+        <div class="fld"><label for="f-notes">Notes and provenance (optional)</label><textarea id="f-notes"></textarea></div>
+        <div class="fld"><label for="f-web">Studio or website</label><input id="f-web" value="jordanellis.art"></div>
+        <div class="fld"><label for="f-link">Verification link for the QR code (optional)</label><input id="f-link" placeholder="https://yoursite.com/artwork-page" inputmode="url"></div>
+        <div class="two">
+          <div class="fld"><label for="f-photo">Photo of the work</label><input type="file" id="f-photo" accept="image/*"></div>
+          <div class="fld"><label for="f-logo">Your logo</label><input type="file" id="f-logo" accept="image/*"></div>
+        </div>
+        <p class="err" id="coa-imgerr"></p>
+        <div class="divider"></div>
+        <h3>Many pieces at once</h3><p class="hint">Upload a spreadsheet saved as CSV, one row per piece. Style, logo and layout apply to all of them. The photo is left off, since it shows only one piece.</p>
+        <div class="coa-batch">
+          <input type="file" id="coa-csv" accept=".csv,text/csv">
+          <div class="row"><a id="coa-tpl" download="studio-ln-certificates.csv" href="#">Download the starter spreadsheet</a></div>
+          <div class="row" id="coa-brow" hidden><button class="btn sm ghost" id="coa-prev" type="button">‹</button><span id="coa-bstat"></span><button class="btn sm ghost" id="coa-next" type="button">›</button><button class="btn sm ghost" id="coa-bclear" type="button">Clear list</button></div>
+          <p class="err" id="coa-csverr"></p>
+        </div>
+        <div class="btns"><button class="btn" id="coa-print">Download PDF</button><button class="btn ghost" id="coa-png">Download image</button></div>
+        <p class="hint" id="coa-status" style="margin-top:10px">Download PDF opens your print dialog. Choose "Save as PDF" and turn off headers and footers.</p>
       </div>
       <div>
-        <div class="stage" id="coa-stage"><div class="cert-scale" id="cert-scale"><div class="cert" id="cert"></div></div></div>
-        <p class="stage-note">Live preview at letter size (8.5 × 11 in).</p>
+        <div class="stage" id="coa-stage"><div class="cert-scale" id="cert-scale"></div></div>
+        <p class="stage-note" id="coa-note">Live preview at letter size (8.5 × 11 in).</p>
       </div>
     </div>
   </div>
@@ -307,46 +365,51 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
 <section class="page" id="p-kit">
   <div class="wrap">
     <h2 class="sec">Event brand kit</h2>
-    <p class="sub">Enter your event once. Pick where you're posting and get every size each platform uses, laid out for that size, with long text shrinking to fit.</p>
+    <p class="sub">Enter your event once. Pick a vibe and where you're posting, and get every size each platform uses, laid out for that size, with long text shrinking to fit.</p>
     <div class="tool">
       <div class="panel">
         <div class="seg" id="tier"><button data-t="basic" class="on">Basic</button><button data-t="pro">Pro</button></div>
+        <div id="pro-box" style="display:none">
+          <h3>Pro controls <span class="lock">Pro</span></h3><p class="hint">Fine-tune any vibe: layout, fonts, headline and your own colors.</p>
+          <div class="two">
+            <div class="fld"><label for="k-layout">Layout</label><select id="k-layout"></select></div>
+            <div class="fld"><label for="k-font">Fonts</label><select id="k-font"></select></div>
+          </div>
+          <div class="fld"><label for="k-hsel">Headline style</label><select id="k-hsel"></select></div>
+          <div class="two">
+            <div class="fld"><label for="k-bg">Background</label><input type="color" id="k-bg" value="#1c2430"></div>
+            <div class="fld"><label for="k-acc">Accent</label><input type="color" id="k-acc" value="#c9a45c"></div>
+          </div>
+          <div class="fld"><label><input type="checkbox" id="k-nodesc"> Hide description on social sizes</label></div>
+          <div class="divider"></div>
+        </div>
+        <h3>Event details</h3><p class="hint">Text that runs long shrinks to fit its box automatically.</p>
+        <div class="fld"><label for="k-title">Event title</label><input id="k-title" value="An Evening with Gary Lane Trio"></div>
+        <div class="fld"><label for="k-title2">Title, second line (optional)</label><input id="k-title2" placeholder="Leave blank to split the title automatically"></div>
+        <div class="fld"><label for="k-kick">Subheader</label><input id="k-kick" value="Live jazz · Guest artist series"></div>
+        <div class="two">
+          <div class="fld"><label for="k-date">Date</label><input id="k-date" value="Sat, Dec 13"></div>
+          <div class="fld"><label for="k-time">Time</label><input id="k-time" value="7:00 PM"></div>
+        </div>
+        <div class="fld"><label for="k-loc">Location</label><input id="k-loc" value="The Studio Hall, San Diego"></div>
+        <div class="fld"><label for="k-desc">Description</label><textarea id="k-desc">An intimate night of standards and originals. Doors open at 6:30. Light bites and drinks included with every ticket.</textarea></div>
+        <div class="two">
+          <div class="fld"><label for="k-logo">Logo</label><input type="file" id="k-logo" accept="image/*"></div>
+          <div class="fld"><label for="k-photo">Photo</label><input type="file" id="k-photo" accept="image/*"></div>
+        </div>
+        <p class="err" id="k-imgerr"></p>
+        <div class="divider"></div>
+        <h3>Vibe</h3><p class="hint">Each vibe sets the layout, fonts, headline and colors together. Shuffle mixes them for you.</p>
+        <div class="styles" id="k-vibes"></div>
+        <button class="btn sm ghost" id="k-shuffle" type="button">Shuffle</button>
+        <div class="divider"></div>
+        <h3>Colors</h3><p class="hint" id="pal-hint">Swap the vibe's colors for a tested palette. Upload a photo and we'll build four more from it.</p>
+        <div class="styles" id="k-pal"></div>
+        <div class="divider"></div>
         <h3>Where are you posting?</h3><p class="hint">Tap a platform to add all its sizes, or tap "Any ratio" to pick shapes yourself. Untick any size you don't need.</p>
         <div class="chips" id="plat" style="margin-bottom:10px"></div>
         <div id="sizes"></div>
         <p class="hint" id="size-count"></p>
-        <div class="divider"></div>
-        <h3>Event details</h3><p class="hint">Text that runs long shrinks to fit its box automatically.</p>
-        <div class="fld"><label>Event title</label><input id="k-title" value="An Evening with Gary Lane Trio"></div>
-        <div class="fld"><label>Title, second line (optional)</label><input id="k-title2" placeholder="Leave blank to split the title automatically"></div>
-        <div class="fld"><label>Headline style</label></div>
-        <div class="styles" id="k-hs"></div>
-        <div class="fld"><label>Subheader</label><input id="k-kick" value="Live jazz · Guest artist series"></div>
-        <div class="two">
-          <div class="fld"><label>Date</label><input id="k-date" value="Sat, Dec 13"></div>
-          <div class="fld"><label>Time</label><input id="k-time" value="7:00 PM"></div>
-        </div>
-        <div class="fld"><label>Location</label><input id="k-loc" value="The Studio Hall, San Diego"></div>
-        <div class="fld"><label>Description</label><textarea id="k-desc">An intimate night of standards and originals. Doors open at 6:30. Light bites and drinks included with every ticket.</textarea></div>
-        <div class="two">
-          <div class="fld"><label>Logo</label><input type="file" id="k-logo" accept="image/*"></div>
-          <div class="fld"><label>Photo</label><input type="file" id="k-photo" accept="image/*"></div>
-        </div>
-        <div class="divider"></div>
-        <h3>Colors</h3><p class="hint" id="pal-hint">Four tested palettes. Upload a photo and we'll build four more from its colors.</p>
-        <div class="styles" id="k-pal"></div>
-        <div id="pro-home"></div>
-        <div id="pro-box" class="pro-only" style="display:none">
-          <div class="divider"></div>
-          <h3>Pro controls <span class="lock">Pro</span></h3><p class="hint">Layout, fonts and custom colors.</p>
-          <div class="fld"><label>Layout</label><select id="k-layout"><option value="marquee">Marquee (photo full bleed)</option><option value="split">Split (photo and color block)</option><option value="poster">Poster (big type, round photo)</option></select></div>
-          <div class="fld"><label>Font pairing</label><select id="k-font"><option value="bold">Bold sans</option><option value="editorial">Editorial serif</option><option value="classic">Classic engraved</option><option value="modern">Modern grotesk</option></select></div>
-          <div class="two">
-            <div class="fld"><label>Background</label><input type="color" id="k-bg" value="#1f2a44"></div>
-            <div class="fld"><label>Accent</label><input type="color" id="k-acc" value="#e9b44c"></div>
-          </div>
-          <div class="fld"><label><input type="checkbox" id="k-nodesc"> Hide description on social sizes</label></div>
-        </div>
         <div class="divider"></div>
         <h3>Extra styles</h3><p class="hint">Each style is applied to every size you picked and saved in its own folder.</p>
         <div class="szl" id="k-fx"></div>
@@ -398,10 +461,12 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
 </section>
 
 <div id="lb" class="lb" hidden><div class="lb-card" role="dialog" aria-modal="true"><button class="lb-x" id="lb-x" aria-label="Close">×</button><div class="lb-strip" id="lb-strip"></div><div class="lb-nav"><button id="lb-p" aria-label="Previous">‹</button><div class="lb-dots" id="lb-dots"></div><button id="lb-n2" aria-label="Next">›</button></div><div class="lb-body" id="lb-body"></div></div></div>
+<div id="print-root" aria-hidden="true"></div>
 <footer><div class="wrap">© 2026 Studio LN · Design by Bryan Lane, San Diego · Help and inquiries: <a href="mailto:studio.ln@icloud.com">studio.ln@icloud.com</a> · Private preview build</div></footer>
 
-<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="vendor/html-to-image.js"></script>
+<script src="vendor/jszip.min.js"></script>
+<script src="vendor/qrcode.js"></script>
 <script>
 /* ---------- router ---------- */
 function route(){const id=(location.hash||'#home').slice(1);const pg=document.getElementById('p-'+id)?id:'home';
@@ -431,6 +496,26 @@ document.querySelectorAll('#chips .chip').forEach(b=>b.onclick=()=>{cat=b.datase
 document.getElementById('shopgrid').innerHTML=SHOP.filter(s=>cat==='All'||s[0]===cat).map(s=>`<div class="card" data-t="${esc(s[1])}"><div class="thumb" style="background:${s[3]};color:${s[4]}">${s[5]?`<img src="img/work/${s[5]}" alt="">`:s[1]}<span class="pend">${s[5]?'Approved':'Approved · image coming'}</span></div><div class="ci"><span class="meta">${s[0]}</span><h4>${s[1]}</h4><span class="meta">${s[2]}</span><div class="row"><span class="price">$ —</span><span class="btn sm ghost">View</span></div></div></div>`).join('');}
 drawShop();
 
+/* ---------- shared helpers ---------- */
+const $=id=>document.getElementById(id);
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+const LS={get(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+function persist(key,ids){const sv=LS.get(key)||{};ids.forEach(id=>{const el=$(id);if(!el)return;if(sv[id]!=null)el.value=sv[id];el.addEventListener('input',()=>{const o=LS.get(key)||{};o[id]=el.value;LS.set(key,o);});});}
+function loadImage(file,max,type){return new Promise((res,rej)=>{if(!file||!/^image\//.test(file.type||'image/'))return rej(new Error('type'));const url=URL.createObjectURL(file);const im=new Image();
+ im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*k));c.height=Math.max(1,Math.round(im.height*k));c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(url);res(c.toDataURL(type||'image/jpeg',.88));};
+ im.onerror=()=>{URL.revokeObjectURL(url);rej(new Error('decode'));};im.src=url;});}
+const IMGERR="We couldn't read that file. Try a JPG or PNG.";
+let _fontSheet=null;const _fontData={};
+async function fontCSSFor(families){try{if(_fontSheet==null)_fontSheet=await (await fetch('vendor/fonts.css')).text();
+ const want=new Set(families);let out='';for(const blk of _fontSheet.split('\n')){const m=blk.match(/font-family:'([^']+)'/);if(!m||!want.has(m[1]))continue;const u=blk.match(/url\(([^)]+)\)/)[1];
+  if(!_fontData[u]){const b=await (await fetch('vendor/'+u)).blob();_fontData[u]=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);});}
+  out+=blk.replace(u,_fontData[u])+'\n';}return out;}catch(e){console.error(e);return '';}}
+const _ff=new Set();function fontsReady(fams){fams=[...new Set(fams.filter(Boolean))];if(fams.every(f=>_ff.has(f)))return null;return Promise.all(fams.flatMap(f=>['400','600','700','italic 400'].map(w=>document.fonts.load(w+' 20px "'+f+'"').catch(()=>{})))).then(()=>fams.forEach(f=>_ff.add(f)));}
+const famOf=s=>(String(s).match(/'([^']+)'/)||[])[1];
+function saveBlob(blob,name){const l=document.createElement('a');l.href=URL.createObjectURL(blob);l.download=name;document.body.appendChild(l);l.click();setTimeout(()=>{URL.revokeObjectURL(l.href);l.remove();},4000);}
+const canvasBlob=c=>new Promise(r=>c.toBlob(r,'image/png'));
+function offHost(){const h=document.createElement('div');h.style.cssText='position:fixed;left:-99999px;top:0';document.body.appendChild(h);return h;}
+
 /* ---------- COA ---------- */
 const MEDIA={
 'Painting':['Surface','Dimensions','Edition','Oil on linen','Original, 1 of 1'],
@@ -447,65 +532,109 @@ const S={
 classic:{n:'Classic',bg:'#fbf7ee',ink:'#2b2620',acc:'#a8843f',line:'#d8c69c',mute:'#7a6d5a',hf:"'Cinzel',serif",bf:"'Cormorant Garamond',serif",hw:600,hs:'44px',hl:'.06em',ht:'uppercase',al:'center',sty:'italic',deco:'corners'},
 modern:{n:'Modern',bg:'#ffffff',ink:'#1c1c1c',acc:'#c8553d',line:'#d9d4cc',mute:'#7a746c',hf:"'Bebas Neue',sans-serif",bf:"'Inter',sans-serif",hw:400,hs:'78px',hl:'.02em',ht:'uppercase',al:'left',sty:'normal',deco:'band',box:'#f3f0eb'},
 minimal:{n:'Minimal',bg:'#ffffff',ink:'#151515',acc:'#151515',line:'#d6d6d6',mute:'#8a8a8a',hf:"'Inter',sans-serif",bf:"'Inter',sans-serif",hw:300,hs:'40px',hl:'-.01em',ht:'none',al:'left',sty:'normal',deco:'none'},
+gallery:{n:'Gallery',bg:'#fcfaf5',ink:'#1f1d1a',acc:'#a88444',line:'#c9b48a',mute:'#6b6358',hf:"'Playfair Display',serif",bf:"'Cormorant Garamond',serif",hw:700,hs:'46px',hl:'0',ht:'none',al:'center',sty:'italic',deco:'gallery'},
 elegant:{n:'Elegant',bg:'#fbf8f3',ink:'#2a2222',acc:'#a8736a',line:'#e2cfc6',mute:'#8a7a74',hf:"'Playfair Display',serif",bf:"'Cormorant Garamond',serif",hw:500,hs:'48px',hl:'0',ht:'none',al:'center',sty:'italic',deco:'flourish'},
 abstract:{n:'Abstract',bg:'#fffdf8',ink:'#1d1d1f',acc:'#2f5bd3',line:'#d9d6cf',mute:'#77736b',hf:"'Space Grotesk',sans-serif",bf:"'Space Grotesk',sans-serif",hw:700,hs:'50px',hl:'-.02em',ht:'none',al:'left',sty:'normal',deco:'shapes'},
 snappy:{n:'Snappy',bg:'#ffffff',ink:'#1f2a44',acc:'#e85d3a',line:'#d9dbe3',mute:'#6a7184',hf:"'Oswald',sans-serif",bf:"'Inter',sans-serif",hw:600,hs:'54px',hl:'.01em',ht:'uppercase',al:'left',sty:'normal',deco:'corner',box:'#f4f5f8'},
 bricked:{n:'Bricked',bg:'#fbf6f1',ink:'#2a1d17',acc:'#8b3a2b',line:'#d9c3b6',mute:'#7b665b',hf:"'Oswald',sans-serif",bf:"'Inter',sans-serif",hw:600,hs:'52px',hl:'.03em',ht:'uppercase',al:'center',sty:'normal',deco:'brick'},
-seductive:{n:'Seductive',bg:'#1e0b12',ink:'#f4e6dc',acc:'#c9a24b',line:'#5a3340',mute:'#b99a8e',hf:"'Bodoni Moda',serif",bf:"'Cormorant Garamond',serif",hw:500,hs:'50px',hl:'.01em',ht:'none',al:'center',sty:'italic',deco:'velvet'},
+seductive:{n:'Seductive',bg:'#16070d',ink:'#f6e9e1',acc:'#d8a79a',line:'#5b2f3c',mute:'#c2a096',hf:"'Bodoni Moda',serif",bf:"'Cormorant Garamond',serif",hw:500,hs:'54px',hl:'.01em',ht:'none',al:'center',sty:'italic',deco:'velvet'},
 sporty:{n:'Sporty',bg:'#ffffff',ink:'#0d1b2a',acc:'#e63946',line:'#d6dbe2',mute:'#677386',hf:"'Oswald',sans-serif",bf:"'Inter',sans-serif",hw:600,hs:'58px',hl:'.02em',ht:'uppercase',al:'left',sty:'normal',deco:'stripes',box:'#f2f4f7'},
-varsity:{n:'Varsity',bg:'#f7f2e6',ink:'#13294b',acc:'#13294b',line:'#c9bfa6',mute:'#6b6552',hf:"'Bebas Neue',sans-serif",bf:"'Inter',sans-serif",hw:400,hs:'74px',hl:'.04em',ht:'uppercase',al:'center',sty:'normal',deco:'varsity'}};
-let style='classic';const $=id=>document.getElementById(id);
+varsity:{n:'Varsity',bg:'#f7f2e6',ink:'#13294b',acc:'#13294b',line:'#c9bfa6',mute:'#6b6552',hf:"'Bebas Neue',sans-serif",bf:"'Inter',sans-serif",hw:400,hs:'74px',hl:'.04em',ht:'uppercase',al:'center',sty:'normal',deco:'varsity'},
+retro:{n:'Retro',bg:'#f3e6c8',ink:'#3a2412',acc:'#c8441b',line:'#d8c193',mute:'#7c6444',hf:"'Abril Fatface',serif",bf:"'Inter',sans-serif",hw:400,hs:'50px',hl:'0',ht:'none',al:'center',sty:'normal',deco:'retro'}};
+let style='classic',orient='p',coaPhoto='',coaLogo='',batch=null,bi=0;
+const COA_IDS=['f-artist','f-title','f-year','f-detail','f-dims','f-ed','f-no','f-date','f-loc','f-coll','f-notes','f-web','f-link'];
 $('f-medium').innerHTML=Object.keys(MEDIA).map(m=>`<option>${m}</option>`).join('');
-$('coa-styles').innerHTML=Object.entries(S).map(([k,v])=>`<button data-s="${k}" class="${k===style?'on':''}">${v.n}</button>`).join('');
-$('coa-styles').querySelectorAll('button').forEach(b=>b.onclick=()=>{style=b.dataset.s;$('coa-styles').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));drawCert();});
-let certNo='';function newNo(){certNo='SLN-'+new Date().getFullYear()+'-'+String(Math.floor(Math.random()*9000)+1000);}newNo();
-$('f-medium').onchange=()=>{const m=MEDIA[$('f-medium').value];$('l-detail').textContent=m[0];$('l-dims').textContent=m[1];$('l-ed').textContent=m[2];if(m[3])$('f-detail').value=m[3];if(m[4])$('f-ed').value=m[4];drawCert();};
-document.querySelectorAll('#coa-form input,#coa-form textarea').forEach(e=>e.addEventListener('input',drawCert));
-$('coa-new').onclick=()=>{newNo();drawCert();};
-$('coa-print').onclick=()=>window.print();
-function esc(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-function deco(d,i,v){const a=v.acc;
- if(d==='corners'){let s='';[[0,0,1,1],[1,0,-1,1],[0,1,1,-1],[1,1,-1,-1]].forEach(([x,y,sx,sy])=>{const L=18+i*10,o=46+i*4;s+=`<div style="position:absolute;${x?'right':'left'}:${o}px;${y?'bottom':'top'}:${o}px;width:${L}px;height:${L}px;border-${y?'bottom':'top'}:${1+i}px solid ${a};border-${x?'right':'left'}:${1+i}px solid ${a}"></div>`});return s;}
+function drawStyles(){$('coa-styles').innerHTML=Object.entries(S).map(([k,v])=>`<button type="button" data-s="${k}" class="${k===style?'on':''}">${v.n}</button>`).join('');
+ $('coa-styles').querySelectorAll('button').forEach(b=>b.onclick=()=>{style=b.dataset.s;drawStyles();drawCert();});}
+const initials=n=>(String(n||'').trim().split(/\s+/).map(w=>w[0]||'').join('').slice(0,3).toUpperCase())||'A';
+function newNo(){return initials($('f-artist').value)+'-'+new Date().getFullYear()+'-'+String(Math.floor(Math.random()*9000)+1000);}
+function formData(){const g=id=>$(id).value.trim();return{artist:g('f-artist'),title:g('f-title'),year:g('f-year'),medium:$('f-medium').value,detail:g('f-detail'),dims:g('f-dims'),ed:g('f-ed'),no:g('f-no'),date:g('f-date'),loc:g('f-loc'),coll:g('f-coll'),notes:g('f-notes'),web:g('f-web'),link:g('f-link')};}
+function deco(d,i,v,W,H){const a=v.acc;
+ if(d==='corners'){let s='';[[0,0],[1,0],[0,1],[1,1]].forEach(([x,y])=>{const L=18+i*10,o=46+i*4;s+=`<div style="position:absolute;${x?'right':'left'}:${o}px;${y?'bottom':'top'}:${o}px;width:${L}px;height:${L}px;border-${y?'bottom':'top'}:${1+i}px solid ${a};border-${x?'right':'left'}:${1+i}px solid ${a}"></div>`});return s;}
  if(d==='band')return `<div style="position:absolute;left:0;top:0;bottom:0;width:${i*22}px;background:${v.ink}"></div><div style="position:absolute;left:${i*22}px;top:0;bottom:0;width:${i*2+1}px;background:${a}"></div>`;
- if(d==='flourish')return `<div style="position:absolute;left:50%;top:${52+i*2}px;transform:translateX(-50%);font:${16+i*6}px 'Playfair Display';color:${a}">❦</div><div style="position:absolute;left:50%;bottom:${40+i*2}px;transform:translateX(-50%) rotate(180deg);font:${16+i*6}px 'Playfair Display';color:${a}">❦</div>`;
- if(d==='shapes'){const c=['#2f5bd3','#f2b134','#e2553f'];let s='';const P=[[-60,-60,220],[640,40,140],[600,860,260],[-40,880,120]];P.slice(0,i+1).forEach((p,k)=>{s+=`<div style="position:absolute;left:${p[0]}px;top:${p[1]}px;width:${p[2]}px;height:${p[2]}px;border-radius:${k%2?'0':'50%'};background:${c[k%3]};opacity:${.10+i*.06}"></div>`});return s;}
+ if(d==='gallery')return `<div style="position:absolute;inset:22px;border:${2+i}px solid ${v.ink}"></div><div style="position:absolute;inset:${30+i}px;border:1px solid ${a}"></div>${i>1?`<div style="position:absolute;inset:${34+i}px;border:1px solid ${a};opacity:.5"></div>`:''}`;
+ if(d==='flourish'){const dm=(pos)=>`<div style="position:absolute;left:50%;${pos}:${54+i*2}px;width:${8+i*3}px;height:${8+i*3}px;background:${a};transform:translateX(-50%) rotate(45deg)"></div><div style="position:absolute;left:calc(50% - ${40+i*14}px);${pos}:${58+i*3.4}px;width:${80+i*28}px;height:1px;background:${a};opacity:.6"></div>`;return dm('top')+dm('bottom');}
+ if(d==='shapes'){const c=['#2f5bd3','#f2b134','#e2553f'];let s='';const P=[[-60,-60,220],[W-176,40,140],[W-216,H-196,260],[-40,H-176,120]];P.slice(0,i+1).forEach((p,k)=>{s+=`<div style="position:absolute;left:${p[0]}px;top:${p[1]}px;width:${p[2]}px;height:${p[2]}px;border-radius:${k%2?'0':'50%'};background:${c[k%3]};opacity:${.10+i*.06}"></div>`});return s;}
  if(d==='corner')return `<div style="position:absolute;right:-${120-i*20}px;top:-${120-i*20}px;width:260px;height:260px;background:${a};transform:rotate(45deg)"></div><div style="position:absolute;left:0;bottom:0;right:0;height:${i*5}px;background:${v.ink}"></div>`;
  if(d==='brick')return `<div style="position:absolute;inset:0;border:${10+i*8}px solid transparent;border-image:repeating-linear-gradient(0deg,${a} 0 10px,${v.bg} 10px 12px) ${10+i*8};opacity:${.55+i*.15}"></div>`;
- if(d==='velvet')return `<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,162,75,${.04+i*.05}),transparent 60%)"></div>`;
- if(d==='stripes')return `<div style="position:absolute;right:${70}px;top:0;bottom:0;display:flex;gap:${6}px">${Array.from({length:i+1},(_,k)=>`<div style="width:${10+ (k===0?6:0)}px;background:${k%2?v.ink:a}"></div>`).join('')}</div>`;
+ if(d==='velvet')return `<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(216,167,154,${.05+i*.06}),transparent 62%)"></div><div style="position:absolute;left:50%;top:${50+i*3}px;width:${i*90}px;height:1px;background:${a};transform:translateX(-50%)"></div>`;
+ if(d==='stripes')return `<div style="position:absolute;right:70px;top:0;bottom:0;display:flex;gap:6px">${Array.from({length:i+1},(_,k)=>`<div style="width:${k===0?16:10}px;background:${k%2?v.ink:a}"></div>`).join('')}</div>`;
  if(d==='varsity')return `<div style="position:absolute;left:0;right:0;top:0;height:${i*14}px;background:${a}"></div><div style="position:absolute;left:0;right:0;top:${i*14+4}px;height:${i*3}px;background:#c8102e"></div><div style="position:absolute;left:0;right:0;bottom:0;height:${i*14}px;background:${a}"></div>`;
+ if(d==='retro')return `<div style="position:absolute;left:0;right:0;top:0;display:flex;flex-direction:column">${['#c8441b','#e39a2d','#3d7a70'].slice(0,i).map(c=>`<div style="height:9px;background:${c}"></div>`).join('')}</div><div style="position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column">${['#3d7a70','#e39a2d','#c8441b'].slice(3-i).map(c=>`<div style="height:9px;background:${c}"></div>`).join('')}</div>`;
  return '';}
-function drawCert(){const v=S[style],i=+$('coa-int').value,c=$('cert');$('int-lab').textContent=['','Subtle','Balanced','Bold'][i];
- const vars={'--i':i,'--c-bg':v.bg,'--c-ink':v.ink,'--c-acc':v.acc,'--c-line':v.line,'--c-mute':v.mute,'--c-hf':v.hf,'--c-bf':v.bf,'--c-hw':v.hw,'--c-hs':v.hs,'--c-hl':v.hl,'--c-ht':v.ht,'--c-align':v.al,'--c-self':v.al==='center'?'center':'flex-start','--c-sty':v.sty,'--c-box':v.box&&i>1?v.box:'transparent','--c-boxpad':v.box&&i>1?'8px':'0'};
- Object.entries(vars).forEach(([k,x])=>c.style.setProperty(k,x));
- const showFrame=!['band','shapes','stripes','varsity','brick','corner'].includes(v.deco)&&!(v.deco==='none'&&i<3);
- const inset=v.deco==='band'?`96px 80px 80px ${130+i*22}px`:'';
- const F=(l,val,full)=>`<div class="c-f ${full?'full':''}"><div class="c-l">${l}</div><div class="c-v">${esc(val)}</div></div>`;
- c.innerHTML=`<div class="c-deco">${deco(v.deco,i,v)}</div>${showFrame?'<div class="c-frame"></div>'+(i>1?'<div class="c-frame2"></div>':''):''}
- <div class="c-in" style="${inset?'inset:'+inset:''}">
+function qrURL(text){try{const q=qrcode(0,'M');q.addData(text);q.make();return q.createDataURL(6,0);}catch(e){return '';}}
+function certHTML(d){const photo=(batch&&batch.length)?'':coaPhoto;const v=S[style],i=+$('coa-int').value,land=orient==='l',W=land?1056:816,H=land?816:1056;const m=MEDIA[d.medium]||MEDIA.Other;
+ const boxed=v.box&&i>1;const vars=`--i:${i};--c-bg:${v.bg};--c-ink:${v.ink};--c-acc:${v.acc};--c-line:${v.line};--c-mute:${v.mute};--c-hf:${v.hf};--c-bf:${v.bf};--c-hw:${v.hw};--c-hs:${v.hs};--c-hl:${v.hl};--c-ht:${v.ht};--c-align:${v.al};--c-self:${v.al==='center'?'center':'flex-start'};--c-sty:${v.sty};--c-box:${boxed?v.box:'transparent'};--c-boxpad:${boxed?'8px':'0'}`;
+ const showFrame=['corners','flourish','velvet'].includes(v.deco)||(v.deco==='none'&&i===3);
+ const inset=v.deco==='band'?`inset:${land?64:84}px 80px ${land?52:62}px ${118+i*22}px`:(v.deco==='stripes'?`inset:${land?64:84}px ${96+i*18}px ${land?52:62}px 84px`:'');
+ const F=(l,val,full)=>`<div class="c-f ${full?'full':''}"><div class="c-l">${esc(l)}</div><div class="c-v">${esc(val)}</div></div>`;
+ const opt=(l,val,full)=>val?F(l,val,full):'';
+ const qr=d.link?qrURL(d.link):'';
+ const g3=land&&!photo;
+ return `<div class="cert ${land?'land':''}" style="${vars}"><div class="c-deco">${deco(v.deco,i,v,W,H)}</div>${showFrame?'<div class="c-frame"></div>'+(i>1?'<div class="c-frame2"></div>':''):''}
+ <div class="c-in" style="${inset}">
+  ${coaLogo?`<img class="c-logo" src="${coaLogo}" alt="">`:''}
   <div class="c-kick">Certified original work</div>
   <div class="c-title">Certificate of Authenticity</div>
   <div class="c-rule"></div>
-  <p class="c-stmt">This certificate confirms that the work described below is an authentic original created by the artist named here. The details recorded on this document are accurate to the best of the artist's knowledge.</p>
-  <div class="c-grid">
-   ${F('Artist',$('f-artist').value,1)}${F('Title of work',$('f-title').value,1)}
-   ${F('Year created',$('f-year').value)}${F('Medium',$('f-medium').value)}
-   ${F($('l-detail').textContent,$('f-detail').value)}${F($('l-dims').textContent,$('f-dims').value)}
-   ${F($('l-ed').textContent,$('f-ed').value)}${F('Certificate no.',certNo)}
-   ${$('f-coll').value?F('Collector',$('f-coll').value,1):''}
-   ${$('f-notes').value?F('Notes and provenance',$('f-notes').value,1):''}
-  </div>
-  <div class="c-foot"><div class="c-seal"><span>Authentic</span><b>${esc(($('f-artist').value||'A').split(/\s+/).map(w=>w[0]).join('').slice(0,3).toUpperCase())}</b><span>${esc($('f-year').value)}</span></div>
-   <div class="c-sig"><div class="c-sigline"></div><div class="c-siglab"><span>Artist signature</span><span>Date</span></div></div></div>
-  <div class="c-web">${esc($('f-web').value)}</div>
- </div>`;fitCert();}
+  <div class="c-mid">
+  <p class="c-stmt">I certify that the work described below is an authentic original created by me, and that the details recorded here are accurate. Keep this certificate with the work as a record of its provenance.</p>
+  <div class="c-cols">${photo?`<div class="c-photo"><img src="${photo}" alt=""></div>`:''}
+  <div class="c-grid ${g3?'g3':''}">
+   ${F('Artist',d.artist,!g3&&!photo)}${F('Title of work',d.title,!g3&&!photo)}
+   ${F('Year created',d.year)}${F('Medium',d.medium)}
+   ${F(m[0],d.detail)}${F(m[1],d.dims)}
+   ${F(m[2],d.ed)}${F('Certificate no.',d.no)}
+   ${opt('Date issued',d.date)}${opt('Where it was made',d.loc)}
+   ${opt('Collector',d.coll,1)}${opt('Notes and provenance',d.notes,1)}
+  </div></div></div>
+  <div class="c-foot"><div class="c-seal"><span>Authentic</span><b>${esc(initials(d.artist))}</b><span>${esc(d.year)}</span></div>
+   <div class="c-sig"><div class="c-sigline"></div><div class="c-siglab"><span>Artist signature</span><span>Date</span></div></div>
+   ${qr?`<div class="c-qr"><img src="${qr}" alt="">Scan to verify</div>`:''}</div>
+  <div class="c-web">${esc(d.web)}</div>
+ </div></div>`;}
+function fitCertEl(c){const inn=c.querySelector('.c-in'),mid=c.querySelector('.c-mid');let z=1;mid.style.zoom=1;let n=0;while(inn.scrollHeight>inn.clientHeight+1&&z>.6&&n<40){z-=.03;mid.style.zoom=z;n++;}return inn.scrollHeight<=inn.clientHeight+1;}
+function curData(){if(batch&&batch.length){const f=formData();const r=batch[bi];return Object.assign({},f,{coll:'',notes:'',link:'',loc:''},r,{artist:r.artist||f.artist,medium:r.medium||f.medium,web:r.web||f.web,date:r.date||f.date});}return formData();}
+function allData(){if(batch&&batch.length){const keep=bi;const out=batch.map((_,k)=>{bi=k;return curData();});bi=keep;return out;}return [formData()];}
+function drawCert(){$('int-lab').textContent=['','Subtle','Balanced','Bold'][+$('coa-int').value];$('cert-scale').innerHTML=certHTML(curData());const ok=fitCertEl($('cert-scale').firstElementChild);
+ const z=parseFloat($('cert-scale').querySelector('.c-mid').style.zoom||1);const fr=fontsReady(coaFams());if(fr){fr.then(drawCert);}
+ $('coa-note').textContent=(orient==='l'?'Live preview at letter size, landscape (11 × 8.5 in).':'Live preview at letter size (8.5 × 11 in).')+(!ok?' This one has more text than fits. Shorten the notes.':z<.75?' The text is getting small. Shorten the notes for a cleaner certificate.':'');fitCert();}
+const coaFams=()=>[famOf(S[style].hf),famOf(S[style].bf)];
+function fitCert(){const st=$('coa-stage');const w=st.clientWidth-36;if(w<=0)return;const W=orient==='l'?1056:816,H=orient==='l'?816:1056;const s=Math.min(1,w/W);const cs=$('cert-scale');cs.style.transform=`scale(${s})`;cs.style.height=(H*s)+'px';cs.style.width=(W*s)+'px';}
+$('f-medium').onchange=()=>{const m=MEDIA[$('f-medium').value];$('l-detail').textContent=m[0];$('l-dims').textContent=m[1];$('l-ed').textContent=m[2];if(m[3])$('f-detail').value=m[3];if(m[4])$('f-ed').value=m[4];LS.set('sln-medium',$('f-medium').value);drawCert();};
+persist('sln-coa',COA_IDS);
+{const sm=LS.get('sln-medium');if(sm&&MEDIA[sm]){$('f-medium').value=sm;const m=MEDIA[sm];$('l-detail').textContent=m[0];$('l-dims').textContent=m[1];$('l-ed').textContent=m[2];}}
+if(!$('f-no').value)$('f-no').value=newNo();
+if(!$('f-date').value)$('f-date').value=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+COA_IDS.forEach(id=>$(id).addEventListener('input',drawCert));
 $('coa-int').oninput=drawCert;
-function fitCert(){const st=$('coa-stage');const w=st.clientWidth-36;if(w<=0)return;const s=Math.min(1,w/816);$('cert-scale').style.transform=`scale(${s})`;$('cert-scale').style.height=(1056*s)+'px';$('cert-scale').style.width=(816*s)+'px';}
-addEventListener('resize',()=>{fitCert();if(typeof scaleKit==='function')scaleKit();});
-drawCert();
+$('coa-orient').querySelectorAll('button').forEach(b=>b.onclick=()=>{orient=b.dataset.o;$('coa-orient').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));drawCert();});
+function coaImg(inp,max,type,set){inp.addEventListener('change',async()=>{$('coa-imgerr').textContent='';if(!inp.files[0]){set('');drawCert();return;}try{set(await loadImage(inp.files[0],max,type));}catch(e){$('coa-imgerr').textContent=IMGERR;inp.value='';set('');}drawCert();});}
+coaImg($('f-photo'),1400,'image/jpeg',u=>coaPhoto=u);coaImg($('f-logo'),600,'image/png',u=>coaLogo=u);
+/* CSV batch */
+const CSV_COLS=['artist','title','year','medium','details','dimensions','edition','certificate_no','date_issued','where_made','collector','notes','website','verify_link'];
+const CSV_MAP={artist:'artist',title:'title',title_of_work:'title',artwork_title:'title',year:'year',year_created:'year',medium:'medium',details:'detail',detail:'detail',materials:'detail',surface:'detail',dimensions:'dims',dims:'dims',size:'dims',edition:'ed',certificate_no:'no',certificate_number:'no',cert_no:'no',date_issued:'date',date:'date',date_of_issue:'date',where_made:'loc',location:'loc',collector:'coll',buyer:'coll',notes:'notes',provenance:'notes',website:'web',studio_website:'web',verify_link:'link',link:'link',url:'link'};
+$('coa-tpl').href='data:text/csv;charset=utf-8,'+encodeURIComponent(CSV_COLS.join(',')+'\nJordan Ellis,Low Tide at Dusk,2026,Painting,Oil on linen,24 × 36 in,"Original, 1 of 1",JE-2026-0001,"November 24, 2026",San Diego,,,jordanellis.art,\nJordan Ellis,Morning Fog,2025,Painting,Oil on panel,12 × 16 in,"Original, 1 of 1",JE-2026-0002,"November 24, 2026",San Diego,,,jordanellis.art,\n');
+function parseCSV(t){const rows=[];let row=[],cur='',q=false;t=t.replace(/^﻿/,'');for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){cur+='"';i++;}else q=false;}else cur+=c;}else if(c==='"')q=true;else if(c===','){row.push(cur);cur='';}else if(c==='\n'||c==='\r'){if(c==='\r'&&t[i+1]==='\n')i++;row.push(cur);cur='';rows.push(row);row=[];}else cur+=c;}
+ if(cur!==''||row.length){row.push(cur);rows.push(row);}return rows.filter(r=>r.some(x=>x.trim()!==''));}
+function drawBatch(){const on=!!(batch&&batch.length);$('coa-brow').hidden=!on;if(on)$('coa-bstat').textContent=`Certificate ${bi+1} of ${batch.length}`;$('coa-print').textContent=on?`Download all ${batch.length} as PDF`:'Download PDF';$('coa-png').textContent=on?'Download this one as image':'Download image';}
+$('coa-csv').addEventListener('change',async()=>{const er=$('coa-csverr');er.textContent='';const f=$('coa-csv').files[0];if(!f)return;try{const rows=parseCSV(await f.text());if(rows.length<2)throw new Error('That file has no rows under the header.');
+ const keys=rows[0].map(h=>CSV_MAP[h.trim().toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'')]||null);if(!keys.includes('title'))throw new Error('We need a column named "title". Start from the starter spreadsheet.');
+ const year=new Date().getFullYear();batch=rows.slice(1).map((r,k)=>{const o={};keys.forEach((key,j)=>{if(key)o[key]=(r[j]||'').trim();});if(!o.no)o.no=initials(o.artist||$('f-artist').value)+'-'+year+'-'+String(k+1).padStart(4,'0');return o;}).filter(o=>o.title);
+ if(!batch.length)throw new Error('No rows had a title.');if(batch.length>200){batch=batch.slice(0,200);er.textContent='Only the first 200 rows were loaded.';}bi=0;}catch(e){batch=null;er.textContent=e.message||'We could not read that file. Save it as CSV and try again.';$('coa-csv').value='';}drawBatch();drawCert();});
+$('coa-prev').onclick=()=>{bi=(bi-1+batch.length)%batch.length;drawBatch();drawCert();};$('coa-next').onclick=()=>{bi=(bi+1)%batch.length;drawBatch();drawCert();};
+$('coa-bclear').onclick=()=>{batch=null;bi=0;$('coa-csv').value='';$('coa-csverr').textContent='';drawBatch();drawCert();};
+function coaValid(){const d=curData();if(!d.artist||!d.title){$('coa-status').innerHTML='<span class="err">Add the artist and the title first.</span>';return false;}return true;}
+$('coa-print').onclick=async()=>{if(!coaValid())return;const r=$('print-root');r.innerHTML=allData().map(certHTML).join('');r.querySelectorAll('.cert').forEach(fitCertEl);
+ $('page-style').textContent=`@page{size:${orient==='l'?'11in 8.5in':'8.5in 11in'};margin:0}`;$('coa-status').textContent='In the print dialog choose "Save as PDF". Turn off headers and footers, and keep scale at 100%.';
+ const fr=fontsReady(coaFams());if(fr){await fr;r.querySelectorAll('.cert').forEach(fitCertEl);}await new Promise(x=>setTimeout(x,200));window.print();};
+addEventListener('afterprint',()=>{$('print-root').innerHTML='';});
+$('coa-png').onclick=async()=>{if(!coaValid())return;const st=$('coa-status');st.textContent='Building your image…';const h=offHost();try{const fr=fontsReady(coaFams());if(fr)await fr;h.innerHTML=certHTML(curData());const c=h.firstElementChild;fitCertEl(c);const v=S[style];
+ const css=await fontCSSFor([famOf(v.hf),famOf(v.bf)]);const cv=await htmlToImage.toCanvas(c,{pixelRatio:2.5,fontEmbedCSS:css,width:c.offsetWidth,height:c.offsetHeight});
+ saveBlob(await canvasBlob(cv),'certificate-'+(curData().no||'studio-ln').replace(/[^a-z0-9-]+/gi,'-')+'.png');st.textContent='Image downloaded. It prints sharp at letter size.';}catch(e){console.error(e);st.innerHTML='<span class="err">The image could not be made. Try Download PDF.</span>';}h.remove();};
+drawStyles();drawBatch();drawCert();
 
 /* ---------- Event kit ---------- */
-const FONTS={bold:["'Bebas Neue',sans-serif","'Inter',sans-serif",400,'uppercase'],editorial:["'Playfair Display',serif","'Inter',sans-serif",700,'none'],classic:["'Cinzel',serif","'Cormorant Garamond',serif",600,'uppercase'],modern:["'Space Grotesk',sans-serif","'Space Grotesk',sans-serif",700,'none']};
 const PLAT={
  'Instagram':[['Square post',1080,1080],['Portrait post',1080,1350],['Landscape post',1080,566],['Story',1080,1920,1],['Reel cover',1080,1920,1]],
  'Facebook':[['Square post',1080,1080],['Portrait post',1080,1350],['Event cover',1920,1005],['Story',1080,1920,1],['Link share image',1200,630],['Page cover',1640,624]],
@@ -518,22 +647,27 @@ const PLAT={
  'Threads':[['Portrait post',1080,1350]],
  'Print':[['Flyer, 8.5 × 11',1275,1650],['Poster, 11 × 17',1650,2550]],
  'Any ratio':[['1:1 square',1080,1080],['4:5 portrait',1080,1350],['3:4 portrait',1080,1440],['2:3 tall',1000,1500],['9:16 vertical',1080,1920],['4:3 landscape',1440,1080],['16:9 widescreen',1920,1080],['1.91:1 link',1200,628],['2:1 banner',2160,1080],['3:1 header',1500,500]]};
-const HS=[['solid','Solid'],['outline','Outline 2nd line'],['accent','Accent 2nd line'],['mixed','Script + bold'],['stack','Light + bold']];let hs='outline';
+const LAYOUTS={marquee:'Marquee (photo full bleed)',frame:'Frame (centered, bordered)',split:'Split (photo and color block)',poster:'Poster (big type, round photo)',block:'Block (photo with offset shadow)',strip:'Strip (type first, photo strip)'};
+const FONTS={bold:['Bold sans',"'Bebas Neue',sans-serif","'Inter',sans-serif",400,'uppercase',1],impact:['Impact',"'Anton',sans-serif","'Inter',sans-serif",400,'uppercase',1],condensed:['Condensed',"'Oswald',sans-serif","'Inter',sans-serif",600,'uppercase',1],heavy:['Heavy grotesk',"'Archivo Black',sans-serif","'Inter',sans-serif",400,'none',1],modern:['Modern grotesk',"'Space Grotesk',sans-serif","'Space Grotesk',sans-serif",700,'none',1],
+ editorial:['Editorial serif',"'Playfair Display',serif","'Inter',sans-serif",700,'none',0],display:['Display serif',"'DM Serif Display',serif","'Inter',sans-serif",400,'none',0],classic:['Classic engraved',"'Cinzel',serif","'Cormorant Garamond',serif",600,'uppercase',0],elegant:['Elegant',"'Cormorant Garamond',serif","'Inter',sans-serif",600,'none',0],didone:['Didone',"'Bodoni Moda',serif","'Cormorant Garamond',serif",700,'none',0],
+ retro:['Retro',"'Abril Fatface',serif","'Inter',sans-serif",400,'none',1],playful:['Playful',"'Fredoka',sans-serif","'Inter',sans-serif",600,'none',1]};
+const HS={solid:'Solid',outline:'Outline 2nd line',accent:'Accent 2nd line',mixed:'Script + bold',stack:'Light + bold'};
+const VIBES=[['Classic','frame','classic','solid','#1c2430','#c9a45c'],['Modern','split','modern','stack','#f4f1ec','#e0452b'],['Minimal','strip','modern','solid','#ffffff','#111111'],['Elegant','frame','elegant','mixed','#2b2326','#d8b4a0'],
+ ['Abstract','poster','heavy','accent','#2433a8','#ffd23f'],['Snappy','block','impact','outline','#ff5a36','#1a1a1a'],['Bricked','block','condensed','solid','#7a2e1f','#f2d8b3'],['Seductive','marquee','didone','mixed','#1a0710','#d4a373'],
+ ['Sporty','split','impact','accent','#0d1b2a','#e63946'],['Varsity','poster','bold','outline','#13294b','#f2c14e'],['Retro','strip','retro','accent','#f3e2c0','#c8441b'],['Playful','poster','playful','solid','#ffd166','#3a0ca3']];
 const FX=[['vintage','Vintage'],['gameboy','Game Boy pixel'],['noir','Noir'],['riso','Riso duotone']];const fxOn=new Set();
+const K={vibe:'Classic',layout:'frame',font:'classic',hs:'solid',bg:'#1c2430',acc:'#c9a45c'};
 const sel={};['Instagram','Facebook','Eventbrite'].forEach(p=>sel[p]=new Set(PLAT[p].map((_,i)=>i)));
+let tier='basic',logoURL='',photoURL='',photoPal=[];
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 function fmtOf(p,i){const [n,w,h,safe]=PLAT[p][i];const r=w/h;const cls=r<.7?'tall':r<.9?'portrait':r<1.15?'square':r<2.3?'wide':'ultra';
- const T={tall:[.20,.10],portrait:[.24,.11],square:[.28,.12],wide:[.34,.13],ultra:[.40,0]}[cls];
- return{p,n,w,h,cls,lay:(cls==='wide'||cls==='ultra')?'wide '+cls:cls,tH:T[0],dH:T[1],safe:!!safe,id:slug(p)+'/'+slug(n)+'-'+w+'x'+h};}
+ return{p,n,w,h,cls,lay:cls==='ultra'?'wide ultra':cls,dH:{tall:.10,portrait:.11,square:.12,wide:.13,ultra:0}[cls],safe:!!safe,id:slug(p)+'/'+slug(n)+'-'+w+'x'+h};}
 function selected(){const out=[];Object.keys(PLAT).forEach(p=>{if(sel[p])[...sel[p]].sort((a,b)=>a-b).forEach(i=>out.push(fmtOf(p,i)));});return out;}
-function drawPlat(){$('plat').innerHTML=Object.keys(PLAT).map(p=>`<button class="chip ${sel[p]?'on':''}" data-p="${p}">${p}</button>`).join('');
+function drawPlat(){$('plat').innerHTML=Object.keys(PLAT).map(p=>`<button type="button" class="chip ${sel[p]?'on':''}" data-p="${p}">${p}</button>`).join('');
  $('plat').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{const p=b.dataset.p;if(sel[p])delete sel[p];else sel[p]=p==='Any ratio'?new Set():new Set(PLAT[p].map((_,i)=>i));drawPlat();renderKit();});
  $('sizes').innerHTML=Object.keys(PLAT).filter(p=>sel[p]).map(p=>`<div class="szl"><b>${p}</b>${PLAT[p].map((s,i)=>`<label><input type="checkbox" data-p="${p}" data-i="${i}" ${sel[p].has(i)?'checked':''}>${s[0]} <span style="opacity:.6">${s[1]}×${s[2]}</span></label>`).join('')}</div>`).join('');
  $('sizes').querySelectorAll('input').forEach(c=>c.onchange=()=>{const s=sel[c.dataset.p],i=+c.dataset.i;c.checked?s.add(i):s.delete(i);renderKit();});}
-/* colors */
-const BASEPAL=[['Midnight gold','#1f2a44','#e9b44c'],['Ember','#3b1f14','#f08a4b'],['Sage','#2f3e2e','#d9c59a'],['Ivory ink','#f4efe6','#b5562f']];
-let photoPal=[],pal=0,tier='basic',logoURL='',photoURL='';
-const allPal=()=>BASEPAL.concat(photoPal);
+/* color math */
 const h2r=h=>{const n=parseInt(h.slice(1),16);return[n>>16,(n>>8)&255,n&255];};
 const r2h=c=>'#'+c.map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');
 const mix=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
@@ -546,41 +680,76 @@ function extract(url){return new Promise(res=>{const im=new Image();im.onload=()
  const cols=[];Object.entries(m).sort((a,b)=>b[1]-a[1]).forEach(([k])=>{k=+k;const c=[((k>>8)&15)*16+8,((k>>4)&15)*16+8,(k&15)*16+8];if(cols.length<7&&cols.every(o=>Math.hypot(o[0]-c[0],o[1]-c[1],o[2]-c[2])>70))cols.push(c);});res(cols);};im.onerror=()=>res([]);im.src=url;});}
 function buildPhotoPal(cols){if(!cols.length)return[];const byL=[...cols].sort((a,b)=>lumi(a)-lumi(b));const dark=byL[0],light=byL[byL.length-1];const vivid=[...cols].sort((a,b)=>satu(b)-satu(a))[0];const dom=cols[0];
  const P=[];const add=(n,bg,acc)=>{acc=fixAcc(bg,acc);P.push([n,r2h(bg),r2h(acc)]);};
- add('Photo deep',mix(dark,[0,0,0],.45),vivid);
- add('Photo bold',mix(vivid,[0,0,0],.35),mix(light,[255,255,255],.3));
- add('Photo light',mix(light,[255,255,255],.75),mix(vivid,[0,0,0],.2));
- add('Photo tonal',mix(dom,[0,0,0],.55),mix(dom,[255,255,255],.6));
- return P;}
-function drawPal(){$('k-pal').innerHTML=allPal().map((p,i)=>`<button data-p="${i}" class="${i===pal?'on':''}"><span class="swatch"><i style="background:${p[1]}"></i><i style="background:${p[2]}"></i></span>${p[0]}</button>`).join('');
- $('k-pal').querySelectorAll('button').forEach(b=>b.onclick=()=>{pal=+b.dataset.p;const p=allPal()[pal];$('k-bg').value=p[1];$('k-acc').value=p[2];drawPal();renderKit();});}
-$('tier').querySelectorAll('button').forEach(b=>b.onclick=()=>{tier=b.dataset.t;$('tier').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));const pb=$('pro-box');pb.style.display=tier==='pro'?'':'none';if(tier==='pro'){$('tier').after(pb);pb.querySelector('.divider').style.display='none';}else{$('pro-home').after(pb);}renderKit();});
-['k-title','k-title2','k-kick','k-date','k-time','k-loc','k-desc','k-layout','k-font','k-bg','k-acc','k-nodesc'].forEach(id=>$(id).addEventListener('input',renderKit));
-const readImg=(inp,cb)=>inp.addEventListener('change',()=>{const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=e=>cb(e.target.result);r.readAsDataURL(f);});
-readImg($('k-logo'),u=>{logoURL=u;renderKit();});
-readImg($('k-photo'),async u=>{photoURL=u;photoPal=buildPhotoPal(await extract(u));if(photoPal.length){pal=BASEPAL.length;const p=photoPal[0];$('k-bg').value=p[1];$('k-acc').value=p[2];$('pal-hint').textContent='Four palettes below were built from your photo. The first is applied.';}drawPal();renderKit();});
-function light(hex){const n=parseInt(hex.slice(1),16);return((n>>16)*299+((n>>8)&255)*587+(n&255)*114)/1000>150;}
-function fit(el,max,min){let s=max;el.style.fontSize=s+'px';let n=0;while((el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1)&&s>min&&n<200){s-=Math.max(1,s*.04);el.style.fontSize=s+'px';n++;}}
-function artHTML(f,o){o=o||{};const pro=tier==='pro';const layout=o.layout||(pro?$('k-layout').value:'marquee');const fp=FONTS[o.font||(pro?$('k-font').value:'bold')];
- const P=allPal()[pal]||BASEPAL[0];const bg=pro?$('k-bg').value:P[1],acc=pro?$('k-acc').value:P[2];
- const u=Math.min(f.w,f.h)/100;const fg=light(bg)?'#1d1b18':'#ffffff';
- const hideDesc=f.cls==='ultra'||(pro&&$('k-nodesc').checked&&f.p!=='Print');
- const st=f.safe?f.h*.11:0,sb=f.safe?f.h*.17:0;
- const meta=[$('k-date').value,$('k-time').value,$('k-loc').value].filter(Boolean).map(t=>`<span>${esc(t)}</span>`).join('');
- return `<div class="art L-${layout} ${f.lay} hs-${o.hs||hs}" style="width:${f.w}px;height:${f.h}px;--u:${u}px;--tH:${f.h*f.tH}px;--dH:${f.h*f.dH}px;--st:${st}px;--sb:${sb}px;--k-bg:${bg};--k-acc:${acc};--k-fg:${layout==='marquee'?'#fff':fg};--k-hf:${fp[0]};--k-bf:${fp[1]};--k-hw:${fp[2]};--k-ht:${fp[3]}">
-  <div class="a-photo ${photoURL?'has':''}" style="${photoURL?`background-image:url(${photoURL})`:''}">${photoURL?'':'Drop photo here'}</div>
-  <div class="a-shade"></div>
-  <div class="a-logo ${logoURL?'has':''}" style="${logoURL?`background-image:url(${logoURL})`:''}">${logoURL?'':'LOGO'}</div>
-  <div class="a-body"><div class="a-kick">${esc($('k-kick').value)}</div><div class="a-title"><span>${titleHTML(o.hs)}</span></div><div class="a-meta">${meta}</div>${hideDesc?'':`<div class="a-desc">${esc($('k-desc').value)}</div>`}</div></div>`;}
-function titleHTML(h){h=h||hs;const t=$('k-title').value.trim(),t2=$('k-title2').value.trim();if(h==='solid'&&!t2)return esc(t);
+ add('Photo deep',mix(dark,[0,0,0],.45),vivid);add('Photo bold',mix(vivid,[0,0,0],.35),mix(light,[255,255,255],.3));add('Photo light',mix(light,[255,255,255],.75),mix(vivid,[0,0,0],.2));add('Photo tonal',mix(dom,[0,0,0],.55),mix(dom,[255,255,255],.6));return P;}
+const BASEPAL=[['Midnight gold','#1f2a44','#e9b44c'],['Ember','#3b1f14','#f08a4b'],['Sage','#2f3e2e','#d9c59a'],['Ivory ink','#f4efe6','#b5562f']];
+const allPal=()=>BASEPAL.concat(photoPal);
+const sw=(a,b)=>`<span class="swatch"><i style="background:${a};outline:1px solid rgba(0,0,0,.15)"></i><i style="background:${b};outline:1px solid rgba(0,0,0,.15)"></i></span>`;
+function syncPro(){$('k-layout').value=K.layout;$('k-font').value=K.font;$('k-hsel').value=K.hs;$('k-bg').value=K.bg;$('k-acc').value=K.acc;}
+function drawVibes(){$('k-vibes').innerHTML=VIBES.map(v=>`<button type="button" data-v="${v[0]}" class="${K.vibe===v[0]?'on':''}">${sw(v[4],v[5])}${v[0]}</button>`).join('');
+ $('k-vibes').querySelectorAll('button').forEach(b=>b.onclick=()=>{const v=VIBES.find(x=>x[0]===b.dataset.v);Object.assign(K,{vibe:v[0],layout:v[1],font:v[2],hs:v[3],bg:v[4],acc:v[5]});refreshKit();});}
+function drawPal(){$('k-pal').innerHTML=allPal().map((p,i)=>`<button type="button" data-p="${i}" class="${K.bg===p[1]&&K.acc===p[2]?'on':''}">${sw(p[1],p[2])}${p[0]}</button>`).join('');
+ $('k-pal').querySelectorAll('button').forEach(b=>b.onclick=()=>{const p=allPal()[+b.dataset.p];K.bg=p[1];K.acc=p[2];refreshKit();});}
+function refreshKit(){drawVibes();drawPal();syncPro();renderKit();}
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+$('k-shuffle').onclick=()=>{const font=rnd(Object.keys(FONTS));const hsOk=Object.keys(HS).filter(h=>h!=='outline'||FONTS[font][5]).filter(h=>h!=='mixed'||!['editorial','display','elegant','didone'].includes(font));
+ const pals=VIBES.map(v=>[v[4],v[5]]).concat(allPal().map(p=>[p[1],p[2]]));const p=rnd(pals);let layout=rnd(Object.keys(LAYOUTS));if(layout===K.layout)layout=rnd(Object.keys(LAYOUTS));
+ Object.assign(K,{vibe:null,layout,font,hs:rnd(hsOk),bg:p[0],acc:p[1]});refreshKit();};
+$('k-layout').innerHTML=Object.entries(LAYOUTS).map(([k,n])=>`<option value="${k}">${n}</option>`).join('');
+$('k-font').innerHTML=Object.entries(FONTS).map(([k,f])=>`<option value="${k}">${f[0]}</option>`).join('');
+$('k-hsel').innerHTML=Object.entries(HS).map(([k,n])=>`<option value="${k}">${n}</option>`).join('');
+[['k-layout','layout'],['k-font','font'],['k-hsel','hs'],['k-bg','bg'],['k-acc','acc']].forEach(([id,key])=>$(id).addEventListener('input',()=>{K[key]=$(id).value;K.vibe=null;drawVibes();drawPal();renderKit();}));
+$('k-nodesc').addEventListener('change',()=>renderKit());
+$('tier').querySelectorAll('button').forEach(b=>b.onclick=()=>{tier=b.dataset.t;$('tier').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));$('pro-box').style.display=tier==='pro'?'':'none';renderKit();});
+const KIT_IDS=['k-title','k-title2','k-kick','k-date','k-time','k-loc','k-desc'];persist('sln-kit',KIT_IDS);KIT_IDS.forEach(id=>$(id).addEventListener('input',()=>renderKit()));
+$('k-logo').addEventListener('change',async()=>{$('k-imgerr').textContent='';const f=$('k-logo').files[0];if(!f){logoURL='';return renderKit();}try{logoURL=await loadImage(f,600,'image/png');}catch(e){logoURL='';$('k-logo').value='';$('k-imgerr').textContent=IMGERR;}renderKit();});
+$('k-photo').addEventListener('change',async()=>{$('k-imgerr').textContent='';const f=$('k-photo').files[0];if(!f){photoURL='';photoPal=[];drawPal();return renderKit();}
+ try{photoURL=await loadImage(f,2000,'image/jpeg');photoPal=buildPhotoPal(await extract(photoURL));if(photoPal.length)$('pal-hint').textContent='The four "Photo" palettes were built from your photo. Tap one to use it.';}catch(e){photoURL='';photoPal=[];$('k-photo').value='';$('k-imgerr').textContent=IMGERR;}drawPal();renderKit();});
+const isLight=hex=>lumi(h2r(hex))>.42;
+function titleHTML(h){const t=$('k-title').value.trim(),t2=$('k-title2').value.trim();if(h==='solid'&&!t2)return esc(t);
  let a=t,b=t2;if(!b){const w=t.split(/\s+/);if(w.length<2)return `<span class="l1">${esc(t)}</span>`;let best=1,bd=1e9;for(let i=1;i<w.length;i++){const d=Math.abs(w.slice(0,i).join(' ').length-w.slice(i).join(' ').length);if(d<bd){bd=d;best=i;}}a=w.slice(0,best).join(' ');b=w.slice(best).join(' ');}
  return `<span class="l1">${esc(a)}</span><span class="l2">${esc(b)}</span>`;}
-function drawHS(){$('k-hs').innerHTML=HS.map(h=>`<button data-h="${h[0]}" class="${h[0]===hs?'on':''}">${h[1]}</button>`).join('');$('k-hs').querySelectorAll('button').forEach(b=>b.onclick=()=>{hs=b.dataset.h;drawHS();renderKit();});}
+function artHTML(f,o){const k=Object.assign({},K,o||{});const fp=FONTS[k.font]||FONTS.bold;const over=(k.layout==='marquee'||k.layout==='frame')&&!!photoURL;
+ const u=Math.min(f.w,f.h)/100;const fg=over?'#ffffff':(isLight(k.bg)?'#141414':'#ffffff');
+ const acct=over?(lumi(h2r(k.acc))<.2?'#ffffff':k.acc):r2h(fixAcc(h2r(k.bg),h2r(k.acc)));
+ const hideDesc=f.cls==='ultra'||(tier==='pro'&&$('k-nodesc').checked&&f.p!=='Print')||!$('k-desc').value.trim();
+ const st=f.safe?f.h*.11:0,sb=f.safe?f.h*.17:0;
+ const meta=[$('k-date').value,$('k-time').value,$('k-loc').value].map(t=>t.trim()).filter(Boolean).map(t=>`<span>${esc(t)}</span>`).join('');
+ const kick=$('k-kick').value.trim();
+ return `<div class="art L-${k.layout} ${f.lay} hs-${k.hs} ${photoURL?'pho':''}" style="width:${f.w}px;height:${f.h}px;--u:${u}px;--dH:${f.h*f.dH}px;--st:${st}px;--sb:${sb}px;--k-bg:${k.bg};--k-acc:${k.acc};--k-acct:${acct};--k-fg:${fg};--k-hf:${fp[1]};--k-bf:${fp[2]};--k-hw:${fp[3]};--k-ht:${fp[4]}">
+  <div class="a-photo ${photoURL?'has':''}" style="${photoURL?`background-image:url(${photoURL})`:''}">${photoURL?'':'Your photo'}</div>
+  <div class="a-shade"></div><div class="a-frame"></div>
+  <div class="a-logo ${logoURL?'has':''}" style="${logoURL?`background-image:url(${logoURL})`:''}">${logoURL?'':'LOGO'}</div>
+  <div class="a-body">${kick?`<div class="a-kick">${esc(kick)}</div>`:''}<div class="a-title"><span>${titleHTML(k.hs)}</span></div>${meta?`<div class="a-meta">${meta}</div>`:''}${hideDesc?'':`<div class="a-desc">${esc($('k-desc').value)}</div>`}</div></div>`;}
+function shrink(el,box,max,min){let s=max;el.style.fontSize=s+'px';let n=0;while((el.scrollHeight>box.clientHeight+1||el.scrollWidth>box.clientWidth+1)&&s>min&&n<300){s*=.96;el.style.fontSize=s+'px';n++;}return s;}
+function fitArt(a,f){const u=Math.min(f.w,f.h)/100;const t=a.querySelector('.a-title'),sp=t.firstElementChild;let d=a.querySelector('.a-desc');
+ if(d){d.style.fontSize=(u*2.9)+'px';if(t.clientHeight<u*15){d.remove();d=null;}}
+ const max=u*(f.cls==='ultra'?22:f.cls==='wide'?13:16);shrink(sp,t,max,u*2.5);
+ if(d){let s=u*2.9,n=0;while(d.scrollHeight>d.clientHeight+1&&s>u*2&&n<40){s*=.95;d.style.fontSize=s+'px';n++;}}}
+let renderT;function renderKit(){clearTimeout(renderT);renderT=setTimeout(renderNow,60);}
+function upsellHTML(){if(tier==='pro')return'';const f=fmtOf('Instagram',0);const alts=Object.keys(LAYOUTS).filter(l=>l!==K.layout).slice(0,3);
+ return `<div class="upsell"><p class="plat-h" style="margin-top:0">Fine-tune it with Pro</p><div class="kit-grid">${alts.map(l=>`<div class="fmt"><div class="fh"><span>${LAYOUTS[l].split(' (')[0]} layout</span><span class="lock">Pro</span></div><div class="box ups" style="aspect-ratio:1/1" data-l="${l}">${artHTML(f,{layout:l})}<div class="wm">Studio LN Pro</div></div></div>`).join('')}</div><p class="hint" style="margin:10px 0 0">Pro lets you change the layout, fonts, headline and colors of any vibe. <button class="btn sm" id="go-pro" type="button">Try Pro</button></p></div>`;}
+let curF=[];
+function renderNow(){const F=curF=selected();$('size-count').textContent=F.length?F.length+(F.length===1?' size selected':' sizes selected'):'';
+ if(!F.length){$('kit-out').innerHTML='<p class="stage-note">Pick at least one platform to see your sizes.</p>';return;}
+ let html='',cur='';F.forEach((f,k)=>{if(f.p!==cur){if(cur)html+='</div>';cur=f.p;html+=`<p class="plat-h">${f.p}</p><div class="kit-grid">`;}
+  html+=`<div class="fmt"><div class="fh"><span>${f.n} · ${f.w}×${f.h}</span><button type="button" data-dl="${k}">Download</button></div><div class="box" style="aspect-ratio:${f.w}/${f.h}" data-k="${k}">${artHTML(f)}</div></div>`;});
+ html+='</div><p class="stage-note">Previews are scaled down. Downloads export at full size, sorted into a folder per platform.</p>';
+ $('kit-out').innerHTML=html+upsellHTML();$('kit-out').querySelectorAll('.box:not(.ups)').forEach(b=>fitArt(b.firstElementChild,F[+b.dataset.k]));
+ const fq=fmtOf('Instagram',0);$('kit-out').querySelectorAll('.box.ups').forEach(b=>fitArt(b.firstElementChild,fq));
+ const gp=$('go-pro');if(gp)gp.onclick=()=>{$('tier').querySelector('[data-t=pro]').click();$('tier').scrollIntoView({block:'start'});};scaleKit();
+ const tok=++rTok,fr=fontsReady(kitFams());if(fr)fr.then(()=>{if(tok===rTok)fitAllKit();});}
+function kitFams(o){const k=Object.assign({},K,o||{});const fp=FONTS[k.font]||FONTS.bold;return [famOf(fp[1]),famOf(fp[2]),'Inter','Playfair Display'];}
+function fitAllKit(){const F=curF;$('kit-out').querySelectorAll('.box:not(.ups)').forEach(b=>{const f=F[+b.dataset.k];if(f){b.innerHTML=artHTML(f);fitArt(b.firstElementChild,f);}});const fq=fmtOf('Instagram',0);$('kit-out').querySelectorAll('.box.ups').forEach(b=>{b.firstElementChild.outerHTML=artHTML(fq,{layout:b.dataset.l});fitArt(b.firstElementChild,fq);});scaleKit();}
+let rTok=0;
+function scaleKit(){document.querySelectorAll('#kit-out .box').forEach(b=>{const a=b.querySelector('.art');if(!a)return;a.style.transform=`scale(${b.clientWidth/parseFloat(a.style.width)})`;});}
+function kitValid(){const st=$('k-status');if(!$('k-title').value.trim()){st.innerHTML='<span class="err">Add an event title first.</span>';return false;}if(!selected().length){st.innerHTML='<span class="err">Pick at least one platform first.</span>';return false;}return true;}
+async function kitFontCSS(o){const k=Object.assign({},K,o||{});const fp=FONTS[k.font];return fontCSSFor([famOf(fp[1]),famOf(fp[2]),'Inter','Playfair Display']);}
+async function renderCanvas(f,host,css){const fr=fontsReady(kitFams());if(fr)await fr;host.innerHTML=artHTML(f);const a=host.firstElementChild;fitArt(a,f);return htmlToImage.toCanvas(a,{width:f.w,height:f.h,pixelRatio:1,fontEmbedCSS:css});}
 function drawFX(){$('k-fx').innerHTML='<label><input type="checkbox" checked disabled>Original</label>'+FX.map(f=>`<label><input type="checkbox" data-f="${f[0]}" ${fxOn.has(f[0])?'checked':''}>${f[1]}</label>`).join('');$('k-fx').querySelectorAll('input[data-f]').forEach(c=>c.onchange=()=>{c.checked?fxOn.add(c.dataset.f):fxOn.delete(c.dataset.f);});}
-function inkColor(){const P=allPal()[pal]||BASEPAL[0];const bg=tier==='pro'?$('k-bg').value:P[1],acc=tier==='pro'?$('k-acc').value:P[2];return lumi(h2r(bg))<lumi(h2r(acc))?h2r(bg):h2r(acc);}
 function applyFX(src,style){const w=src.width,h=src.height,c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');
- if(style==='gameboy'){const px=Math.max(3,Math.round(Math.min(w,h)/144)),sw=Math.ceil(w/px),sh=Math.ceil(h/px),t=document.createElement('canvas');t.width=sw;t.height=sh;const tx=t.getContext('2d');tx.drawImage(src,0,0,sw,sh);const d=tx.getImageData(0,0,sw,sh),a=d.data,P=[[15,56,15],[48,98,48],[139,172,15],[155,188,15]];
-  for(let i=0;i<a.length;i+=4){const l=(.299*a[i]+.587*a[i+1]+.114*a[i+2])/255;const k=Math.min(3,Math.floor(l*4));a[i]=P[k][0];a[i+1]=P[k][1];a[i+2]=P[k][2];}tx.putImageData(d,0,0);x.imageSmoothingEnabled=false;x.drawImage(t,0,0,w,h);return c;}
- x.drawImage(src,0,0);const d=x.getImageData(0,0,w,h),a=d.data,ink=inkColor(),paper=[244,239,230];
+ if(style==='gameboy'){const px=Math.max(3,Math.round(Math.min(w,h)/144)),sw2=Math.ceil(w/px),sh=Math.ceil(h/px),t=document.createElement('canvas');t.width=sw2;t.height=sh;const tx=t.getContext('2d');tx.drawImage(src,0,0,sw2,sh);const d=tx.getImageData(0,0,sw2,sh),a=d.data,P=[[15,56,15],[48,98,48],[139,172,15],[155,188,15]];
+  for(let i=0;i<a.length;i+=4){const l=(.299*a[i]+.587*a[i+1]+.114*a[i+2])/255;const q=Math.min(3,Math.floor(l*4));a[i]=P[q][0];a[i+1]=P[q][1];a[i+2]=P[q][2];}tx.putImageData(d,0,0);x.imageSmoothingEnabled=false;x.drawImage(t,0,0,w,h);return c;}
+ x.drawImage(src,0,0);const d=x.getImageData(0,0,w,h),a=d.data,ink=lumi(h2r(K.bg))<lumi(h2r(K.acc))?h2r(K.bg):h2r(K.acc),paper=[244,239,230];
  for(let i=0;i<a.length;i+=4){let r=a[i],g=a[i+1],b=a[i+2];const l=.299*r+.587*g+.114*b;
   if(style==='vintage'){r=r*.45+(l*1.07+28)*.55;g=g*.45+(l*.95+18)*.55;b=b*.45+(l*.78+6)*.55;const n=(Math.random()-.5)*24;r+=n;g+=n;b+=n;}
   else if(style==='noir'){r=g=b=(l-128)*1.45+128;}
@@ -589,34 +758,20 @@ function applyFX(src,style){const w=src.width,h=src.height,c=document.createElem
  x.putImageData(d,0,0);
  if(style==='vintage'){const gr=x.createRadialGradient(w/2,h/2,Math.min(w,h)*.3,w/2,h/2,Math.max(w,h)*.75);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(45,22,0,.5)');x.fillStyle=gr;x.fillRect(0,0,w,h);}
  return c;}
-async function renderCanvas(f,host){host.innerHTML=artHTML(f);const a=host.firstElementChild;fitArt(a,f);return htmlToImage.toCanvas(a,{width:f.w,height:f.h,pixelRatio:1,cacheBust:true});}
-$('k-fxprev').onclick=async()=>{const F=selected();const out=$('fx-out');if(!F.length){out.innerHTML='<p class="err">Pick at least one platform first.</p>';return;}
- const f=F.find(x=>x.cls==='square')||F[0];out.innerHTML='<p class="hint">Rendering…</p>';
- try{const host=document.createElement('div');host.style.cssText='position:fixed;left:-99999px;top:0';document.body.appendChild(host);const base=await renderCanvas(f,host);host.remove();
- const fig=(c,n)=>{const t=document.createElement('canvas'),k=330/Math.max(c.width,c.height);t.width=Math.round(c.width*k);t.height=Math.round(c.height*k);t.getContext('2d').drawImage(c,0,0,t.width,t.height);return `<figure><img src="${t.toDataURL('image/jpeg',.85)}" alt="${n} preview">${n}</figure>`;};
- out.innerHTML=fig(base,'Original')+FX.map(([k,n])=>fig(applyFX(base,k),n)).join('');}catch(e){out.innerHTML='<p class="err">Preview failed. Try Chrome or Safari.</p>';console.error(e);}};
-function fitArt(a,f){const t=a.querySelector('.a-title'),sp=t.querySelector('span'),u=Math.min(f.w,f.h)/100;let s=u*(f.cls==='ultra'?22:f.cls==='wide'?13:16);sp.style.fontSize=s+'px';let n=0;while((sp.scrollHeight>t.clientHeight||sp.scrollWidth>t.clientWidth+1)&&s>u*3&&n<250){s*=.96;sp.style.fontSize=s+'px';n++;}const d=a.querySelector('.a-desc');if(d)fit(d,u*2.9,u*1.8);}
-let renderT;function renderKit(){clearTimeout(renderT);renderT=setTimeout(renderNow,60);}
-const UPS=[{layout:'split',font:'editorial',hs:'mixed',n:'Split · editorial'},{layout:'poster',font:'classic',hs:'accent',n:'Poster · classic'},{layout:'marquee',font:'modern',hs:'stack',n:'Marquee · modern'}];
-function upsellHTML(){if(tier==='pro')return'';const f=fmtOf('Instagram',0);return `<div class="upsell"><p class="plat-h" style="margin-top:0">What yours could look like with Pro</p><div class="kit-grid">${UPS.map((o,k)=>`<div class="fmt"><div class="fh"><span>${o.n}</span><span class="lock">Pro</span></div><div class="box ups" style="aspect-ratio:1/1" data-u="${k}">${artHTML(f,o)}<div class="wm">Studio LN Pro</div></div></div>`).join('')}</div><p class="hint" style="margin:10px 0 0">Pro unlocks every layout, 12 font pairings and custom colors. <button class="btn sm" id="go-pro" type="button">Try Pro</button></p></div>`;}
-function renderNow(){const F=selected();$('size-count').textContent=F.length?F.length+' sizes selected':'';
- if(!F.length){$('kit-out').innerHTML=upsellHTML()+'<p class="stage-note">Pick at least one platform to see your sizes.</p>';return;}
- let html='',cur='';F.forEach((f,k)=>{if(f.p!==cur){if(cur)html+='</div>';cur=f.p;html+=`<p class="plat-h">${f.p}</p><div class="kit-grid">`;}
-  html+=`<div class="fmt"><div class="fh"><span>${f.n}</span><span>${f.w}×${f.h}</span></div><div class="box" style="aspect-ratio:${f.w}/${f.h}" data-k="${k}">${artHTML(f)}</div></div>`;});
- html+='</div><p class="stage-note">Previews are scaled down. Downloads export at full size, sorted into a folder per platform.</p>';
- $('kit-out').innerHTML=upsellHTML()+html;$('kit-out').querySelectorAll('.box:not(.ups)').forEach(b=>fitArt(b.firstElementChild,F[+b.dataset.k]));
- const fq=fmtOf('Instagram',0);$('kit-out').querySelectorAll('.box.ups').forEach(b=>fitArt(b.firstElementChild,fq));
- const gp=$('go-pro');if(gp)gp.onclick=()=>$('tier').querySelector('[data-t=pro]').click();scaleKit();}
-function scaleKit(){document.querySelectorAll('#kit-out .box').forEach(b=>{const a=b.querySelector('.art');if(!a)return;a.style.transform=`scale(${b.clientWidth/parseFloat(a.style.width)})`;});}
-$('k-dl').onclick=async()=>{const st=$('k-status');const F=selected();if(!F.length){st.innerHTML='<span class="err">Pick at least one platform first.</span>';return;}
- const styles=['original',...FX.map(f=>f[0]).filter(k=>fxOn.has(k))];const total=F.length*styles.length;
- try{const zip=new JSZip();const host=document.createElement('div');host.style.cssText='position:fixed;left:-99999px;top:0';document.body.appendChild(host);let n=0;
- for(const f of F){const base=await renderCanvas(f,host);
-  for(const sty of styles){n++;st.textContent=`Building ${n} of ${total}…`;const c=sty==='original'?base:applyFX(base,sty);
-   const blob=await new Promise(r=>c.toBlob(r,'image/png'));zip.file((styles.length>1?sty+'/':'')+f.id+'.png',blob);await new Promise(r=>setTimeout(r,0));}}
- host.remove();st.textContent='Zipping…';const blob=await zip.generateAsync({type:'blob'});const l=document.createElement('a');l.href=URL.createObjectURL(blob);l.download='studio-ln-brand-pack.zip';l.click();st.textContent=`Pack downloaded: ${total} images.`;}catch(e){st.textContent='Download failed. Try again in Chrome or Safari.';console.error(e);}};
-drawPlat();drawPal();drawHS();drawFX();
-
+let busy=false;
+$('k-fxprev').onclick=async()=>{const out=$('fx-out');if(busy)return;if(!kitValid()){out.innerHTML='';return;}const F=selected();const f=F.find(x=>x.cls==='square')||F[0];out.innerHTML='<p class="hint">Rendering…</p>';busy=true;const host=offHost();
+ try{const base=await renderCanvas(f,host,await kitFontCSS());const fig=(c,n)=>{const t=document.createElement('canvas'),q=330/Math.max(c.width,c.height);t.width=Math.round(c.width*q);t.height=Math.round(c.height*q);t.getContext('2d').drawImage(c,0,0,t.width,t.height);return `<figure><img src="${t.toDataURL('image/jpeg',.85)}" alt="${n} preview">${n}</figure>`;};
+ out.innerHTML=fig(base,'Original')+FX.map(([q,n])=>fig(applyFX(base,q),n)).join('');$('k-status').textContent='';}catch(e){out.innerHTML='<p class="err">The preview could not be made. Reload the page and try again.</p>';console.error(e);}host.remove();busy=false;};
+$('kit-out').addEventListener('click',async e=>{const b=e.target.closest('[data-dl]');if(!b||busy)return;if(!kitValid())return;const f=curF[+b.dataset.dl];busy=true;const old=b.textContent;b.textContent='Saving…';const host=offHost();
+ try{const c=await renderCanvas(f,host,await kitFontCSS());saveBlob(await canvasBlob(c),f.id.replace('/','-')+'.png');b.textContent='Saved';}catch(err){console.error(err);b.textContent='Failed';}host.remove();busy=false;setTimeout(()=>{b.textContent=old;},1800);});
+$('k-dl').onclick=async()=>{const st=$('k-status');if(busy)return;if(!kitValid())return;const F=selected();const styles=['original',...FX.map(f=>f[0]).filter(q=>fxOn.has(q))];const total=F.length*styles.length;busy=true;$('k-dl').disabled=true;const host=offHost();
+ try{const css=await kitFontCSS();const zip=new JSZip();let n=0;
+ for(const f of F){const base=await renderCanvas(f,host,css);
+  for(const sty of styles){n++;st.textContent=`Building ${n} of ${total}…`;const c=sty==='original'?base:applyFX(base,sty);zip.file((styles.length>1?sty+'/':'')+f.id+'.png',await canvasBlob(c));await new Promise(r=>setTimeout(r,0));}}
+ st.textContent='Zipping…';saveBlob(await zip.generateAsync({type:'blob'}),'studio-ln-brand-pack.zip');st.textContent=`Pack downloaded: ${total} images.`;}catch(e){st.innerHTML='<span class="err">The download failed. Try fewer sizes, or reload and try again.</span>';console.error(e);}
+ host.remove();busy=false;$('k-dl').disabled=false;};
+drawPlat();drawFX();refreshKit();
+addEventListener('resize',()=>{fitCert();scaleKit();});
 
 /* ---------- Work ---------- */
 const WORK=[{"g": "San Diego Music Studio", "t": "Fall 2024 Social Media Campaign", "o": "San Diego Music Studio", "y": "2024", "d": "A full season of branded posts for lessons, rentals, repairs, and products, built as a consistent visual system.", "i": ["sdms-fall-2024-001.jpg", "sdms-fall-2024-002.jpg", "sdms-fall-2024-003.jpg", "sdms-fall-2024-004.jpg", "sdms-fall-2024-005.jpg", "sdms-fall-2024-006.jpg", "sdms-fall-2024-007.jpg", "sdms-fall-2024-008.jpg", "sdms-fall-2024-009.jpg", "sdms-fall-2024-010.jpg", "sdms-fall-2024-011.jpg", "sdms-fall-2024-012.jpg", "sdms-fall-2024-013.jpg", "sdms-fall-2024-014.jpg", "sdms-fall-2024-015.jpg", "sdms-fall-2024-016.jpg", "sdms-fall-2024-017.jpg", "sdms-fall-2024-018.jpg", "sdms-fall-2024-019.jpg", "sdms-fall-2024-020.jpg", "sdms-fall-2024-021.jpg", "sdms-fall-2024-022.jpg", "sdms-fall-2024-023.jpg", "sdms-fall-2024-024.jpg", "sdms-fall-2024-025.jpg", "sdms-fall-2024-026.jpg", "sdms-fall-2024-027.jpg", "sdms-fall-2024-028.jpg", "sdms-fall-2024-029.jpg", "sdms-fall-2024-030.jpg"], "k": ["Social media"]}, {"g": "San Diego Music Studio", "t": "Instrument Reservations", "o": "San Diego Music Studio", "y": "2024", "d": "Posts promoting instrument reservations ahead of rental season.", "i": ["instrument-reservations-001.jpg", "instrument-reservations-002.jpg", "instrument-reservations-003.jpg", "instrument-reservations-004.jpg", "instrument-reservations-005.jpg", "instrument-reservations-006.jpg", "instrument-reservations-007.jpg", "instrument-reservations-008.jpg", "instrument-reservations-009.jpg", "instrument-reservations-010.jpg", "instrument-reservations-011.jpg", "instrument-reservations-012.jpg"], "k": ["Social media"]}, {"g": "San Diego Music Studio", "t": "SDMS Repairs", "o": "San Diego Music Studio", "y": "2024", "d": "Posts promoting the studio's repair services.", "i": ["sdms-repairs-001.jpg", "sdms-repairs-002.jpg", "sdms-repairs-003.jpg", "sdms-repairs-004.jpg", "sdms-repairs-005.jpg", "sdms-repairs-006.jpg", "sdms-repairs-007.jpg", "sdms-repairs-008.jpg", "sdms-repairs-009.jpg"], "k": ["Social media"]}, {"g": "San Diego Music Studio", "t": "Welcome to San Diego Music Studio", "o": "San Diego Music Studio", "y": "2024", "d": "An Instagram story set introducing the studio.", "i": ["welcome-sdms-001.jpg", "welcome-sdms-002.jpg", "welcome-sdms-003.jpg", "welcome-sdms-004.jpg", "welcome-sdms-005.jpg"], "k": ["Social media"]}, {"g": "San Diego Music Studio", "t": "Student of the Month", "o": "San Diego Music Studio", "y": "2024–2026", "d": "A recurring post series celebrating students.", "i": ["student-of-the-month-001.jpg", "student-of-the-month-002.jpg", "student-of-the-month-003.jpg", "student-of-the-month-004.jpg", "student-of-the-month-005.jpg"], "k": ["Social media"]}, {"g": "San Diego Music Studio", "t": "Musical Petting Zoos", "o": "San Diego Music Studio", "y": "2024–2026", "d": "Social campaign for SDMS's free instrument petting zoos, where kids try instruments before choosing one. Includes a character-driven \"meet the band\" post, event stories, and school-district promos.", "i": ["pz-meet-the-band-001.jpg", "pz-meet-the-band-002.jpg", "pz-meet-the-band-003.jpg", "pz-meet-the-band-004.jpg", "pz-meet-the-band-005.jpg", "pz-meet-the-band-006.jpg", "pz-meet-the-band-007.jpg", "pz-meet-the-band-008.jpg", "pz-meet-the-band-009.jpg", "pz-meet-the-band-010.jpg", "pz-meet-the-band-011.jpg", "pz-meet-the-band-012.jpg", "pz-meet-the-band-013.jpg"], "k": ["Social media"]}, {"g": "San Diego Music Studio", "t": "Instrument Care Workshops", "o": "San Diego Music Studio", "y": "2024", "d": "Promos for free cleaning and maintenance workshops taught by SDMS staff.", "i": ["workshop-care-001.jpg", "workshop-care-002.jpg", "workshop-care-003.jpg", "workshop-care-004.jpg", "workshop-care-005.jpg", "workshop-care-006.jpg", "workshop-care-007.jpg", "workshop-care-008.jpg", "workshop-care-009.jpg"], "k": ["Social media"]}, {"g": "San Diego Music Studio", "t": "Uke Club Is Back", "o": "San Diego Music Studio", "y": "2023", "d": "Event post relaunching the store's ukulele club.", "i": ["uke-club-001.jpg", "uke-club-002.jpg", "uke-club-003.jpg", "uke-club-004.jpg", "uke-club-005.jpg", "uke-club-006.jpg", "uke-club-007.jpg", "uke-club-008.jpg", "uke-club-009.jpg", "uke-club-010.jpg", "uke-club-011.jpg", "uke-club-012.jpg"], "k": ["Social media"]}, {"g": "San Diego Music Studio", "t": "Holiday Open House (Dec. 3)", "o": "San Diego Music Studio", "y": "2023", "d": "A three-post set for one in-store holiday event: a trumpet competition, a tamale contest, and a guest performance with Conn-Selmer.", "i": ["dec3-trumpet-competition-001.jpg", "dec3-trumpet-competition-002.jpg", "dec3-trumpet-competition-003.jpg", "dec3-trumpet-competition-004.jpg", "dec3-trumpet-competition-005.jpg", "dec3-trumpet-competition-006.jpg", "dec3-trumpet-competition-007.jpg", "dec3-trumpet-competition-008.jpg", "dec3-trumpet-competition-009.jpg", "dec3-trumpet-competition-010.jpg", "dec3-trumpet-competition-011.jpg", "dec3-trumpet-competition-012.jpg", "dec3-trumpet-competition-013.jpg"], "k": ["Social media"]}, {"g": "San Diego Music Studio", "t": "Lessons, Repairs & Store Updates", "o": "San Diego Music Studio", "y": "2024–2025", "d": "Everyday posts and stories that drive lesson sign-ups, repair drop-offs, and holiday hours.", "i": ["sdms-learn-music-001.jpg", "sdms-learn-music-002.jpg", "sdms-learn-music-003.jpg", "sdms-learn-music-004.jpg", "sdms-learn-music-005.jpg", "sdms-learn-music-006.jpg", "sdms-learn-music-007.jpg", "sdms-learn-music-008.jpg", "sdms-learn-music-009.jpg", "sdms-learn-music-010.jpg", "sdms-learn-music-011.jpg", "sdms-learn-music-012.jpg", "sdms-learn-music-013.jpg", "sdms-learn-music-014.jpg", "sdms-learn-music-015.jpg"], "k": ["Social media"]}, {"g": "San Diego Music Studio", "t": "Community & The NAMM Show", "o": "San Diego Music Studio", "y": "2024–2025", "d": "Stories from a guitar donation at a local elementary school and posts from The NAMM Show.", "i": ["sdms-guitar-donation-001.jpg", "sdms-guitar-donation-002.jpg", "sdms-guitar-donation-003.jpg", "sdms-guitar-donation-004.jpg", "sdms-guitar-donation-005.jpg", "sdms-guitar-donation-006.jpg", "sdms-guitar-donation-007.jpg"], "k": ["Social media"]}, {"g": "San Diego Music Studio", "t": "Product & Rental Spotlights", "o": "San Diego Music Studio", "y": "2024–2025", "d": "Product posts for rentals and retail, from instrument reservations to drum pads and kids' apparel.", "i": ["sdms-flute-reservation-001.jpg", "sdms-flute-reservation-002.jpg", "sdms-flute-reservation-003.jpg"], "k": ["Social media"]}, {"g": "San Diego Music Studio", "t": "Tunes & Tacos", "o": "San Diego Music Studio", "y": "2025–2026", "d": "Community event flyer for the studio.", "i": ["tunes-and-tacos.jpg"], "k": ["Flyers and posters"]}, {"g": "San Diego Music Studio", "t": "Back-to-School Rental Flyer", "o": "San Diego Music Studio", "y": "2025–2026", "d": "The master rental flyer, customized for 25+ local schools and districts each season.", "i": ["school-rental-flyers-001.jpg", "school-rental-flyers-002.jpg", "school-rental-flyers-003.jpg", "school-rental-flyers-004.jpg", "school-rental-flyers-005.jpg", "school-rental-flyers-006.jpg", "school-rental-flyers-007.jpg", "school-rental-flyers-008.jpg", "school-rental-flyers-009.jpg", "school-rental-flyers-010.jpg", "school-rental-flyers-011.jpg", "school-rental-flyers-012.jpg", "school-rental-flyers-013.jpg", "school-rental-flyers-014.jpg", "school-rental-flyers-015.jpg", "school-rental-flyers-016.jpg", "school-rental-flyers-017.jpg", "school-rental-flyers-018.jpg", "school-rental-flyers-019.jpg", "school-rental-flyers-020.jpg", "school-rental-flyers-021.jpg", "school-rental-flyers-022.jpg", "school-rental-flyers-023.jpg", "school-rental-flyers-024.jpg", "school-rental-flyers-025.jpg", "school-rental-flyers-026.jpg", "school-rental-flyers-027.jpg", "school-rental-flyers-028.jpg", "school-rental-flyers-029.jpg", "school-rental-flyers-030.jpg"], "k": ["Flyers and posters"]}, {"g": "San Diego Music Studio", "t": "Group Lessons Flyer", "o": "San Diego Music Studio", "y": "2025", "d": "Flyer promoting group music lessons.", "i": ["group-lessons-001.jpg", "group-lessons-002.jpg"], "k": ["Flyers and posters"]}, {"g": "San Diego Music Studio", "t": "String Instrument Repairs", "o": "San Diego Music Studio", "y": "2025", "d": "Repair service flyer and posts.", "i": ["string-repairs-001.jpg", "string-repairs-002.jpg", "string-repairs-003.jpg", "string-repairs-004.jpg"], "k": ["Flyers and posters"]}, {"g": "San Diego Music Studio", "t": "San Diego Music Studio Brand Boards", "o": "San Diego Music Studio", "y": "2024", "d": "Brand boards defining the studio's look across social and print.", "i": ["sdms-brand-boards-001.jpg", "sdms-brand-boards-002.jpg", "sdms-brand-boards-003.jpg", "sdms-brand-boards-004.jpg", "sdms-brand-boards-005.jpg", "sdms-brand-boards-006.jpg", "sdms-brand-boards-007.jpg", "sdms-brand-boards-008.jpg", "sdms-brand-boards-009.jpg", "sdms-brand-boards-010.jpg", "sdms-brand-boards-011.jpg"], "k": ["Branding"]}, {"g": "San Diego Music Studio", "t": "The Omnichannel Flywheel", "o": "San Diego Music Studio", "y": "2026", "d": "A visual strategy deck mapping how every San Diego Music Studio touchpoint feeds the next, from social and the website to rentals, repairs, lessons, and the Reeds For Less warehouse. Built for the store's NAMM Best Omnichannel Retail Operation submission.", "i": ["flywheel-001.jpg", "flywheel-002.jpg", "flywheel-003.jpg", "flywheel-004.jpg", "flywheel-005.jpg", "flywheel-006.jpg", "flywheel-007.jpg", "flywheel-008.jpg", "flywheel-009.jpg", "flywheel-010.jpg", "flywheel-011.jpg"], "k": ["Case studies"]}, {"g": "San Diego Music Studio", "t": "Store Flyers & Inserts", "o": "San Diego Music Studio", "y": "2023–2026", "d": "In-store flyers, program inserts, hiring posters, lesson schedules, and terms sheets that keep the front counter and the community board stocked.", "i": ["store-flyers-001.jpg", "store-flyers-002.jpg", "store-flyers-003.jpg", "store-flyers-004.jpg", "store-flyers-005.jpg", "store-flyers-006.jpg", "store-flyers-007.jpg", "store-flyers-008.jpg", "store-flyers-009.jpg", "store-flyers-010.jpg"], "k": ["Flyers and posters"]}, {"g": "San Diego Music Studio", "t": "Event Slides & In-Store Screens", "o": "San Diego Music Studio", "y": "2023–2025", "d": "Widescreen slides for the store's screens and event listings, from Uke Club and the holiday open house to back-to-school.", "i": ["event-slides-001.jpg", "event-slides-002.jpg", "event-slides-003.jpg", "event-slides-004.jpg", "event-slides-005.jpg", "event-slides-006.jpg", "event-slides-007.jpg", "event-slides-008.jpg", "event-slides-009.jpg", "event-slides-010.jpg", "event-slides-011.jpg", "event-slides-012.jpg", "event-slides-013.jpg", "event-slides-014.jpg", "event-slides-015.jpg"], "k": ["Flyers and posters"]}, {"g": "Reeds For Less", "t": "Reeds For Less Online Store", "o": "Reeds For Less", "y": "2021–Present", "d": "Built the Shopify store from the ground up and grew annual online sales from $5,200 to $73,600 in three years. Created bulk-package offers, shot and edited product photos for 300+ listings, and coded a free-shipping progress bar into the cart.", "i": ["reeds-for-less-store-001.jpg", "reeds-for-less-store-002.jpg", "reeds-for-less-store-003.jpg", "reeds-for-less-store-004.jpg", "reeds-for-less-store-005.jpg", "reeds-for-less-store-006.jpg", "reeds-for-less-store-007.jpg", "reeds-for-less-store-008.jpg", "reeds-for-less-store-009.jpg", "reeds-for-less-store-010.jpg", "reeds-for-less-store-011.jpg", "reeds-for-less-store-012.jpg", "reeds-for-less-store-013.jpg"], "k": ["Websites and tools"]}, {"g": "Reeds For Less", "t": "Introducing Reeds For Less", "o": "Reeds For Less", "y": "2024", "d": "Brand launch post set for the store.", "i": ["rfl-launch-001.jpg", "rfl-launch-002.jpg", "rfl-launch-003.jpg", "rfl-launch-004.jpg"], "k": ["Social media"]}, {"g": "Reeds For Less", "t": "Product Photography for Online Stores", "o": "San Diego Music Studio and Reeds For Less", "y": "2025–2026", "d": "I photograph, cut out, and edit product images for both Shopify stores, so every listing has clean, consistent photos.", "i": ["rfl-bulk-pack-001.jpg", "rfl-bulk-pack-002.jpg", "rfl-bulk-pack-003.jpg", "rfl-bulk-pack-004.jpg", "rfl-bulk-pack-005.jpg", "rfl-bulk-pack-006.jpg", "rfl-bulk-pack-007.jpg", "rfl-bulk-pack-008.jpg", "rfl-bulk-pack-009.jpg", "rfl-bulk-pack-010.jpg", "rfl-bulk-pack-011.jpg", "rfl-bulk-pack-012.jpg", "rfl-bulk-pack-013.jpg", "rfl-bulk-pack-014.jpg", "rfl-bulk-pack-015.jpg", "rfl-bulk-pack-016.jpg", "rfl-bulk-pack-017.jpg", "rfl-bulk-pack-018.jpg", "rfl-bulk-pack-019.jpg", "rfl-bulk-pack-020.jpg", "rfl-bulk-pack-021.jpg", "rfl-bulk-pack-022.jpg", "rfl-bulk-pack-023.jpg", "rfl-bulk-pack-024.jpg", "rfl-bulk-pack-025.jpg", "rfl-bulk-pack-026.jpg", "rfl-bulk-pack-027.jpg", "rfl-bulk-pack-028.jpg", "rfl-bulk-pack-029.jpg", "rfl-bulk-pack-030.jpg"], "k": ["Photography"]}, {"g": "Reeds For Less", "t": "Clarinet Care Kit", "o": "Reeds For Less", "y": "2025", "d": "Product post for a Reeds For Less clarinet care bundle.", "i": ["rfl-clarinet-kit-001.jpg", "rfl-clarinet-kit-002.jpg", "rfl-clarinet-kit-003.jpg", "rfl-clarinet-kit-004.jpg"], "k": ["Social media"]}, {"g": "School", "t": "Welcome Back, Spartans!", "o": "MiraCosta College ASG", "y": "2021", "d": "Back-to-school campaign for student government, in post and story sizes.", "i": ["miracosta-welcome-001.jpg", "miracosta-welcome-002.jpg", "miracosta-welcome-003.jpg", "miracosta-welcome-004.jpg", "miracosta-welcome-005.jpg", "miracosta-welcome-006.jpg", "miracosta-welcome-007.jpg", "miracosta-welcome-008.jpg"], "k": ["Social media"]}, {"g": "School", "t": "Here's to an Amazing Semester", "o": "MiraCosta College ASG", "y": "2021", "d": "Semester kickoff posts for student government.", "i": ["miracosta-semester-001.jpg", "miracosta-semester-002.jpg", "miracosta-semester-003.jpg", "miracosta-semester-004.jpg", "miracosta-semester-005.jpg", "miracosta-semester-006.jpg"], "k": ["Social media"]}, {"g": "School", "t": "Spartan Welcome Week", "o": "MiraCosta College ASG", "y": "2021", "d": "Back-to-school countdown, giveaway, and welcome posts for MiraCosta's student government.", "i": ["mc-one-week-001.jpg", "mc-one-week-002.jpg", "mc-one-week-003.jpg", "mc-one-week-004.jpg", "mc-one-week-005.jpg", "mc-one-week-006.jpg", "mc-one-week-007.jpg"], "k": ["Social media"]}, {"g": "School", "t": "Student Resources & Classes", "o": "MiraCosta College ASG", "y": "2021", "d": "Informational posts promoting financial aid steps and open classes.", "i": ["mc-surf-tasks-001.jpg", "mc-surf-tasks-002.jpg", "mc-surf-tasks-003.jpg", "mc-surf-tasks-004.jpg"], "k": ["Social media"]}, {"g": "School", "t": "Meet the Director of PR", "o": "MiraCosta College ASG", "y": "2021", "d": "Introduction post for my role as Director of Public Relations.", "i": ["mc-director-pr-001.jpg", "mc-director-pr-002.jpg", "mc-director-pr-003.jpg", "mc-director-pr-004.jpg", "mc-director-pr-005.jpg", "mc-director-pr-006.jpg"], "k": ["Social media"]}, {"g": "School", "t": "LEGO Vietnam: Market Entry Analysis", "o": "SDSU · MGT 357 Multinational Business", "y": "2025", "d": "Analyzed LEGO's $1B manufacturing expansion into Vietnam using PESTEL and strategic frameworks. I wrote the environmental analysis, entry timing, and final recommendations, built the team's interactive website, designed a custom LEGO character for each team member, and co-wrote a final video with AI-generated characters and a commercial.", "i": ["lego-vietnam-001.jpg", "lego-vietnam-002.jpg", "lego-vietnam-003.jpg", "lego-vietnam-004.jpg", "lego-vietnam-005.jpg", "lego-vietnam-006.jpg"], "k": ["Case studies"]}, {"g": "School", "t": "SPOT Co. Smart Collar", "o": "SDSU · MGT 353 Creativity & Innovation", "y": "2026", "d": "A new product concept for a smart pet collar with GPS, health monitoring, and a companion app, growing an idea I first explored in CSIT 120 at MiraCosta. I designed the team structure and built the presentation deck.", "i": ["spot-co-001.jpg"], "k": ["Case studies"]}, {"g": "School", "t": "Leadership Profile: Dr. Steven Garfin", "o": "MGT 475 Leadership in Organizations", "y": "2025", "d": "An interview-based research paper on the former Interim Dean of UC San Diego's School of Medicine, connecting his leadership to course frameworks like transformational leadership and LMX theory.", "i": ["garfin-interview-001.jpg", "garfin-interview-002.jpg"], "k": ["Case studies"]}, {"g": "School", "t": "3M Case Study", "o": "SDSU", "y": "2025", "d": "A 27-slide case study presentation on 3M.", "i": ["3m-case-study-001.jpg", "3m-case-study-002.jpg", "3m-case-study-003.jpg", "3m-case-study-004.jpg", "3m-case-study-005.jpg", "3m-case-study-006.jpg", "3m-case-study-007.jpg", "3m-case-study-008.jpg", "3m-case-study-009.jpg", "3m-case-study-010.jpg", "3m-case-study-011.jpg", "3m-case-study-012.jpg", "3m-case-study-013.jpg", "3m-case-study-014.jpg", "3m-case-study-015.jpg", "3m-case-study-016.jpg", "3m-case-study-017.jpg", "3m-case-study-018.jpg", "3m-case-study-019.jpg", "3m-case-study-020.jpg", "3m-case-study-021.jpg", "3m-case-study-022.jpg", "3m-case-study-023.jpg", "3m-case-study-024.jpg", "3m-case-study-025.jpg", "3m-case-study-026.jpg", "3m-case-study-027.jpg"], "k": ["Case studies"]}, {"g": "School", "t": "The 3rd Wheel", "o": "SDSU", "y": "2025", "d": "A pitch deck for a business concept.", "i": ["third-wheel-001.jpg", "third-wheel-002.jpg", "third-wheel-003.jpg", "third-wheel-004.jpg", "third-wheel-005.jpg", "third-wheel-006.jpg", "third-wheel-007.jpg", "third-wheel-008.jpg", "third-wheel-009.jpg", "third-wheel-010.jpg", "third-wheel-011.jpg", "third-wheel-012.jpg"], "k": ["Case studies"]}, {"g": "School", "t": "Tesla Product Life Cycle", "o": "MiraCosta College", "y": "2022", "d": "A research report on Tesla's product life cycle, summarized in an infographic I designed.", "i": ["tesla-life-cycle-001.jpg"], "k": ["Case studies"]}, {"g": "School", "t": "CSIT 120: Where SPOT Began", "o": "MiraCosta College · CSIT 120", "y": "2022", "d": "The computer science project where the SPOT smart collar idea began. I later developed it into a full product concept at SDSU.", "i": ["csit-120-001.jpg", "csit-120-002.jpg", "csit-120-003.jpg", "csit-120-004.jpg", "csit-120-005.jpg", "csit-120-006.jpg", "csit-120-007.jpg", "csit-120-008.jpg"], "k": ["Case studies"]}, {"g": "University Club", "t": "Young Executives Society Social Media", "o": "University Club Atop Symphony Towers", "y": "2021–2022", "d": "Built the Young Executives Society's online presence (@sdyoungexecs) with branded event promos, from etiquette workshops to the San Diego Bay Parade of Lights.", "i": ["yes-social.jpg"], "k": ["Social media"]}, {"g": "University Club", "t": "Young Executives Society Presents", "o": "Young Executives Society", "y": "2022", "d": "Event promo for the Young Executives Society.", "i": ["yes-presents-001.jpg", "yes-presents-002.jpg", "yes-presents-003.jpg"], "k": ["Social media"]}, {"g": "University Club", "t": "Vino & Vinyl", "o": "Young Executives Society", "y": "2021–2022", "d": "A recurring event series with a bold, recognizable look.", "i": ["yes-events-001.jpg", "yes-events-002.jpg"], "k": ["Social media"]}, {"g": "University Club", "t": "Bachata by the Bay", "o": "Young Executives Society", "y": "2021", "d": "Event promos for a Bachata dance night.", "i": ["bachata.jpg"], "k": ["Social media"]}, {"g": "University Club", "t": "TED Talks", "o": "Young Executives Society", "y": "2021–2022", "d": "Event promos for the Young Executives Society's TED Talks series.", "i": ["ted-talks-001.jpg", "ted-talks-002.jpg"], "k": ["Social media"]}, {"g": "University Club", "t": "Arts Committee Social Media", "o": "University Club Atop Symphony Towers", "y": "2021", "d": "Event promos for the Arts Committee's partnerships with the La Jolla Music Society and San Diego Festival of the Arts.", "i": ["arts-committee-social.jpg"], "k": ["Social media"]}, {"g": "University Club", "t": "Vino & Vinyl (September)", "o": "Young Executives Society", "y": "2021", "d": "Event post for the 1970s-themed Vino & Vinyl night.", "i": ["yes-vino-sept.jpg"], "k": ["Social media"]}, {"g": "University Club", "t": "Q2 Arts Exhibit Poster", "o": "University Club Atop Symphony Towers", "y": "2021", "d": "Exhibition poster for the Arts Committee, with several versions.", "i": ["q2-arts-exhibit-001.jpg", "q2-arts-exhibit-002.jpg", "q2-arts-exhibit-003.jpg", "q2-arts-exhibit-004.jpg", "q2-arts-exhibit-005.jpg", "q2-arts-exhibit-006.jpg", "q2-arts-exhibit-007.jpg", "q2-arts-exhibit-008.jpg", "q2-arts-exhibit-009.jpg", "q2-arts-exhibit-010.jpg", "q2-arts-exhibit-011.jpg", "q2-arts-exhibit-012.jpg", "q2-arts-exhibit-013.jpg", "q2-arts-exhibit-014.jpg", "q2-arts-exhibit-015.jpg", "q2-arts-exhibit-016.jpg", "q2-arts-exhibit-017.jpg", "q2-arts-exhibit-018.jpg", "q2-arts-exhibit-019.jpg", "q2-arts-exhibit-020.jpg", "q2-arts-exhibit-021.jpg", "q2-arts-exhibit-022.jpg", "q2-arts-exhibit-023.jpg", "q2-arts-exhibit-024.jpg", "q2-arts-exhibit-025.jpg", "q2-arts-exhibit-026.jpg", "q2-arts-exhibit-027.jpg"], "k": ["Flyers and posters"]}, {"g": "University Club", "t": "Grand Duos", "o": "University Club Atop Symphony Towers × La Jolla Music Society", "y": "2021", "d": "Concert poster and event details for the Arts Committee's Grand Duos program.", "i": ["grand-duos-001.jpg", "grand-duos-002.jpg", "grand-duos-003.jpg", "grand-duos-004.jpg", "grand-duos-005.jpg", "grand-duos-006.jpg", "grand-duos-007.jpg", "grand-duos-008.jpg", "grand-duos-009.jpg", "grand-duos-010.jpg", "grand-duos-011.jpg", "grand-duos-012.jpg", "grand-duos-013.jpg", "grand-duos-014.jpg", "grand-duos-015.jpg", "grand-duos-016.jpg", "grand-duos-017.jpg", "grand-duos-018.jpg", "grand-duos-019.jpg", "grand-duos-020.jpg", "grand-duos-021.jpg", "grand-duos-022.jpg", "grand-duos-023.jpg", "grand-duos-024.jpg", "grand-duos-025.jpg", "grand-duos-026.jpg", "grand-duos-027.jpg", "grand-duos-028.jpg", "grand-duos-029.jpg"], "k": ["Flyers and posters"]}, {"g": "University Club", "t": "Hidden Gems & Arts Committee Posters", "o": "University Club Atop Symphony Towers × La Jolla Music Society", "y": "2021", "d": "Exhibition and concert posters, including Hidden Gems. Receptions drew 100+ guests each.", "i": ["arts-committee-posters.jpg"], "k": ["Flyers and posters"]}, {"g": "University Club", "t": "San Diego Festival of the Arts", "o": "University Club Atop Symphony Towers × San Diego Festival of the Arts", "y": "2021", "d": "Posters for A Celebration of Art and Artists and the Festival of the Arts partnership exhibition.", "i": ["festival-of-the-arts.jpg"], "k": ["Flyers and posters"]}, {"g": "Armando F. Sanchez", "t": "Technology Book Launch Posts", "o": "Armando Sanchez (via Studio Ln)", "y": "2022", "d": "Square post and story versions of the book cover for the launch.", "i": ["tech-launch-post-001.jpg", "tech-launch-post-002.jpg", "tech-launch-post-003.jpg", "tech-launch-post-004.jpg", "tech-launch-post-005.jpg", "tech-launch-post-006.jpg", "tech-launch-post-007.jpg", "tech-launch-post-008.jpg", "tech-launch-post-009.jpg", "tech-launch-post-010.jpg"], "k": ["Book covers", "Social media"]}, {"g": "Armando F. Sanchez", "t": "Technology (Cover & Launch Kit)", "o": "Armando Sanchez (via Studio Ln)", "y": "2022", "d": "Book cover plus a full launch kit: Instagram posts, stories, and a promo video.", "i": ["technology-cover-001.jpg", "technology-cover-002.jpg", "technology-cover-003.jpg", "technology-cover-004.jpg", "technology-cover-005.jpg"], "k": ["Book covers", "Branding"]}, {"g": "Armando F. Sanchez", "t": "Academic Success", "o": "Armando Sanchez (via Studio Ln)", "y": "2022", "d": "Book cover design.", "i": ["academic-success-001.jpg", "academic-success-002.jpg", "academic-success-003.jpg", "academic-success-004.jpg", "academic-success-005.jpg", "academic-success-006.jpg", "academic-success-007.jpg", "academic-success-008.jpg", "academic-success-009.jpg", "academic-success-010.jpg", "academic-success-011.jpg", "academic-success-012.jpg"], "k": ["Book covers", "Branding"]}, {"g": "Armando F. Sanchez", "t": "Motivation and Personal Success", "o": "Armando Sanchez (via Studio Ln)", "y": "2022", "d": "Book cover with a matching social post.", "i": ["motivation-cover-001.jpg", "motivation-cover-002.jpg", "motivation-cover-003.jpg", "motivation-cover-004.jpg", "motivation-cover-005.jpg", "motivation-cover-006.jpg"], "k": ["Book covers", "Branding"]}, {"g": "First UU", "t": "UUMF Fall Renewal 2026", "o": "First UU Men's Fellowship", "y": "2026", "d": "A front-and-back invitation for a three-day retreat weekend, chosen from three design directions.", "i": ["fall-renewal-001.jpg", "fall-renewal-002.jpg"], "k": ["Flyers and posters"]}, {"g": "First UU", "t": "World AIDS Day Story Collection", "o": "First Unitarian Universalist Church of San Diego", "y": "2024", "d": "A collection of stories from World AIDS Day, compiled and designed for the congregation.", "i": ["world-aids-day-001.jpg", "world-aids-day-002.jpg"], "k": ["Flyers and posters"]}, {"g": "Freelance & Personal", "t": "The Seven Virtues of Elsie Strangeland", "o": "Raymond Lane, M.D.", "y": "2026", "d": "Cover concepts for a sci-fi novel, including the \"Strata\" optical-illusion system where the figure exists only as a shift in the stripes, plus a full brand guide.", "i": ["elsie-strangeland-001.jpg", "elsie-strangeland-002.jpg", "elsie-strangeland-003.jpg"], "k": ["Book covers", "Branding"]}, {"g": "Freelance & Personal", "t": "Mar @ Seaside Wayfinding Icons", "o": "Mar @ Seaside", "y": "2026", "d": "A wayfinding icon system built from an apartment community's existing brand. Concept: the client chose not to move forward with the website update.", "i": ["mar-seaside-001.jpg", "mar-seaside-002.jpg", "mar-seaside-003.jpg", "mar-seaside-004.jpg", "mar-seaside-005.jpg", "mar-seaside-006.jpg", "mar-seaside-007.jpg", "mar-seaside-008.jpg", "mar-seaside-009.jpg", "mar-seaside-010.jpg", "mar-seaside-011.jpg", "mar-seaside-012.jpg", "mar-seaside-013.jpg", "mar-seaside-014.jpg", "mar-seaside-015.jpg", "mar-seaside-016.jpg", "mar-seaside-017.jpg", "mar-seaside-018.jpg", "mar-seaside-019.jpg", "mar-seaside-020.jpg", "mar-seaside-021.jpg", "mar-seaside-022.jpg"], "k": ["Branding"]}, {"g": "Freelance & Personal", "t": "Certificate of Authenticity System", "o": "Eric Scot, photographer", "y": "2026", "d": "Designed the certificate and built a site where the artist uploads one CSV file and gets every certificate generated automatically, each with a QR code for verification.", "i": ["coa-system-001.jpg", "coa-system-002.jpg", "coa-system-003.jpg", "coa-system-004.jpg", "coa-system-005.jpg"], "k": ["Websites and tools"]}, {"g": "Freelance & Personal", "t": "The Werkroom", "o": "Personal project", "y": "2026", "d": "A drag race data observatory: 82 seasons, 724 queens and nearly 900 lip syncs, kept in ten linked spreadsheets that rebuild the whole site with one command. Original design, no borrowed logos or photos.", "i": ["werkroom.jpg"], "k": ["Websites and tools"]}, {"g": "Freelance & Personal", "t": "Marq'd", "o": "Personal project", "y": "2026", "d": "A living archive of queer history: an interactive globe where people anonymously pin firsthand stories to real places, so the record can't be erased.", "i": ["marqd.jpg", "marqd-about.jpg"], "k": ["Websites and tools"]}];
