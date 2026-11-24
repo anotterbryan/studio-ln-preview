@@ -164,6 +164,14 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
 .swatch{display:inline-flex;gap:2px;margin-right:6px;vertical-align:-1px}
 .swatch i{width:10px;height:10px;border-radius:50%;display:block}
 .err{color:#b3261e;font-size:13px;margin:6px 0 0}
+.art .a-title span.l1,.art .a-title span.l2{display:block}
+.art.hs-outline .a-title .l2{color:transparent;-webkit-text-stroke:max(1px,calc(var(--u)*.22)) var(--k-fg)}
+.art.L-marquee.hs-outline .a-title .l2{-webkit-text-stroke-color:#fff}
+.art.hs-accent .a-title .l2{color:var(--k-acc)}
+.art.hs-mixed .a-title .l1{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;text-transform:none;font-size:.6em;line-height:1.1;margin-bottom:.08em}
+.art.hs-stack .a-title .l1{font-family:var(--k-bf);font-weight:300;text-transform:none;font-size:.55em;letter-spacing:.02em}
+#fx-out figure{margin:0;width:110px;font-size:11px;color:var(--muted);text-align:center}
+#fx-out img{width:100%;border-radius:6px;border:1px solid var(--line);display:block;margin-bottom:4px}
 </style>
 </head>
 <body>
@@ -253,13 +261,16 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
     <div class="tool">
       <div class="panel">
         <div class="seg" id="tier"><button data-t="basic" class="on">Basic</button><button data-t="pro">Pro</button></div>
-        <h3>Where are you posting?</h3><p class="hint">Tap a platform to add all its sizes. Untick any size you don't need.</p>
+        <h3>Where are you posting?</h3><p class="hint">Tap a platform to add all its sizes, or tap "Any ratio" to pick shapes yourself. Untick any size you don't need.</p>
         <div class="chips" id="plat" style="margin-bottom:10px"></div>
         <div id="sizes"></div>
         <p class="hint" id="size-count"></p>
         <div class="divider"></div>
         <h3>Event details</h3><p class="hint">Text that runs long shrinks to fit its box automatically.</p>
         <div class="fld"><label>Event title</label><input id="k-title" value="An Evening with Gary Lane Trio"></div>
+        <div class="fld"><label>Title, second line (optional)</label><input id="k-title2" placeholder="Leave blank to split the title automatically"></div>
+        <div class="fld"><label>Headline style</label></div>
+        <div class="styles" id="k-hs"></div>
         <div class="fld"><label>Subheader</label><input id="k-kick" value="Live jazz · Guest artist series"></div>
         <div class="two">
           <div class="fld"><label>Date</label><input id="k-date" value="Sat, Dec 13"></div>
@@ -285,6 +296,11 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
           </div>
           <div class="fld"><label><input type="checkbox" id="k-nodesc"> Hide description on social sizes</label></div>
         </div>
+        <div class="divider"></div>
+        <h3>Extra styles</h3><p class="hint">Each style is applied to every size you picked and saved in its own folder.</p>
+        <div class="szl" id="k-fx"></div>
+        <button class="btn sm ghost" id="k-fxprev" type="button">Preview styles</button>
+        <div id="fx-out" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"></div>
         <div class="divider"></div>
         <button class="btn" id="k-dl">Download brand pack (ZIP)</button>
         <p class="hint" id="k-status" style="margin-top:10px"></p>
@@ -429,7 +445,10 @@ const PLAT={
  'Pinterest':[['Standard pin',1000,1500]],
  'YouTube':[['Thumbnail',1280,720]],
  'Threads':[['Portrait post',1080,1350]],
- 'Print':[['Flyer, 8.5 × 11',1275,1650],['Poster, 11 × 17',1650,2550]]};
+ 'Print':[['Flyer, 8.5 × 11',1275,1650],['Poster, 11 × 17',1650,2550]],
+ 'Any ratio':[['1:1 square',1080,1080],['4:5 portrait',1080,1350],['3:4 portrait',1080,1440],['2:3 tall',1000,1500],['9:16 vertical',1080,1920],['4:3 landscape',1440,1080],['16:9 widescreen',1920,1080],['1.91:1 link',1200,628],['2:1 banner',2160,1080],['3:1 header',1500,500]]};
+const HS=[['solid','Solid'],['outline','Outline 2nd line'],['accent','Accent 2nd line'],['mixed','Script + bold'],['stack','Light + bold']];let hs='outline';
+const FX=[['vintage','Vintage'],['gameboy','Game Boy pixel'],['noir','Noir'],['riso','Riso duotone']];const fxOn=new Set();
 const sel={};['Instagram','Facebook','Eventbrite'].forEach(p=>sel[p]=new Set(PLAT[p].map((_,i)=>i)));
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 function fmtOf(p,i){const [n,w,h,safe]=PLAT[p][i];const r=w/h;const cls=r<.7?'tall':r<.9?'portrait':r<1.15?'square':r<2.3?'wide':'ultra';
@@ -437,7 +456,7 @@ function fmtOf(p,i){const [n,w,h,safe]=PLAT[p][i];const r=w/h;const cls=r<.7?'ta
  return{p,n,w,h,cls,lay:(cls==='wide'||cls==='ultra')?'wide '+cls:cls,tH:T[0],dH:T[1],safe:!!safe,id:slug(p)+'/'+slug(n)+'-'+w+'x'+h};}
 function selected(){const out=[];Object.keys(PLAT).forEach(p=>{if(sel[p])[...sel[p]].sort((a,b)=>a-b).forEach(i=>out.push(fmtOf(p,i)));});return out;}
 function drawPlat(){$('plat').innerHTML=Object.keys(PLAT).map(p=>`<button class="chip ${sel[p]?'on':''}" data-p="${p}">${p}</button>`).join('');
- $('plat').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{const p=b.dataset.p;if(sel[p])delete sel[p];else sel[p]=new Set(PLAT[p].map((_,i)=>i));drawPlat();renderKit();});
+ $('plat').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{const p=b.dataset.p;if(sel[p])delete sel[p];else sel[p]=p==='Any ratio'?new Set():new Set(PLAT[p].map((_,i)=>i));drawPlat();renderKit();});
  $('sizes').innerHTML=Object.keys(PLAT).filter(p=>sel[p]).map(p=>`<div class="szl"><b>${p}</b>${PLAT[p].map((s,i)=>`<label><input type="checkbox" data-p="${p}" data-i="${i}" ${sel[p].has(i)?'checked':''}>${s[0]} <span style="opacity:.6">${s[1]}×${s[2]}</span></label>`).join('')}</div>`).join('');
  $('sizes').querySelectorAll('input').forEach(c=>c.onchange=()=>{const s=sel[c.dataset.p],i=+c.dataset.i;c.checked?s.add(i):s.delete(i);renderKit();});}
 /* colors */
@@ -464,7 +483,7 @@ function buildPhotoPal(cols){if(!cols.length)return[];const byL=[...cols].sort((
 function drawPal(){$('k-pal').innerHTML=allPal().map((p,i)=>`<button data-p="${i}" class="${i===pal?'on':''}"><span class="swatch"><i style="background:${p[1]}"></i><i style="background:${p[2]}"></i></span>${p[0]}</button>`).join('');
  $('k-pal').querySelectorAll('button').forEach(b=>b.onclick=()=>{pal=+b.dataset.p;const p=allPal()[pal];$('k-bg').value=p[1];$('k-acc').value=p[2];drawPal();renderKit();});}
 $('tier').querySelectorAll('button').forEach(b=>b.onclick=()=>{tier=b.dataset.t;$('tier').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));$('pro-box').classList.toggle('disabled',tier!=='pro');renderKit();});
-['k-title','k-kick','k-date','k-time','k-loc','k-desc','k-layout','k-font','k-bg','k-acc','k-nodesc'].forEach(id=>$(id).addEventListener('input',renderKit));
+['k-title','k-title2','k-kick','k-date','k-time','k-loc','k-desc','k-layout','k-font','k-bg','k-acc','k-nodesc'].forEach(id=>$(id).addEventListener('input',renderKit));
 const readImg=(inp,cb)=>inp.addEventListener('change',()=>{const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=e=>cb(e.target.result);r.readAsDataURL(f);});
 readImg($('k-logo'),u=>{logoURL=u;renderKit();});
 readImg($('k-photo'),async u=>{photoURL=u;photoPal=buildPhotoPal(await extract(u));if(photoPal.length){pal=BASEPAL.length;const p=photoPal[0];$('k-bg').value=p[1];$('k-acc').value=p[2];$('pal-hint').textContent='Four palettes below were built from your photo. The first is applied.';}drawPal();renderKit();});
@@ -476,11 +495,35 @@ function artHTML(f){const pro=tier==='pro';const layout=pro?$('k-layout').value:
  const hideDesc=f.cls==='ultra'||(pro&&$('k-nodesc').checked&&f.p!=='Print');
  const st=f.safe?f.h*.11:0,sb=f.safe?f.h*.17:0;
  const meta=[$('k-date').value,$('k-time').value,$('k-loc').value].filter(Boolean).map(t=>`<span>${esc(t)}</span>`).join('');
- return `<div class="art L-${layout} ${f.lay}" style="width:${f.w}px;height:${f.h}px;--u:${u}px;--tH:${f.h*f.tH}px;--dH:${f.h*f.dH}px;--st:${st}px;--sb:${sb}px;--k-bg:${bg};--k-acc:${acc};--k-fg:${layout==='marquee'?'#fff':fg};--k-hf:${fp[0]};--k-bf:${fp[1]};--k-hw:${fp[2]};--k-ht:${fp[3]}">
+ return `<div class="art L-${layout} ${f.lay} hs-${hs}" style="width:${f.w}px;height:${f.h}px;--u:${u}px;--tH:${f.h*f.tH}px;--dH:${f.h*f.dH}px;--st:${st}px;--sb:${sb}px;--k-bg:${bg};--k-acc:${acc};--k-fg:${layout==='marquee'?'#fff':fg};--k-hf:${fp[0]};--k-bf:${fp[1]};--k-hw:${fp[2]};--k-ht:${fp[3]}">
   <div class="a-photo ${photoURL?'has':''}" style="${photoURL?`background-image:url(${photoURL})`:''}">${photoURL?'':'Drop photo here'}</div>
   <div class="a-shade"></div>
   <div class="a-logo ${logoURL?'has':''}" style="${logoURL?`background-image:url(${logoURL})`:''}">${logoURL?'':'LOGO'}</div>
-  <div class="a-body"><div class="a-kick">${esc($('k-kick').value)}</div><div class="a-title"><span>${esc($('k-title').value)}</span></div><div class="a-meta">${meta}</div>${hideDesc?'':`<div class="a-desc">${esc($('k-desc').value)}</div>`}</div></div>`;}
+  <div class="a-body"><div class="a-kick">${esc($('k-kick').value)}</div><div class="a-title"><span>${titleHTML()}</span></div><div class="a-meta">${meta}</div>${hideDesc?'':`<div class="a-desc">${esc($('k-desc').value)}</div>`}</div></div>`;}
+function titleHTML(){const t=$('k-title').value.trim(),t2=$('k-title2').value.trim();if(hs==='solid'&&!t2)return esc(t);
+ let a=t,b=t2;if(!b){const w=t.split(/\s+/);if(w.length<2)return `<span class="l1">${esc(t)}</span>`;let best=1,bd=1e9;for(let i=1;i<w.length;i++){const d=Math.abs(w.slice(0,i).join(' ').length-w.slice(i).join(' ').length);if(d<bd){bd=d;best=i;}}a=w.slice(0,best).join(' ');b=w.slice(best).join(' ');}
+ return `<span class="l1">${esc(a)}</span><span class="l2">${esc(b)}</span>`;}
+function drawHS(){$('k-hs').innerHTML=HS.map(h=>`<button data-h="${h[0]}" class="${h[0]===hs?'on':''}">${h[1]}</button>`).join('');$('k-hs').querySelectorAll('button').forEach(b=>b.onclick=()=>{hs=b.dataset.h;drawHS();renderKit();});}
+function drawFX(){$('k-fx').innerHTML='<label><input type="checkbox" checked disabled>Original</label>'+FX.map(f=>`<label><input type="checkbox" data-f="${f[0]}" ${fxOn.has(f[0])?'checked':''}>${f[1]}</label>`).join('');$('k-fx').querySelectorAll('input[data-f]').forEach(c=>c.onchange=()=>{c.checked?fxOn.add(c.dataset.f):fxOn.delete(c.dataset.f);});}
+function inkColor(){const P=allPal()[pal]||BASEPAL[0];const bg=tier==='pro'?$('k-bg').value:P[1],acc=tier==='pro'?$('k-acc').value:P[2];return lumi(h2r(bg))<lumi(h2r(acc))?h2r(bg):h2r(acc);}
+function applyFX(src,style){const w=src.width,h=src.height,c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');
+ if(style==='gameboy'){const px=Math.max(3,Math.round(Math.min(w,h)/144)),sw=Math.ceil(w/px),sh=Math.ceil(h/px),t=document.createElement('canvas');t.width=sw;t.height=sh;const tx=t.getContext('2d');tx.drawImage(src,0,0,sw,sh);const d=tx.getImageData(0,0,sw,sh),a=d.data,P=[[15,56,15],[48,98,48],[139,172,15],[155,188,15]];
+  for(let i=0;i<a.length;i+=4){const l=(.299*a[i]+.587*a[i+1]+.114*a[i+2])/255;const k=Math.min(3,Math.floor(l*4));a[i]=P[k][0];a[i+1]=P[k][1];a[i+2]=P[k][2];}tx.putImageData(d,0,0);x.imageSmoothingEnabled=false;x.drawImage(t,0,0,w,h);return c;}
+ x.drawImage(src,0,0);const d=x.getImageData(0,0,w,h),a=d.data,ink=inkColor(),paper=[244,239,230];
+ for(let i=0;i<a.length;i+=4){let r=a[i],g=a[i+1],b=a[i+2];const l=.299*r+.587*g+.114*b;
+  if(style==='vintage'){r=r*.45+(l*1.07+28)*.55;g=g*.45+(l*.95+18)*.55;b=b*.45+(l*.78+6)*.55;const n=(Math.random()-.5)*24;r+=n;g+=n;b+=n;}
+  else if(style==='noir'){r=g=b=(l-128)*1.45+128;}
+  else if(style==='riso'){const t=Math.min(1,Math.max(0,(l-30)/200));r=ink[0]+(paper[0]-ink[0])*t;g=ink[1]+(paper[1]-ink[1])*t;b=ink[2]+(paper[2]-ink[2])*t;const n=(Math.random()-.5)*14;r+=n;g+=n;b+=n;}
+  a[i]=r;a[i+1]=g;a[i+2]=b;}
+ x.putImageData(d,0,0);
+ if(style==='vintage'){const gr=x.createRadialGradient(w/2,h/2,Math.min(w,h)*.3,w/2,h/2,Math.max(w,h)*.75);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(45,22,0,.5)');x.fillStyle=gr;x.fillRect(0,0,w,h);}
+ return c;}
+async function renderCanvas(f,host){host.innerHTML=artHTML(f);const a=host.firstElementChild;fitArt(a,f);return htmlToImage.toCanvas(a,{width:f.w,height:f.h,pixelRatio:1,cacheBust:true});}
+$('k-fxprev').onclick=async()=>{const F=selected();const out=$('fx-out');if(!F.length){out.innerHTML='<p class="err">Pick at least one platform first.</p>';return;}
+ const f=F.find(x=>x.cls==='square')||F[0];out.innerHTML='<p class="hint">Rendering…</p>';
+ try{const host=document.createElement('div');host.style.cssText='position:fixed;left:-99999px;top:0';document.body.appendChild(host);const base=await renderCanvas(f,host);host.remove();
+ const fig=(c,n)=>{const t=document.createElement('canvas'),k=330/Math.max(c.width,c.height);t.width=Math.round(c.width*k);t.height=Math.round(c.height*k);t.getContext('2d').drawImage(c,0,0,t.width,t.height);return `<figure><img src="${t.toDataURL('image/jpeg',.85)}" alt="${n} preview">${n}</figure>`;};
+ out.innerHTML=fig(base,'Original')+FX.map(([k,n])=>fig(applyFX(base,k),n)).join('');}catch(e){out.innerHTML='<p class="err">Preview failed. Try Chrome or Safari.</p>';console.error(e);}};
 function fitArt(a,f){const t=a.querySelector('.a-title'),sp=t.querySelector('span'),u=Math.min(f.w,f.h)/100;let s=u*(f.cls==='ultra'?22:f.cls==='wide'?13:16);sp.style.fontSize=s+'px';let n=0;while((sp.scrollHeight>t.clientHeight||sp.scrollWidth>t.clientWidth+1)&&s>u*3&&n<250){s*=.96;sp.style.fontSize=s+'px';n++;}const d=a.querySelector('.a-desc');if(d)fit(d,u*2.9,u*1.8);}
 let renderT;function renderKit(){clearTimeout(renderT);renderT=setTimeout(renderNow,60);}
 function renderNow(){const F=selected();$('size-count').textContent=F.length?F.length+' sizes selected':'';
@@ -491,11 +534,13 @@ function renderNow(){const F=selected();$('size-count').textContent=F.length?F.l
  $('kit-out').innerHTML=html;$('kit-out').querySelectorAll('.box').forEach(b=>fitArt(b.firstElementChild,F[+b.dataset.k]));scaleKit();}
 function scaleKit(){document.querySelectorAll('#kit-out .box').forEach(b=>{const a=b.querySelector('.art');if(!a)return;a.style.transform=`scale(${b.clientWidth/parseFloat(a.style.width)})`;});}
 $('k-dl').onclick=async()=>{const st=$('k-status');const F=selected();if(!F.length){st.innerHTML='<span class="err">Pick at least one platform first.</span>';return;}
- try{const zip=new JSZip();const host=document.createElement('div');host.style.cssText='position:fixed;left:-99999px;top:0';document.body.appendChild(host);
- for(let i=0;i<F.length;i++){const f=F[i];st.textContent=`Building ${i+1} of ${F.length}…`;host.innerHTML=artHTML(f);const a=host.firstElementChild;fitArt(a,f);
-  const url=await htmlToImage.toPng(a,{width:f.w,height:f.h,pixelRatio:1,cacheBust:true});zip.file(f.id+'.png',url.split(',')[1],{base64:true});}
- host.remove();const blob=await zip.generateAsync({type:'blob'});const l=document.createElement('a');l.href=URL.createObjectURL(blob);l.download='studio-ln-brand-pack.zip';l.click();st.textContent=`Pack downloaded: ${F.length} images.`;}catch(e){st.textContent='Download failed. Try again in Chrome or Safari.';console.error(e);}};
-drawPlat();drawPal();
+ const styles=['original',...FX.map(f=>f[0]).filter(k=>fxOn.has(k))];const total=F.length*styles.length;
+ try{const zip=new JSZip();const host=document.createElement('div');host.style.cssText='position:fixed;left:-99999px;top:0';document.body.appendChild(host);let n=0;
+ for(const f of F){const base=await renderCanvas(f,host);
+  for(const sty of styles){n++;st.textContent=`Building ${n} of ${total}…`;const c=sty==='original'?base:applyFX(base,sty);
+   const blob=await new Promise(r=>c.toBlob(r,'image/png'));zip.file((styles.length>1?sty+'/':'')+f.id+'.png',blob);await new Promise(r=>setTimeout(r,0));}}
+ host.remove();st.textContent='Zipping…';const blob=await zip.generateAsync({type:'blob'});const l=document.createElement('a');l.href=URL.createObjectURL(blob);l.download='studio-ln-brand-pack.zip';l.click();st.textContent=`Pack downloaded: ${total} images.`;}catch(e){st.textContent='Download failed. Try again in Chrome or Safari.';console.error(e);}};
+drawPlat();drawPal();drawHS();drawFX();
 
 route();
 </script>
