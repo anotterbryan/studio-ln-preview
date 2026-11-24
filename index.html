@@ -164,6 +164,20 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
 .swatch{display:inline-flex;gap:2px;margin-right:6px;vertical-align:-1px}
 .swatch i{width:10px;height:10px;border-radius:50%;display:block}
 .err{color:#b3261e;font-size:13px;margin:6px 0 0}
+.card,.wcard{cursor:pointer;transition:transform .15s}
+.card:active,.wcard:active{transform:scale(.985)}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(20,18,15,.72);display:flex;align-items:center;justify-content:center;padding:16px}
+.lb[hidden]{display:none}
+.lb-card{background:var(--paper);border-radius:16px;max-width:760px;width:100%;max-height:92vh;overflow:auto;position:relative}
+.lb-x{position:absolute;top:10px;right:10px;z-index:2;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.92);font-size:24px;line-height:1;cursor:pointer}
+.lb-strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;background:var(--soft)}
+.lb-strip img{flex:0 0 100%;width:100%;max-height:68vh;object-fit:contain;scroll-snap-align:start}
+.lb-strip .ph{flex:0 0 100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font:28px 'Cormorant Garamond',serif;padding:24px;text-align:center}
+.lb-dots{display:flex;justify-content:center;gap:6px;padding:10px 0 0}
+.lb-dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}.lb-dots i.on{background:var(--ink)}
+.lb-body{padding:14px 20px 22px}
+.lb-body h3{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;margin:4px 0 6px;line-height:1.1}
+.lb-body p{margin:0 0 10px;color:var(--muted)}
 .wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;padding-bottom:64px}
 .wcard{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
 .wstrip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;background:var(--soft);aspect-ratio:4/5}
@@ -347,6 +361,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
   </div>
 </section>
 
+<div id="lb" class="lb" hidden><div class="lb-card" role="dialog" aria-modal="true"><button class="lb-x" id="lb-x" aria-label="Close">×</button><div class="lb-strip" id="lb-strip"></div><div class="lb-dots" id="lb-dots"></div><div class="lb-body" id="lb-body"></div></div></div>
 <footer><div class="wrap">© 2026 Studio LN · Private preview build</div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
@@ -384,7 +399,7 @@ const SHOP=[
 const cats=['All',...new Set(SHOP.map(s=>s[0]))];let cat='All';
 function drawShop(){document.getElementById('chips').innerHTML=cats.map(c=>`<button class="chip ${c===cat?'on':''}" data-c="${c}">${c}</button>`).join('');
 document.querySelectorAll('#chips .chip').forEach(b=>b.onclick=()=>{cat=b.dataset.c;drawShop();});
-document.getElementById('shopgrid').innerHTML=SHOP.filter(s=>cat==='All'||s[0]===cat).map(s=>`<div class="card"><div class="thumb" style="background:${s[3]};color:${s[4]}">${s[5]?`<img src="img/work/${s[5]}" alt="">`:s[1]}<span class="pend">${s[5]?'Approved':'Approved · image coming'}</span></div><div class="ci"><span class="meta">${s[0]}</span><h4>${s[1]}</h4><span class="meta">${s[2]}</span><div class="row"><span class="price">$ —</span><button class="btn sm ghost">Preview</button></div></div></div>`).join('');}
+document.getElementById('shopgrid').innerHTML=SHOP.filter(s=>cat==='All'||s[0]===cat).map(s=>`<div class="card" data-t="${esc(s[1])}"><div class="thumb" style="background:${s[3]};color:${s[4]}">${s[5]?`<img src="img/work/${s[5]}" alt="">`:s[1]}<span class="pend">${s[5]?'Approved':'Approved · image coming'}</span></div><div class="ci"><span class="meta">${s[0]}</span><h4>${s[1]}</h4><span class="meta">${s[2]}</span><div class="row"><span class="price">$ —</span><span class="btn sm ghost">View</span></div></div></div>`).join('');}
 drawShop();
 
 /* ---------- COA ---------- */
@@ -419,7 +434,7 @@ $('f-medium').onchange=()=>{const m=MEDIA[$('f-medium').value];$('l-detail').tex
 document.querySelectorAll('#coa-form input,#coa-form textarea').forEach(e=>e.addEventListener('input',drawCert));
 $('coa-new').onclick=()=>{newNo();drawCert();};
 $('coa-print').onclick=()=>window.print();
-const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function esc(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 function deco(d,i,v){const a=v.acc;
  if(d==='corners'){let s='';[[0,0,1,1],[1,0,-1,1],[0,1,1,-1],[1,1,-1,-1]].forEach(([x,y,sx,sy])=>{const L=18+i*10,o=46+i*4;s+=`<div style="position:absolute;${x?'right':'left'}:${o}px;${y?'bottom':'top'}:${o}px;width:${L}px;height:${L}px;border-${y?'bottom':'top'}:${1+i}px solid ${a};border-${x?'right':'left'}:${1+i}px solid ${a}"></div>`});return s;}
  if(d==='band')return `<div style="position:absolute;left:0;top:0;bottom:0;width:${i*22}px;background:${v.ink}"></div><div style="position:absolute;left:${i*22}px;top:0;bottom:0;width:${i*2+1}px;background:${a}"></div>`;
@@ -579,8 +594,20 @@ const WORK=[{"g": "San Diego Music Studio", "t": "Fall 2024 Social Media Campaig
 const GORD=['Freelance & Personal','Armando F. Sanchez','University Club','First UU','San Diego Music Studio','Reeds For Less','School'];WORK.sort((a,b)=>(GORD.indexOf(a.g)+99)%99-(GORD.indexOf(b.g)+99)%99);const wgroups=['All',...new Set(WORK.map(w=>w.g))];let wg='All';
 function drawWork(){$('wchips').innerHTML=wgroups.map(g=>`<button class="chip ${g===wg?'on':''}" data-g="${esc(g)}">${esc(g)}</button>`).join('');
  $('wchips').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{wg=b.dataset.g;drawWork();});
- $('wgrid').innerHTML=WORK.filter(w=>wg==='All'||w.g===wg).map(w=>`<div class="wcard"><div class="wstrip">${w.i.map(f=>`<img loading="lazy" src="img/work/${f}" alt="${esc(w.t)}">`).join('')}</div><div class="ci"><span class="meta">${esc(w.o)} · ${esc(w.y)}${w.i.length>1?`<span class="wcount">${w.i.length} images</span>`:''}</span><h4>${esc(w.t)}</h4><p>${esc(w.d)}</p></div></div>`).join('');}
+ $('wgrid').innerHTML=WORK.map((w,k)=>[w,k]).filter(([w])=>wg==='All'||w.g===wg).map(([w,k])=>`<div class="wcard" data-k="${k}"><div class="wstrip">${w.i.map(f=>`<img loading="lazy" src="img/work/${f}" alt="${esc(w.t)}">`).join('')}</div><div class="ci"><span class="meta">${esc(w.o)} · ${esc(w.y)}${w.i.length>1?`<span class="wcount">${w.i.length} images</span>`:''}</span><h4>${esc(w.t)}</h4><p>${esc(w.d)}</p></div></div>`).join('');}
 drawWork();
+
+/* ---------- Lightbox ---------- */
+function openLB(imgs,ph,html){const st=$('lb-strip');st.innerHTML=imgs.length?imgs.map(f=>`<img src="img/work/${f}" alt="">`).join(''):ph;$('lb-body').innerHTML=html;
+ $('lb-dots').innerHTML=imgs.length>1?imgs.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join(''):'';st.scrollLeft=0;
+ st.onscroll=()=>{const k=Math.round(st.scrollLeft/st.clientWidth);$('lb-dots').querySelectorAll('i').forEach((d,i)=>d.classList.toggle('on',i===k));};
+ $('lb').hidden=false;document.body.style.overflow='hidden';}
+function closeLB(){$('lb').hidden=true;document.body.style.overflow='';}
+$('lb-x').onclick=closeLB;$('lb').addEventListener('click',e=>{if(e.target.id==='lb')closeLB();});addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();});
+$('shopgrid').addEventListener('click',e=>{const c=e.target.closest('.card');if(!c)return;const it=SHOP.find(x=>x[1]===c.dataset.t);if(!it)return;
+ openLB(it[5]?[it[5]]:[],`<div class="ph" style="background:${it[3]};color:${it[4]}">${esc(it[1])}</div>`,`<span class="meta">${esc(it[0])}</span><h3>${esc(it[1])}</h3><p>${esc(it[2])}</p><p>${it[5]?'Approved. Price and checkout come next.':'Approved. The real design image goes here once it comes over from Canva.'}</p>`);});
+$('wgrid').addEventListener('click',e=>{const c=e.target.closest('.wcard');if(!c)return;const w=WORK[+c.dataset.k];
+ openLB(w.i,'',`<span class="meta">${esc(w.o)} · ${esc(w.y)}</span><h3>${esc(w.t)}</h3><p>${esc(w.d)}</p>${w.i.length>1?'<p style="font-size:13px">Swipe the image for more.</p>':''}`);});
 route();
 </script>
 </body>
