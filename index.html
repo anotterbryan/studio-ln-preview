@@ -228,9 +228,9 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
     <a class="logo" href="#home" aria-label="Studio LN home"><img src="img/brand/s-mark.png" alt=""><b>STUDIO</b><small>LN.</small></a>
     <button class="menu-btn" onclick="document.querySelector('.nav nav').classList.toggle('open')" aria-label="Menu">Menu</button>
     <nav>
-      <a href="#shop">Shop</a>
       <a href="#coa">COA builder</a>
       <a href="#kit">Event kit</a>
+      <a href="#shop">Shop</a>
       <a href="#work">Work</a>
       <a href="#about">About</a>
     </nav>
@@ -243,15 +243,15 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
     <div class="hero hero2"><div>
       <p class="eyebrow">Studio LN · Design by Bryan Lane</p>
       <h1 class="big">Designs that hold their shape.</h1>
-      <p class="lede">Professional templates and builders for artists, hosts and small businesses. Type your details once. Everything lines up, fits and prints right.</p>
-      <div class="btns"><a class="btn" href="#shop">Browse templates</a><a class="btn ghost" href="#work">See the work</a></div>
+      <p class="lede">Generators that build your certificates and event graphics for you, plus prints and printable templates. Type your details once. Everything lines up, fits and prints right.</p>
+      <div class="btns"><a class="btn" href="#kit">Try a generator</a><a class="btn ghost" href="#shop">Browse the shop</a></div>
     </div>
     <a class="collage" href="#work" aria-label="See the work"><img src="img/work/elsie-strangeland-001.jpg" alt=""><img src="img/work/technology-cover-001.jpg" alt=""><img src="img/work/coa-system-001.jpg" alt=""><img src="img/work/q2-arts-exhibit-001.jpg" alt=""></a>
     </div>
     <div class="tiles">
-      <a class="tile" href="#coa"><span class="tag">For artists</span><h3>Certificate builder</h3><p>Pick your medium and a style, fill in the details, download a print-ready certificate.</p></a>
-      <a class="tile" href="#kit"><span class="tag">For events</span><h3>Event brand kit</h3><p>One set of details becomes a flyer, Instagram post and story, Eventbrite banner and Facebook cover.</p></a>
-      <a class="tile" href="#shop"><span class="tag">Downloads</span><h3>Template shop</h3><p>Holiday packs, booth signs, name tags, labels, journals and prints.</p></a>
+      <a class="tile" href="#coa"><span class="tag">Generator</span><h3>Certificate builder</h3><p>Pick your medium and a style, fill in the details, download a print-ready certificate of authenticity.</p></a>
+      <a class="tile" href="#kit"><span class="tag">Generator</span><h3>Event brand kit</h3><p>Enter your event once and get every size for Instagram, Facebook, Eventbrite, TikTok and print, in your colors.</p></a>
+      <a class="tile" href="#shop"><span class="tag">Downloads</span><h3>Prints and templates</h3><p>Certificates, booth signs, name tags, spice labels, journals, practice books and art prints.</p></a>
     </div>
   </div>
 </section>
@@ -260,7 +260,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
 <section class="page" id="p-shop">
   <div class="wrap">
     <h2 class="sec">Template shop</h2>
-    <p class="sub">Approved listings. Real design images go in next; prices come last.</p>
+    <p class="sub">Prints and printable templates. For flyers, social posts and event graphics, use the <a href="#kit">event kit generator</a>.</p>
     <div class="chips" id="chips"></div>
     <div class="grid" id="shopgrid"></div>
   </div>
@@ -413,17 +413,10 @@ addEventListener('hashchange',route);
 
 /* ---------- shop ---------- */
 const SHOP=[
-['Holiday and events','Holiday ceremony flyer set','Canva · 4 colorways','#1f2a44','#f3d9a4'],
-['Holiday and events','Year-in-review gathering flyer','Canva','#3a2a1e','#f0e2c8'],
-['Holiday and events','Candlelit log graphics','PNG + Canva','#2a1a12','#f3c57a'],
-['Holiday and events','Party name tags','Canva · PDF','#f2c4b8','#5a2a20'],
-['Business','Guest artist event promo','Canva · flyer + post · logo placeholder','#14213d','#fca311','dec3-gary-gopar.jpg'],
-['Business','Back-to-school promo','Canva · product placeholder','#2d6a4f','#e9f5db','school-rental-flyers-001.jpg'],
-['Business','Sale announcement kit','Canva · logo placeholder','#c1121f','#fdf0d5'],
-['Business','Wine and music night post','Canva · logo placeholder','#3d1a2b','#e8c8a0','yes-vino-sept.jpg'],
-['Business','QR business cards','Canva · QR built in','#1d1b18','#faf7f1'],
-['Artists','Certificate of authenticity pack','Fillable PDF','#fbf7ee','#7a5c2e','coa-system-001.jpg'],
+['Artists','Certificate of authenticity pack','Fillable PDF · 4 styles','#fbf7ee','#7a5c2e','coa-system-001.jpg'],
 ['Artists','Booth sign + scan-to-follow cards','Word · QR guide','#e9e3d8','#1d1b18'],
+['Cards and tags','QR business cards','Canva · QR built in','#0b0b0b','#fff7f5'],
+['Cards and tags','Party name tags','Canva · PDF','#f2c4b8','#5a2a20'],
 ['Kitchen','Spice jar label sheets','PDF · fits standard sheets','#efe6d2','#6b4f2a'],
 ['Kitchen','Global spice passport','Printable PDF · 11 pages','#5b3a29','#f4e9d8'],
 ['Kitchen','Kitchen index booklet','Printable PDF · 42 pages','#e7d8bf','#4a3320'],
