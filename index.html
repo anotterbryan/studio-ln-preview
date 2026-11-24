@@ -145,6 +145,25 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
 .art.L-marquee .a-photo:not(.has){background-color:var(--k-bg)}
 .art.L-marquee.wide .a-body{right:38%}
 .art.L-split .a-body,.art.L-poster .a-body{color:var(--k-fg)}
+.art .a-logo{top:calc(var(--u)*5 + var(--st,0px))}
+.art.L-marquee .a-body{bottom:calc(var(--u)*6 + var(--sb,0px))}
+.art.L-split .a-body{bottom:calc(var(--u)*5 + var(--sb,0px))}
+.art.ultra .a-logo{width:calc(var(--u)*16);height:calc(var(--u)*16)}
+.art.ultra .a-kick{font-size:calc(var(--u)*4)}
+.art.ultra .a-meta{font-size:calc(var(--u)*4.6)}
+.art.L-marquee.ultra .a-body{left:calc(var(--u)*24);right:30%;bottom:calc(var(--u)*8)}
+.art.L-split.ultra .a-photo{right:62%}
+.art.L-split.ultra .a-body{left:calc(38% + var(--u)*6);top:calc(var(--u)*8);bottom:calc(var(--u)*8)}
+.art.L-poster.ultra .a-body{left:calc(var(--u)*24);right:calc(var(--u)*80);top:calc(var(--u)*8);bottom:calc(var(--u)*8)}
+.art.L-poster.ultra .a-photo{width:calc(var(--u)*76);height:calc(var(--u)*76);top:50%;margin-top:calc(var(--u)*-38)}
+.plat-h{font:500 13px Inter,sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin:22px 0 10px}
+.plat-h:first-child{margin-top:0}
+.szl{display:flex;flex-wrap:wrap;gap:6px 12px;margin:0 0 10px;font-size:13px}
+.szl b{width:100%;font-weight:600;font-size:12px;margin-top:4px}
+.szl label{display:flex;gap:5px;align-items:center;color:var(--muted)}
+.swatch{display:inline-flex;gap:2px;margin-right:6px;vertical-align:-1px}
+.swatch i{width:10px;height:10px;border-radius:50%;display:block}
+.err{color:#b3261e;font-size:13px;margin:6px 0 0}
 </style>
 </head>
 <body>
@@ -230,10 +249,15 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
 <section class="page" id="p-kit">
   <div class="wrap">
     <h2 class="sec">Event brand kit</h2>
-    <p class="sub">Enter your event once. Every size is laid out by hand, not stretched, and long text shrinks to fit.</p>
+    <p class="sub">Enter your event once. Pick where you're posting and get every size each platform uses, laid out for that size, with long text shrinking to fit.</p>
     <div class="tool">
       <div class="panel">
         <div class="seg" id="tier"><button data-t="basic" class="on">Basic</button><button data-t="pro">Pro</button></div>
+        <h3>Where are you posting?</h3><p class="hint">Tap a platform to add all its sizes. Untick any size you don't need.</p>
+        <div class="chips" id="plat" style="margin-bottom:10px"></div>
+        <div id="sizes"></div>
+        <p class="hint" id="size-count"></p>
+        <div class="divider"></div>
         <h3>Event details</h3><p class="hint">Text that runs long shrinks to fit its box automatically.</p>
         <div class="fld"><label>Event title</label><input id="k-title" value="An Evening with Gary Lane Trio"></div>
         <div class="fld"><label>Subheader</label><input id="k-kick" value="Live jazz · Guest artist series"></div>
@@ -248,7 +272,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
           <div class="fld"><label>Photo</label><input type="file" id="k-photo" accept="image/*"></div>
         </div>
         <div class="divider"></div>
-        <h3>Color palette</h3><p class="hint">Basic includes four tested palettes.</p>
+        <h3>Colors</h3><p class="hint" id="pal-hint">Four tested palettes. Upload a photo and we'll build four more from its colors.</p>
         <div class="styles" id="k-pal"></div>
         <div id="pro-box" class="pro-only disabled">
           <div class="divider"></div>
@@ -263,12 +287,9 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
         </div>
         <div class="divider"></div>
         <button class="btn" id="k-dl">Download brand pack (ZIP)</button>
-        <p class="hint" id="k-status" style="margin-top:10px">Includes 5 PNGs sized for each platform.</p>
+        <p class="hint" id="k-status" style="margin-top:10px"></p>
       </div>
-      <div>
-        <div class="kit-grid" id="kit-grid"></div>
-        <p class="stage-note">Previews are scaled down. Downloads export at full size.</p>
-      </div>
+      <div id="kit-out"></div>
     </div>
   </div>
 </section>
@@ -393,47 +414,88 @@ function drawCert(){const v=S[style],i=+$('coa-int').value,c=$('cert');$('int-la
  </div>`;fitCert();}
 $('coa-int').oninput=drawCert;
 function fitCert(){const st=$('coa-stage');const w=st.clientWidth-36;if(w<=0)return;const s=Math.min(1,w/816);$('cert-scale').style.transform=`scale(${s})`;$('cert-scale').style.height=(1056*s)+'px';$('cert-scale').style.width=(816*s)+'px';}
-addEventListener('resize',()=>{fitCert();scaleKit();});
+addEventListener('resize',()=>{fitCert();if(typeof scaleKit==='function')scaleKit();});
 drawCert();
 
 /* ---------- Event kit ---------- */
-const FMT=[
-{id:'instagram-post',n:'Instagram post',w:1080,h:1080,tH:.30,dH:.13,cls:'sq'},
-{id:'instagram-story',n:'Instagram story',w:1080,h:1920,tH:.22,dH:.10,cls:'tall'},
-{id:'eventbrite-banner',n:'Eventbrite banner',w:2160,h:1080,tH:.36,dH:.14,cls:'wide'},
-{id:'facebook-event-cover',n:'Facebook event cover',w:1920,h:1005,tH:.36,dH:.13,cls:'wide'},
-{id:'flyer-letter',n:'Flyer (8.5 × 11)',w:1275,h:1650,tH:.24,dH:.12,cls:'tall'}];
-const PAL=[['Midnight gold','#1f2a44','#e9b44c'],['Ember','#3b1f14','#f08a4b'],['Sage','#2f3e2e','#d9c59a'],['Ivory ink','#f4efe6','#b5562f']];
 const FONTS={bold:["'Bebas Neue',sans-serif","'Inter',sans-serif",400,'uppercase'],editorial:["'Playfair Display',serif","'Inter',sans-serif",700,'none'],classic:["'Cinzel',serif","'Cormorant Garamond',serif",600,'uppercase'],modern:["'Space Grotesk',sans-serif","'Space Grotesk',sans-serif",700,'none']};
-let tier='basic',pal=0,logoURL='',photoURL='';
-$('k-pal').innerHTML=PAL.map((p,i)=>`<button data-p="${i}" class="${i===pal?'on':''}"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${p[1]};outline:2px solid ${p[2]};margin-right:6px"></span>${p[0]}</button>`).join('');
-$('k-pal').querySelectorAll('button').forEach(b=>b.onclick=()=>{pal=+b.dataset.p;$('k-pal').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));$('k-bg').value=PAL[pal][1];$('k-acc').value=PAL[pal][2];renderKit();});
+const PLAT={
+ 'Instagram':[['Square post',1080,1080],['Portrait post',1080,1350],['Landscape post',1080,566],['Story',1080,1920,1],['Reel cover',1080,1920,1]],
+ 'Facebook':[['Square post',1080,1080],['Portrait post',1080,1350],['Event cover',1920,1005],['Story',1080,1920,1],['Link share image',1200,630],['Page cover',1640,624]],
+ 'Eventbrite':[['Event image',2160,1080],['Square thumbnail',1080,1080]],
+ 'TikTok':[['Photo post or cover',1080,1920,1]],
+ 'X':[['Landscape post',1600,900],['Square post',1080,1080],['Header',1500,500]],
+ 'LinkedIn':[['Landscape post',1200,627],['Square post',1080,1080],['Portrait post',1080,1350]],
+ 'Pinterest':[['Standard pin',1000,1500]],
+ 'YouTube':[['Thumbnail',1280,720]],
+ 'Threads':[['Portrait post',1080,1350]],
+ 'Print':[['Flyer, 8.5 × 11',1275,1650],['Poster, 11 × 17',1650,2550]]};
+const sel={};['Instagram','Facebook','Eventbrite'].forEach(p=>sel[p]=new Set(PLAT[p].map((_,i)=>i)));
+const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+function fmtOf(p,i){const [n,w,h,safe]=PLAT[p][i];const r=w/h;const cls=r<.7?'tall':r<.9?'portrait':r<1.15?'square':r<2.3?'wide':'ultra';
+ const T={tall:[.20,.10],portrait:[.24,.11],square:[.28,.12],wide:[.34,.13],ultra:[.40,0]}[cls];
+ return{p,n,w,h,cls,lay:(cls==='wide'||cls==='ultra')?'wide '+cls:cls,tH:T[0],dH:T[1],safe:!!safe,id:slug(p)+'/'+slug(n)+'-'+w+'x'+h};}
+function selected(){const out=[];Object.keys(PLAT).forEach(p=>{if(sel[p])[...sel[p]].sort((a,b)=>a-b).forEach(i=>out.push(fmtOf(p,i)));});return out;}
+function drawPlat(){$('plat').innerHTML=Object.keys(PLAT).map(p=>`<button class="chip ${sel[p]?'on':''}" data-p="${p}">${p}</button>`).join('');
+ $('plat').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{const p=b.dataset.p;if(sel[p])delete sel[p];else sel[p]=new Set(PLAT[p].map((_,i)=>i));drawPlat();renderKit();});
+ $('sizes').innerHTML=Object.keys(PLAT).filter(p=>sel[p]).map(p=>`<div class="szl"><b>${p}</b>${PLAT[p].map((s,i)=>`<label><input type="checkbox" data-p="${p}" data-i="${i}" ${sel[p].has(i)?'checked':''}>${s[0]} <span style="opacity:.6">${s[1]}×${s[2]}</span></label>`).join('')}</div>`).join('');
+ $('sizes').querySelectorAll('input').forEach(c=>c.onchange=()=>{const s=sel[c.dataset.p],i=+c.dataset.i;c.checked?s.add(i):s.delete(i);renderKit();});}
+/* colors */
+const BASEPAL=[['Midnight gold','#1f2a44','#e9b44c'],['Ember','#3b1f14','#f08a4b'],['Sage','#2f3e2e','#d9c59a'],['Ivory ink','#f4efe6','#b5562f']];
+let photoPal=[],pal=0,tier='basic',logoURL='',photoURL='';
+const allPal=()=>BASEPAL.concat(photoPal);
+const h2r=h=>{const n=parseInt(h.slice(1),16);return[n>>16,(n>>8)&255,n&255];};
+const r2h=c=>'#'+c.map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');
+const mix=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
+const lumi=c=>{const f=c.map(v=>{v/=255;return v<=.03928?v/12.92:((v+.055)/1.055)**2.4});return .2126*f[0]+.7152*f[1]+.0722*f[2];};
+const ratio=(a,b)=>{const x=lumi(a),y=lumi(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05);};
+const satu=c=>{const mx=Math.max(...c),mn=Math.min(...c);return mx===0?0:(mx-mn)/mx;};
+function fixAcc(bg,acc){const to=lumi(bg)>.4?[0,0,0]:[255,255,255];let a=acc,n=0;while(ratio(bg,a)<3.2&&n<20){a=mix(a,to,.12);n++;}return a;}
+function extract(url){return new Promise(res=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=48;const x=c.getContext('2d');x.drawImage(im,0,0,48,48);let d;try{d=x.getImageData(0,0,48,48).data;}catch(e){return res([]);}
+ const m={};for(let i=0;i<d.length;i+=4){if(d[i+3]<128)continue;const k=((d[i]>>4)<<8)|((d[i+1]>>4)<<4)|(d[i+2]>>4);m[k]=(m[k]||0)+1;}
+ const cols=[];Object.entries(m).sort((a,b)=>b[1]-a[1]).forEach(([k])=>{k=+k;const c=[((k>>8)&15)*16+8,((k>>4)&15)*16+8,(k&15)*16+8];if(cols.length<7&&cols.every(o=>Math.hypot(o[0]-c[0],o[1]-c[1],o[2]-c[2])>70))cols.push(c);});res(cols);};im.onerror=()=>res([]);im.src=url;});}
+function buildPhotoPal(cols){if(!cols.length)return[];const byL=[...cols].sort((a,b)=>lumi(a)-lumi(b));const dark=byL[0],light=byL[byL.length-1];const vivid=[...cols].sort((a,b)=>satu(b)-satu(a))[0];const dom=cols[0];
+ const P=[];const add=(n,bg,acc)=>{acc=fixAcc(bg,acc);P.push([n,r2h(bg),r2h(acc)]);};
+ add('Photo deep',mix(dark,[0,0,0],.45),vivid);
+ add('Photo bold',mix(vivid,[0,0,0],.35),mix(light,[255,255,255],.3));
+ add('Photo light',mix(light,[255,255,255],.75),mix(vivid,[0,0,0],.2));
+ add('Photo tonal',mix(dom,[0,0,0],.55),mix(dom,[255,255,255],.6));
+ return P;}
+function drawPal(){$('k-pal').innerHTML=allPal().map((p,i)=>`<button data-p="${i}" class="${i===pal?'on':''}"><span class="swatch"><i style="background:${p[1]}"></i><i style="background:${p[2]}"></i></span>${p[0]}</button>`).join('');
+ $('k-pal').querySelectorAll('button').forEach(b=>b.onclick=()=>{pal=+b.dataset.p;const p=allPal()[pal];$('k-bg').value=p[1];$('k-acc').value=p[2];drawPal();renderKit();});}
 $('tier').querySelectorAll('button').forEach(b=>b.onclick=()=>{tier=b.dataset.t;$('tier').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));$('pro-box').classList.toggle('disabled',tier!=='pro');renderKit();});
 ['k-title','k-kick','k-date','k-time','k-loc','k-desc','k-layout','k-font','k-bg','k-acc','k-nodesc'].forEach(id=>$(id).addEventListener('input',renderKit));
-const readImg=(inp,cb)=>inp.addEventListener('change',()=>{const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{cb(e.target.result);renderKit();};r.readAsDataURL(f);});
-readImg($('k-logo'),u=>logoURL=u);readImg($('k-photo'),u=>photoURL=u);
+const readImg=(inp,cb)=>inp.addEventListener('change',()=>{const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=e=>cb(e.target.result);r.readAsDataURL(f);});
+readImg($('k-logo'),u=>{logoURL=u;renderKit();});
+readImg($('k-photo'),async u=>{photoURL=u;photoPal=buildPhotoPal(await extract(u));if(photoPal.length){pal=BASEPAL.length;const p=photoPal[0];$('k-bg').value=p[1];$('k-acc').value=p[2];$('pal-hint').textContent='Four palettes below were built from your photo. The first is applied.';}drawPal();renderKit();});
 function light(hex){const n=parseInt(hex.slice(1),16);return((n>>16)*299+((n>>8)&255)*587+(n&255)*114)/1000>150;}
 function fit(el,max,min){let s=max;el.style.fontSize=s+'px';let n=0;while((el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1)&&s>min&&n<200){s-=Math.max(1,s*.04);el.style.fontSize=s+'px';n++;}}
 function artHTML(f){const pro=tier==='pro';const layout=pro?$('k-layout').value:'marquee';const fp=FONTS[pro?$('k-font').value:'bold'];
- const bg=pro?$('k-bg').value:PAL[pal][1],acc=pro?$('k-acc').value:PAL[pal][2];
+ const P=allPal()[pal]||BASEPAL[0];const bg=pro?$('k-bg').value:P[1],acc=pro?$('k-acc').value:P[2];
  const u=Math.min(f.w,f.h)/100;const fg=light(bg)?'#1d1b18':'#ffffff';
- const hideDesc=pro&&$('k-nodesc').checked&&f.id!=='flyer-letter';
+ const hideDesc=f.cls==='ultra'||(pro&&$('k-nodesc').checked&&f.p!=='Print');
+ const st=f.safe?f.h*.11:0,sb=f.safe?f.h*.17:0;
  const meta=[$('k-date').value,$('k-time').value,$('k-loc').value].filter(Boolean).map(t=>`<span>${esc(t)}</span>`).join('');
- return `<div class="art L-${layout} ${f.cls}" data-f="${f.id}" style="width:${f.w}px;height:${f.h}px;--u:${u}px;--tH:${f.h*f.tH}px;--dH:${f.h*f.dH}px;--k-bg:${bg};--k-acc:${acc};--k-fg:${layout==='marquee'?'#fff':fg};--k-hf:${fp[0]};--k-bf:${fp[1]};--k-hw:${fp[2]};--k-ht:${fp[3]}">
+ return `<div class="art L-${layout} ${f.lay}" style="width:${f.w}px;height:${f.h}px;--u:${u}px;--tH:${f.h*f.tH}px;--dH:${f.h*f.dH}px;--st:${st}px;--sb:${sb}px;--k-bg:${bg};--k-acc:${acc};--k-fg:${layout==='marquee'?'#fff':fg};--k-hf:${fp[0]};--k-bf:${fp[1]};--k-hw:${fp[2]};--k-ht:${fp[3]}">
   <div class="a-photo ${photoURL?'has':''}" style="${photoURL?`background-image:url(${photoURL})`:''}">${photoURL?'':'Drop photo here'}</div>
   <div class="a-shade"></div>
   <div class="a-logo ${logoURL?'has':''}" style="${logoURL?`background-image:url(${logoURL})`:''}">${logoURL?'':'LOGO'}</div>
   <div class="a-body"><div class="a-kick">${esc($('k-kick').value)}</div><div class="a-title"><span>${esc($('k-title').value)}</span></div><div class="a-meta">${meta}</div>${hideDesc?'':`<div class="a-desc">${esc($('k-desc').value)}</div>`}</div></div>`;}
-function renderKit(){const g=$('kit-grid');g.innerHTML=FMT.map(f=>`<div class="fmt"><div class="fh"><span>${f.n}</span><span>${f.w}×${f.h}</span></div><div class="box" style="aspect-ratio:${f.w}/${f.h}">${artHTML(f)}</div></div>`).join('');
- g.querySelectorAll('.art').forEach(a=>{const f=FMT.find(x=>x.id===a.dataset.f);const t=a.querySelector('.a-title');const sp=t.querySelector('span');const u=Math.min(f.w,f.h)/100;
-  let s=u*(f.cls==='wide'?13:16);sp.style.fontSize=s+'px';let n=0;while((sp.scrollHeight>t.clientHeight||sp.scrollWidth>t.clientWidth+1)&&s>u*4&&n<200){s*=.96;sp.style.fontSize=s+'px';n++;}
-  const d=a.querySelector('.a-desc');if(d)fit(d,u*2.9,u*1.8);});scaleKit();}
-function scaleKit(){document.querySelectorAll('#kit-grid .box').forEach(b=>{const a=b.querySelector('.art');if(!a)return;const s=b.clientWidth/parseFloat(a.style.width);a.style.transform=`scale(${s})`;});}
-$('k-dl').onclick=async()=>{const st=$('k-status');try{st.textContent='Building your pack…';const zip=new JSZip();
- const host=document.createElement('div');host.style.cssText='position:fixed;left:-99999px;top:0';document.body.appendChild(host);
- for(const f of FMT){host.innerHTML=artHTML(f);const a=host.firstElementChild;const t=a.querySelector('.a-title'),sp=t.querySelector('span'),u=Math.min(f.w,f.h)/100;let s=u*(f.cls==='wide'?13:16);sp.style.fontSize=s+'px';let n=0;while((sp.scrollHeight>t.clientHeight||sp.scrollWidth>t.clientWidth+1)&&s>u*4&&n<200){s*=.96;sp.style.fontSize=s+'px';n++;}const d=a.querySelector('.a-desc');if(d)fit(d,u*2.9,u*1.8);
+function fitArt(a,f){const t=a.querySelector('.a-title'),sp=t.querySelector('span'),u=Math.min(f.w,f.h)/100;let s=u*(f.cls==='ultra'?22:f.cls==='wide'?13:16);sp.style.fontSize=s+'px';let n=0;while((sp.scrollHeight>t.clientHeight||sp.scrollWidth>t.clientWidth+1)&&s>u*3&&n<250){s*=.96;sp.style.fontSize=s+'px';n++;}const d=a.querySelector('.a-desc');if(d)fit(d,u*2.9,u*1.8);}
+let renderT;function renderKit(){clearTimeout(renderT);renderT=setTimeout(renderNow,60);}
+function renderNow(){const F=selected();$('size-count').textContent=F.length?F.length+' sizes selected':'';
+ if(!F.length){$('kit-out').innerHTML='<p class="stage-note">Pick at least one platform to see your sizes.</p>';return;}
+ let html='',cur='';F.forEach((f,k)=>{if(f.p!==cur){if(cur)html+='</div>';cur=f.p;html+=`<p class="plat-h">${f.p}</p><div class="kit-grid">`;}
+  html+=`<div class="fmt"><div class="fh"><span>${f.n}</span><span>${f.w}×${f.h}</span></div><div class="box" style="aspect-ratio:${f.w}/${f.h}" data-k="${k}">${artHTML(f)}</div></div>`;});
+ html+='</div><p class="stage-note">Previews are scaled down. Downloads export at full size, sorted into a folder per platform.</p>';
+ $('kit-out').innerHTML=html;$('kit-out').querySelectorAll('.box').forEach(b=>fitArt(b.firstElementChild,F[+b.dataset.k]));scaleKit();}
+function scaleKit(){document.querySelectorAll('#kit-out .box').forEach(b=>{const a=b.querySelector('.art');if(!a)return;a.style.transform=`scale(${b.clientWidth/parseFloat(a.style.width)})`;});}
+$('k-dl').onclick=async()=>{const st=$('k-status');const F=selected();if(!F.length){st.innerHTML='<span class="err">Pick at least one platform first.</span>';return;}
+ try{const zip=new JSZip();const host=document.createElement('div');host.style.cssText='position:fixed;left:-99999px;top:0';document.body.appendChild(host);
+ for(let i=0;i<F.length;i++){const f=F[i];st.textContent=`Building ${i+1} of ${F.length}…`;host.innerHTML=artHTML(f);const a=host.firstElementChild;fitArt(a,f);
   const url=await htmlToImage.toPng(a,{width:f.w,height:f.h,pixelRatio:1,cacheBust:true});zip.file(f.id+'.png',url.split(',')[1],{base64:true});}
- host.remove();const blob=await zip.generateAsync({type:'blob'});const l=document.createElement('a');l.href=URL.createObjectURL(blob);l.download='studio-ln-event-kit.zip';l.click();st.textContent='Pack downloaded: 5 PNGs.';}catch(e){st.textContent='Download failed. Try again, or use Chrome or Safari.';console.error(e);}};
+ host.remove();const blob=await zip.generateAsync({type:'blob'});const l=document.createElement('a');l.href=URL.createObjectURL(blob);l.download='studio-ln-brand-pack.zip';l.click();st.textContent=`Pack downloaded: ${F.length} images.`;}catch(e){st.textContent='Download failed. Try again in Chrome or Safari.';console.error(e);}};
+drawPlat();drawPal();
 
 route();
 </script>
