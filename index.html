@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Studio LN — Templates and Tools (Private Preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bodoni+Moda:ital,wght@0,500;0,700;1,400&family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=Oswald:wght@400;600&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1d1b18;--ivory:#faf7f1;--paper:#fff;--clay:#b5562f;--muted:#6f675e;--line:#e5ded2;--soft:#f2ede4}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--ivory);line-height:1.55}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.preview-bar{background:var(--ink);color:#f3ede3;font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:7px 10px}
+header{border-bottom:1px solid var(--line);background:var(--ivory);position:sticky;top:0;z-index:20}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;letter-spacing:.02em;text-decoration:none}
+.logo span{color:var(--clay)}
+.nav nav{display:flex;gap:22px;font-size:14px}
+.nav nav a{text-decoration:none;color:var(--muted)}
+.nav nav a.on,.nav nav a:hover{color:var(--ink)}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font:inherit}
+@media(max-width:720px){.nav nav{display:none;position:absolute;top:64px;left:0;right:0;background:var(--ivory);flex-direction:column;padding:12px 20px;border-bottom:1px solid var(--line)}.nav nav.open{display:flex}.menu-btn{display:block}}
+.page{display:none}.page.on{display:block}
+.hero{padding:72px 0 48px}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--clay);margin:0 0 12px}
+h1.big{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(40px,7vw,76px);line-height:1.02;margin:0 0 18px;max-width:14ch}
+.lede{font-size:18px;color:var(--muted);max-width:56ch;margin:0 0 28px}
+.btn{display:inline-block;background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:999px;padding:11px 20px;font:500 14px Inter,sans-serif;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.sm{padding:7px 14px;font-size:13px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;padding:12px 0 64px}
+.tile{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px;text-decoration:none;display:block}
+.tile h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin:6px 0}
+.tile p{color:var(--muted);margin:0;font-size:15px}
+.tile .tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay)}
+h2.sec{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:42px;margin:48px 0 6px}
+.sub{color:var(--muted);margin:0 0 22px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 22px}
+.chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 13px;font-size:13px;cursor:pointer}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;padding-bottom:64px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.thumb{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:24px;text-align:center;padding:18px;position:relative}
+.thumb .pend{position:absolute;top:10px;left:10px;font:500 10px Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.85);color:var(--ink);padding:4px 8px;border-radius:999px}
+.card .ci{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h4{margin:0;font-size:15px;font-weight:600}
+.card .meta{font-size:12px;color:var(--muted)}
+.card .row{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px}
+.price{font-weight:600}
+.tool{display:grid;grid-template-columns:360px minmax(0,1fr);gap:28px;padding:8px 0 64px;align-items:start}
+@media(max-width:900px){.tool{grid-template-columns:1fr}}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px}
+.panel h3{margin:0 0 4px;font-size:15px}
+.panel .hint{font-size:12px;color:var(--muted);margin:0 0 14px}
+.fld{display:flex;flex-direction:column;gap:4px;margin:0 0 11px}
+.fld label{font-size:12px;font-weight:500;color:var(--muted)}
+.fld input,.fld select,.fld textarea{font:14px Inter,sans-serif;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:#fff;color:var(--ink);width:100%}
+.fld textarea{min-height:64px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.styles{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:12px}
+.styles button{font:13px Inter,sans-serif;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px;cursor:pointer;text-align:left}
+.styles button.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.seg{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin:0 0 14px}
+.seg button{flex:1;border:0;background:#fff;padding:8px;font:500 13px Inter,sans-serif;cursor:pointer}
+.seg button.on{background:var(--ink);color:#fff}
+.divider{height:1px;background:var(--line);margin:14px 0}
+.stage{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:18px;overflow:hidden}
+.stage-note{font-size:12px;color:var(--muted);margin:10px 0 0}
+.lock{font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:var(--clay);color:#fff;border-radius:999px;padding:2px 7px;margin-left:6px;vertical-align:1px}
+.pro-only.disabled{opacity:.45;pointer-events:none}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:13px}
+
+/* ---------- COA certificate ---------- */
+.cert-scale{transform-origin:top left}
+.cert{width:816px;height:1056px;position:relative;overflow:hidden;background:var(--c-bg);color:var(--c-ink);font-family:var(--c-bf);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cert .c-frame{position:absolute;inset:calc(18px + var(--i)*4px);border:calc(var(--i)*1.2px) solid var(--c-acc);pointer-events:none}
+.cert .c-frame2{position:absolute;inset:calc(28px + var(--i)*5px);border:1px solid var(--c-acc);opacity:calc(var(--i)/3);pointer-events:none}
+.cert .c-deco{position:absolute;inset:0;pointer-events:none}
+.cert .c-in{position:absolute;inset:96px 92px 80px;display:flex;flex-direction:column}
+.cert .c-kick{font:500 11px var(--c-bf);letter-spacing:.32em;text-transform:uppercase;color:var(--c-acc);text-align:var(--c-align)}
+.cert .c-title{font-family:var(--c-hf);font-weight:var(--c-hw);font-size:var(--c-hs);line-height:1.02;margin:12px 0 0;text-align:var(--c-align);letter-spacing:var(--c-hl);text-transform:var(--c-ht)}
+.cert .c-rule{height:calc(var(--i)*1.5px);width:calc(60px + var(--i)*30px);background:var(--c-acc);margin:22px 0;align-self:var(--c-self)}
+.cert .c-stmt{font-size:14.5px;line-height:1.6;margin:0 0 30px;text-align:var(--c-align);font-style:var(--c-sty)}
+.cert .c-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:34px;row-gap:20px}
+.cert .c-f.full{grid-column:1/-1}
+.cert .c-l{font:600 9.5px var(--c-bf);letter-spacing:.22em;text-transform:uppercase;color:var(--c-acc)}
+.cert .c-v{font-size:16px;min-height:26px;padding:4px 0 5px;border-bottom:1px solid var(--c-line);background:var(--c-box);padding-left:var(--c-boxpad)}
+.cert .c-foot{margin-top:auto;display:flex;align-items:flex-end;gap:36px}
+.cert .c-seal{width:108px;height:108px;border-radius:50%;border:calc(1px + var(--i)*1px) solid var(--c-acc);display:flex;align-items:center;justify-content:center;flex-direction:column;font:600 9px var(--c-bf);letter-spacing:.2em;text-transform:uppercase;color:var(--c-acc);text-align:center;flex:none;outline:1px solid var(--c-acc);outline-offset:-9px}
+.cert .c-seal b{font-family:var(--c-hf);font-size:22px;letter-spacing:.04em;margin:2px 0}
+.cert .c-sig{flex:1}
+.cert .c-sigline{border-bottom:1px solid var(--c-ink);height:40px}
+.cert .c-siglab{display:flex;justify-content:space-between;font:600 9.5px var(--c-bf);letter-spacing:.2em;text-transform:uppercase;color:var(--c-acc);margin-top:6px}
+.cert .c-web{text-align:center;font-size:12px;color:var(--c-mute);margin-top:18px}
+@media print{
+  @page{size:letter;margin:0}
+  body *{visibility:hidden}
+  #cert,#cert *{visibility:visible}
+  #cert{position:fixed;left:0;top:0}
+  .cert-scale{transform:none!important}
+}
+
+/* ---------- Event kit art ---------- */
+.kit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+@media(max-width:560px){.kit-grid{grid-template-columns:1fr}}
+.fmt{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px}
+.fmt .fh{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin:0 0 8px}
+.fmt .box{position:relative;overflow:hidden;border-radius:4px}
+.fmt .box > .art{transform-origin:top left;position:absolute;top:0;left:0}
+.art{position:relative;overflow:hidden;background:var(--k-bg);color:var(--k-fg);font-family:var(--k-bf)}
+.art .a-photo{position:absolute;background:#cfc6b8 center/cover no-repeat;display:flex;align-items:center;justify-content:center;color:rgba(0,0,0,.35);font:500 calc(var(--u)*2.6) Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.art .a-shade{position:absolute;inset:0}
+.art .a-logo{position:absolute;top:calc(var(--u)*5);left:calc(var(--u)*5);width:calc(var(--u)*11);height:calc(var(--u)*11);border-radius:50%;border:calc(var(--u)*.35) dashed currentColor;display:flex;align-items:center;justify-content:center;font:600 calc(var(--u)*1.9) Inter,sans-serif;letter-spacing:.1em;background:center/contain no-repeat;z-index:3}
+.art .a-logo.has{border:0}
+.art .a-body{position:absolute;display:flex;flex-direction:column;z-index:2}
+.art .a-kick{font:600 calc(var(--u)*2.6) var(--k-bf);letter-spacing:.24em;text-transform:uppercase;color:var(--k-acc);overflow:hidden;max-height:calc(var(--u)*7)}
+.art .a-title{font-family:var(--k-hf);font-weight:var(--k-hw);line-height:.95;text-transform:var(--k-ht);overflow:hidden;height:var(--tH);display:flex;align-items:flex-end;margin:calc(var(--u)*1.5) 0}
+.art .a-title span{display:block;width:100%;overflow-wrap:break-word}
+.art .a-meta{font:500 calc(var(--u)*3.1) var(--k-bf);display:flex;gap:calc(var(--u)*2.5);flex-wrap:wrap;padding-top:calc(var(--u)*1.6);border-top:calc(var(--u)*.3) solid var(--k-acc)}
+.art .a-desc{font-size:calc(var(--u)*2.7);line-height:1.4;opacity:.9;margin-top:calc(var(--u)*2);overflow:hidden;max-height:var(--dH)}
+/* marquee: photo full bleed */
+.art.L-marquee .a-photo{inset:0}
+.art.L-marquee .a-shade{background:linear-gradient(180deg,rgba(0,0,0,0) 25%,rgba(0,0,0,.78) 100%)}
+.art.L-marquee{--k-fg:#fff}
+.art.L-marquee .a-body{left:calc(var(--u)*6);right:calc(var(--u)*6);bottom:calc(var(--u)*6)}
+/* split */
+.art.L-split .a-photo{left:0;top:0;right:0;height:48%}
+.art.L-split.wide .a-photo{height:auto;bottom:0;right:50%}
+.art.L-split .a-body{left:calc(var(--u)*6);right:calc(var(--u)*6);top:calc(48% + var(--u)*4);bottom:calc(var(--u)*5);justify-content:flex-end}
+.art.L-split.wide .a-body{left:calc(50% + var(--u)*5);top:calc(var(--u)*6)}
+.art.L-split .a-logo{background-color:var(--k-bg)}
+/* poster */
+.art.L-poster .a-photo{right:calc(var(--u)*6);bottom:calc(var(--u)*6);width:calc(var(--u)*30);height:calc(var(--u)*30);border-radius:50%}
+.art.L-poster .a-body{left:calc(var(--u)*6);right:calc(var(--u)*6);top:calc(var(--u)*19);bottom:calc(var(--u)*38)}
+.art.L-poster.wide .a-body{right:calc(var(--u)*42);bottom:calc(var(--u)*6)}
+.art.L-poster.wide .a-photo{width:calc(var(--u)*34);height:calc(var(--u)*34);top:50%;margin-top:calc(var(--u)*-17)}
+.art .a-photo.has{color:transparent}
+.art .a-photo:not(.has){background-color:color-mix(in srgb,var(--k-bg) 82%,#fff);color:color-mix(in srgb,var(--k-bg) 55%,#fff)}
+.art.L-marquee .a-photo:not(.has){background-color:var(--k-bg)}
+.art.L-marquee.wide .a-body{right:38%}
+.art.L-split .a-body,.art.L-poster .a-body{color:var(--k-fg)}
+</style>
+</head>
+<body>
+<div class="preview-bar">Private preview · not live · nothing here is for sale yet</div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#home">Studio <span>LN</span></a>
+    <button class="menu-btn" onclick="document.querySelector('.nav nav').classList.toggle('open')" aria-label="Menu">Menu</button>
+    <nav>
+      <a href="#shop">Shop</a>
+      <a href="#coa">COA builder</a>
+      <a href="#kit">Event kit</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HOME -->
+<section class="page" id="p-home">
+  <div class="wrap">
+    <div class="hero">
+      <p class="eyebrow">Templates and tools by Studio LN</p>
+      <h1 class="big">Designs that hold their shape.</h1>
+      <p class="lede">Professional templates and builders for artists, hosts and small businesses. Type your details once. Everything lines up, fits and prints right.</p>
+      <div class="btns"><a class="btn" href="#shop">Browse templates</a><a class="btn ghost" href="#kit">Build an event kit</a></div>
+    </div>
+    <div class="tiles">
+      <a class="tile" href="#coa"><span class="tag">For artists</span><h3>Certificate builder</h3><p>Pick your medium and a style, fill in the details, download a print-ready certificate.</p></a>
+      <a class="tile" href="#kit"><span class="tag">For events</span><h3>Event brand kit</h3><p>One set of details becomes a flyer, Instagram post and story, Eventbrite banner and Facebook cover.</p></a>
+      <a class="tile" href="#shop"><span class="tag">Downloads</span><h3>Template shop</h3><p>Holiday packs, booth signs, name tags, labels, journals and prints.</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section class="page" id="p-shop">
+  <div class="wrap">
+    <h2 class="sec">Template shop</h2>
+    <p class="sub">Placeholder listings. Each one stays hidden until you approve it.</p>
+    <div class="chips" id="chips"></div>
+    <div class="grid" id="shopgrid"></div>
+  </div>
+</section>
+
+<!-- COA -->
+<section class="page" id="p-coa">
+  <div class="wrap">
+    <h2 class="sec">Certificate of authenticity builder</h2>
+    <p class="sub">Fill in your piece, choose a style and strength, then download a letter-size PDF.</p>
+    <div class="tool">
+      <div class="panel" id="coa-form">
+        <h3>Style</h3><p class="hint">Every style is built to look professional. Strength goes from subtle to bold.</p>
+        <div class="styles" id="coa-styles"></div>
+        <div class="fld"><label>Strength: <b id="int-lab">Balanced</b></label><input type="range" id="coa-int" min="1" max="3" step="1" value="2"></div>
+        <div class="divider"></div>
+        <h3>Your piece</h3><p class="hint">Fields change to fit your medium.</p>
+        <div class="fld"><label>Medium</label><select id="f-medium"></select></div>
+        <div class="fld"><label>Artist</label><input id="f-artist" value="Jordan Ellis"></div>
+        <div class="fld"><label>Title of work</label><input id="f-title" value="Low Tide at Dusk"></div>
+        <div class="two">
+          <div class="fld"><label>Year created</label><input id="f-year" value="2026"></div>
+          <div class="fld"><label id="l-detail">Surface</label><input id="f-detail" value="Oil on linen"></div>
+        </div>
+        <div class="two">
+          <div class="fld"><label id="l-dims">Dimensions</label><input id="f-dims" value="24 × 36 in"></div>
+          <div class="fld"><label id="l-ed">Edition</label><input id="f-ed" value="Original, 1 of 1"></div>
+        </div>
+        <div class="fld"><label>Collector (optional)</label><input id="f-coll" value=""></div>
+        <div class="fld"><label>Notes and provenance (optional)</label><textarea id="f-notes"></textarea></div>
+        <div class="fld"><label>Studio or website</label><input id="f-web" value="jordanellis.art"></div>
+        <div class="btns"><button class="btn" id="coa-print">Download PDF</button><button class="btn ghost" id="coa-new">New certificate no.</button></div>
+        <p class="hint" style="margin-top:10px">Download opens your print dialog. Choose "Save as PDF".</p>
+      </div>
+      <div>
+        <div class="stage" id="coa-stage"><div class="cert-scale" id="cert-scale"><div class="cert" id="cert"></div></div></div>
+        <p class="stage-note">Live preview at letter size (8.5 × 11 in).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENT KIT -->
+<section class="page" id="p-kit">
+  <div class="wrap">
+    <h2 class="sec">Event brand kit</h2>
+    <p class="sub">Enter your event once. Every size is laid out by hand, not stretched, and long text shrinks to fit.</p>
+    <div class="tool">
+      <div class="panel">
+        <div class="seg" id="tier"><button data-t="basic" class="on">Basic</button><button data-t="pro">Pro</button></div>
+        <h3>Event details</h3><p class="hint">Text that runs long shrinks to fit its box automatically.</p>
+        <div class="fld"><label>Event title</label><input id="k-title" value="An Evening with Gary Lane Trio"></div>
+        <div class="fld"><label>Subheader</label><input id="k-kick" value="Live jazz · Guest artist series"></div>
+        <div class="two">
+          <div class="fld"><label>Date</label><input id="k-date" value="Sat, Dec 13"></div>
+          <div class="fld"><label>Time</label><input id="k-time" value="7:00 PM"></div>
+        </div>
+        <div class="fld"><label>Location</label><input id="k-loc" value="The Studio Hall, San Diego"></div>
+        <div class="fld"><label>Description</label><textarea id="k-desc">An intimate night of standards and originals. Doors open at 6:30. Light bites and drinks included with every ticket.</textarea></div>
+        <div class="two">
+          <div class="fld"><label>Logo</label><input type="file" id="k-logo" accept="image/*"></div>
+          <div class="fld"><label>Photo</label><input type="file" id="k-photo" accept="image/*"></div>
+        </div>
+        <div class="divider"></div>
+        <h3>Color palette</h3><p class="hint">Basic includes four tested palettes.</p>
+        <div class="styles" id="k-pal"></div>
+        <div id="pro-box" class="pro-only disabled">
+          <div class="divider"></div>
+          <h3>Pro controls <span class="lock">Pro</span></h3><p class="hint">Layout, fonts and custom colors.</p>
+          <div class="fld"><label>Layout</label><select id="k-layout"><option value="marquee">Marquee (photo full bleed)</option><option value="split">Split (photo and color block)</option><option value="poster">Poster (big type, round photo)</option></select></div>
+          <div class="fld"><label>Font pairing</label><select id="k-font"><option value="bold">Bold sans</option><option value="editorial">Editorial serif</option><option value="classic">Classic engraved</option><option value="modern">Modern grotesk</option></select></div>
+          <div class="two">
+            <div class="fld"><label>Background</label><input type="color" id="k-bg" value="#1f2a44"></div>
+            <div class="fld"><label>Accent</label><input type="color" id="k-acc" value="#e9b44c"></div>
+          </div>
+          <div class="fld"><label><input type="checkbox" id="k-nodesc"> Hide description on social sizes</label></div>
+        </div>
+        <div class="divider"></div>
+        <button class="btn" id="k-dl">Download brand pack (ZIP)</button>
+        <p class="hint" id="k-status" style="margin-top:10px">Includes 5 PNGs sized for each platform.</p>
+      </div>
+      <div>
+        <div class="kit-grid" id="kit-grid"></div>
+        <p class="stage-note">Previews are scaled down. Downloads export at full size.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="page" id="p-about">
+  <div class="wrap" style="padding:56px 20px 72px;max-width:720px">
+    <p class="eyebrow">About</p>
+    <h1 class="big" style="font-size:52px">Studio LN</h1>
+    <p class="lede">Studio LN makes templates and builders that stay professional no matter who fills them in. Every layout is built and tested by hand for the size it lives in, so nothing gets stretched, cropped wrong or spills past the edge.</p>
+    <p class="lede">Placeholder copy. You'll write the final version in your own voice.</p>
+  </div>
+</section>
+
+<footer><div class="wrap">© 2026 Studio LN · Private preview build</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script>
+/* ---------- router ---------- */
+function route(){const id=(location.hash||'#home').slice(1);const pg=document.getElementById('p-'+id)?id:'home';
+document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id==='p-'+pg));
+document.querySelectorAll('.nav nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+pg));
+document.querySelector('.nav nav').classList.remove('open');window.scrollTo(0,0);
+if(pg==='coa')fitCert();if(pg==='kit')renderKit();}
+addEventListener('hashchange',route);
+
+/* ---------- shop ---------- */
+const SHOP=[
+['Holiday and events','Holiday ceremony flyer set','Canva · 4 colorways','#1f2a44','#f3d9a4'],
+['Holiday and events','Year-in-review gathering flyer','Canva','#3a2a1e','#f0e2c8'],
+['Holiday and events','Candlelit log graphics','PNG + Canva','#2a1a12','#f3c57a'],
+['Holiday and events','Party name tags','Canva · PDF','#f2c4b8','#5a2a20'],
+['Business','Guest artist event promo','Canva · flyer + post · logo placeholder','#14213d','#fca311'],
+['Business','Back-to-school promo','Canva · product placeholder','#2d6a4f','#e9f5db'],
+['Business','Sale announcement kit','Canva · logo placeholder','#c1121f','#fdf0d5'],
+['Business','Wine and music night post','Canva · logo placeholder','#3d1a2b','#e8c8a0'],
+['Business','QR business cards','Canva · QR built in','#1d1b18','#faf7f1'],
+['Artists','Certificate of authenticity pack','Fillable PDF','#fbf7ee','#7a5c2e'],
+['Artists','Booth sign + scan-to-follow cards','Word · QR guide','#e9e3d8','#1d1b18'],
+['Kitchen','Spice jar label sheets','PDF · fits standard sheets','#efe6d2','#6b4f2a'],
+['Kitchen','Global spice passport','Printable PDF · 11 pages','#5b3a29','#f4e9d8'],
+['Kitchen','Kitchen index booklet','Printable PDF · 42 pages','#e7d8bf','#4a3320'],
+['Wellness','30-Day Renewal journal','Printable + digital','#e8dcc8','#3e3a33'],
+['Wellness','Chakra guide cards','Printable PDF','#4b3f72','#efe9ff'],
+['Prints','Botanical herb prints','Art print download','#dfe6d3','#2f3e26'],
+['Learning','Cursive practice: kids','Printable · 3 levels','#fde2c8','#9c4a1a'],
+['Learning','Cursive practice: adults','Printable · 3 levels','#f4f1ea','#2a2a2a']];
+const cats=['All',...new Set(SHOP.map(s=>s[0]))];let cat='All';
+function drawShop(){document.getElementById('chips').innerHTML=cats.map(c=>`<button class="chip ${c===cat?'on':''}" data-c="${c}">${c}</button>`).join('');
+document.querySelectorAll('#chips .chip').forEach(b=>b.onclick=()=>{cat=b.dataset.c;drawShop();});
+document.getElementById('shopgrid').innerHTML=SHOP.filter(s=>cat==='All'||s[0]===cat).map(s=>`<div class="card"><div class="thumb" style="background:${s[3]};color:${s[4]}"><span class="pend">Pending review</span>${s[1]}</div><div class="ci"><span class="meta">${s[0]}</span><h4>${s[1]}</h4><span class="meta">${s[2]}</span><div class="row"><span class="price">$ —</span><button class="btn sm ghost">Preview</button></div></div></div>`).join('');}
+drawShop();
+
+/* ---------- COA ---------- */
+const MEDIA={
+'Painting':['Surface','Dimensions','Edition','Oil on linen','Original, 1 of 1'],
+'Photography':['Print and paper','Image size','Edition','Archival pigment print on cotton rag','3 of 25'],
+'Limited-edition print':['Printing method','Sheet size','Edition','Giclée on fine art paper','12 of 50'],
+'Sculpture':['Materials','Dimensions (H × W × D)','Edition','Cast bronze, patina','Unique'],
+'Ceramics':['Clay body and glaze','Dimensions (H × W)','Edition','Stoneware, ash glaze','Unique'],
+'Drawing':['Materials','Dimensions','Edition','Graphite and charcoal on paper','Original, 1 of 1'],
+'Mixed media':['Materials','Dimensions','Edition','Acrylic, collage and resin on panel','Original, 1 of 1'],
+'Digital art':['File and output','Print size','Edition','Digital painting, archival print','1 of 10'],
+'Textile and fiber':['Fibers and technique','Dimensions','Edition','Hand-woven wool and linen','Unique'],
+'Other':['Materials','Dimensions','Edition','','']};
+const S={
+classic:{n:'Classic',bg:'#fbf7ee',ink:'#2b2620',acc:'#a8843f',line:'#d8c69c',mute:'#7a6d5a',hf:"'Cinzel',serif",bf:"'Cormorant Garamond',serif",hw:600,hs:'44px',hl:'.06em',ht:'uppercase',al:'center',sty:'italic',deco:'corners'},
+modern:{n:'Modern',bg:'#ffffff',ink:'#1c1c1c',acc:'#c8553d',line:'#d9d4cc',mute:'#7a746c',hf:"'Bebas Neue',sans-serif",bf:"'Inter',sans-serif",hw:400,hs:'78px',hl:'.02em',ht:'uppercase',al:'left',sty:'normal',deco:'band',box:'#f3f0eb'},
+minimal:{n:'Minimal',bg:'#ffffff',ink:'#151515',acc:'#151515',line:'#d6d6d6',mute:'#8a8a8a',hf:"'Inter',sans-serif",bf:"'Inter',sans-serif",hw:300,hs:'40px',hl:'-.01em',ht:'none',al:'left',sty:'normal',deco:'none'},
+elegant:{n:'Elegant',bg:'#fbf8f3',ink:'#2a2222',acc:'#a8736a',line:'#e2cfc6',mute:'#8a7a74',hf:"'Playfair Display',serif",bf:"'Cormorant Garamond',serif",hw:500,hs:'48px',hl:'0',ht:'none',al:'center',sty:'italic',deco:'flourish'},
+abstract:{n:'Abstract',bg:'#fffdf8',ink:'#1d1d1f',acc:'#2f5bd3',line:'#d9d6cf',mute:'#77736b',hf:"'Space Grotesk',sans-serif",bf:"'Space Grotesk',sans-serif",hw:700,hs:'50px',hl:'-.02em',ht:'none',al:'left',sty:'normal',deco:'shapes'},
+snappy:{n:'Snappy',bg:'#ffffff',ink:'#1f2a44',acc:'#e85d3a',line:'#d9dbe3',mute:'#6a7184',hf:"'Oswald',sans-serif",bf:"'Inter',sans-serif",hw:600,hs:'54px',hl:'.01em',ht:'uppercase',al:'left',sty:'normal',deco:'corner',box:'#f4f5f8'},
+bricked:{n:'Bricked',bg:'#fbf6f1',ink:'#2a1d17',acc:'#8b3a2b',line:'#d9c3b6',mute:'#7b665b',hf:"'Oswald',sans-serif",bf:"'Inter',sans-serif",hw:600,hs:'52px',hl:'.03em',ht:'uppercase',al:'center',sty:'normal',deco:'brick'},
+seductive:{n:'Seductive',bg:'#1e0b12',ink:'#f4e6dc',acc:'#c9a24b',line:'#5a3340',mute:'#b99a8e',hf:"'Bodoni Moda',serif",bf:"'Cormorant Garamond',serif",hw:500,hs:'50px',hl:'.01em',ht:'none',al:'center',sty:'italic',deco:'velvet'},
+sporty:{n:'Sporty',bg:'#ffffff',ink:'#0d1b2a',acc:'#e63946',line:'#d6dbe2',mute:'#677386',hf:"'Oswald',sans-serif",bf:"'Inter',sans-serif",hw:600,hs:'58px',hl:'.02em',ht:'uppercase',al:'left',sty:'normal',deco:'stripes',box:'#f2f4f7'},
+varsity:{n:'Varsity',bg:'#f7f2e6',ink:'#13294b',acc:'#13294b',line:'#c9bfa6',mute:'#6b6552',hf:"'Bebas Neue',sans-serif",bf:"'Inter',sans-serif",hw:400,hs:'74px',hl:'.04em',ht:'uppercase',al:'center',sty:'normal',deco:'varsity'}};
+let style='classic';const $=id=>document.getElementById(id);
+$('f-medium').innerHTML=Object.keys(MEDIA).map(m=>`<option>${m}</option>`).join('');
+$('coa-styles').innerHTML=Object.entries(S).map(([k,v])=>`<button data-s="${k}" class="${k===style?'on':''}">${v.n}</button>`).join('');
+$('coa-styles').querySelectorAll('button').forEach(b=>b.onclick=()=>{style=b.dataset.s;$('coa-styles').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));drawCert();});
+let certNo='';function newNo(){certNo='SLN-'+new Date().getFullYear()+'-'+String(Math.floor(Math.random()*9000)+1000);}newNo();
+$('f-medium').onchange=()=>{const m=MEDIA[$('f-medium').value];$('l-detail').textContent=m[0];$('l-dims').textContent=m[1];$('l-ed').textContent=m[2];if(m[3])$('f-detail').value=m[3];if(m[4])$('f-ed').value=m[4];drawCert();};
+document.querySelectorAll('#coa-form input,#coa-form textarea').forEach(e=>e.addEventListener('input',drawCert));
+$('coa-new').onclick=()=>{newNo();drawCert();};
+$('coa-print').onclick=()=>window.print();
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function deco(d,i,v){const a=v.acc;
+ if(d==='corners'){let s='';[[0,0,1,1],[1,0,-1,1],[0,1,1,-1],[1,1,-1,-1]].forEach(([x,y,sx,sy])=>{const L=18+i*10,o=46+i*4;s+=`<div style="position:absolute;${x?'right':'left'}:${o}px;${y?'bottom':'top'}:${o}px;width:${L}px;height:${L}px;border-${y?'bottom':'top'}:${1+i}px solid ${a};border-${x?'right':'left'}:${1+i}px solid ${a}"></div>`});return s;}
+ if(d==='band')return `<div style="position:absolute;left:0;top:0;bottom:0;width:${i*22}px;background:${v.ink}"></div><div style="position:absolute;left:${i*22}px;top:0;bottom:0;width:${i*2+1}px;background:${a}"></div>`;
+ if(d==='flourish')return `<div style="position:absolute;left:50%;top:${52+i*2}px;transform:translateX(-50%);font:${16+i*6}px 'Playfair Display';color:${a}">❦</div><div style="position:absolute;left:50%;bottom:${40+i*2}px;transform:translateX(-50%) rotate(180deg);font:${16+i*6}px 'Playfair Display';color:${a}">❦</div>`;
+ if(d==='shapes'){const c=['#2f5bd3','#f2b134','#e2553f'];let s='';const P=[[-60,-60,220],[640,40,140],[600,860,260],[-40,880,120]];P.slice(0,i+1).forEach((p,k)=>{s+=`<div style="position:absolute;left:${p[0]}px;top:${p[1]}px;width:${p[2]}px;height:${p[2]}px;border-radius:${k%2?'0':'50%'};background:${c[k%3]};opacity:${.10+i*.06}"></div>`});return s;}
+ if(d==='corner')return `<div style="position:absolute;right:-${120-i*20}px;top:-${120-i*20}px;width:260px;height:260px;background:${a};transform:rotate(45deg)"></div><div style="position:absolute;left:0;bottom:0;right:0;height:${i*5}px;background:${v.ink}"></div>`;
+ if(d==='brick')return `<div style="position:absolute;inset:0;border:${10+i*8}px solid transparent;border-image:repeating-linear-gradient(0deg,${a} 0 10px,${v.bg} 10px 12px) ${10+i*8};opacity:${.55+i*.15}"></div>`;
+ if(d==='velvet')return `<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,162,75,${.04+i*.05}),transparent 60%)"></div>`;
+ if(d==='stripes')return `<div style="position:absolute;right:${70}px;top:0;bottom:0;display:flex;gap:${6}px">${Array.from({length:i+1},(_,k)=>`<div style="width:${10+ (k===0?6:0)}px;background:${k%2?v.ink:a}"></div>`).join('')}</div>`;
+ if(d==='varsity')return `<div style="position:absolute;left:0;right:0;top:0;height:${i*14}px;background:${a}"></div><div style="position:absolute;left:0;right:0;top:${i*14+4}px;height:${i*3}px;background:#c8102e"></div><div style="position:absolute;left:0;right:0;bottom:0;height:${i*14}px;background:${a}"></div>`;
+ return '';}
+function drawCert(){const v=S[style],i=+$('coa-int').value,c=$('cert');$('int-lab').textContent=['','Subtle','Balanced','Bold'][i];
+ const vars={'--i':i,'--c-bg':v.bg,'--c-ink':v.ink,'--c-acc':v.acc,'--c-line':v.line,'--c-mute':v.mute,'--c-hf':v.hf,'--c-bf':v.bf,'--c-hw':v.hw,'--c-hs':v.hs,'--c-hl':v.hl,'--c-ht':v.ht,'--c-align':v.al,'--c-self':v.al==='center'?'center':'flex-start','--c-sty':v.sty,'--c-box':v.box&&i>1?v.box:'transparent','--c-boxpad':v.box&&i>1?'8px':'0'};
+ Object.entries(vars).forEach(([k,x])=>c.style.setProperty(k,x));
+ const showFrame=!['band','shapes','stripes','varsity','brick','corner'].includes(v.deco)&&!(v.deco==='none'&&i<3);
+ const inset=v.deco==='band'?`96px 80px 80px ${130+i*22}px`:'';
+ const F=(l,val,full)=>`<div class="c-f ${full?'full':''}"><div class="c-l">${l}</div><div class="c-v">${esc(val)}</div></div>`;
+ c.innerHTML=`<div class="c-deco">${deco(v.deco,i,v)}</div>${showFrame?'<div class="c-frame"></div>'+(i>1?'<div class="c-frame2"></div>':''):''}
+ <div class="c-in" style="${inset?'inset:'+inset:''}">
+  <div class="c-kick">Certified original work</div>
+  <div class="c-title">Certificate of Authenticity</div>
+  <div class="c-rule"></div>
+  <p class="c-stmt">This certificate confirms that the work described below is an authentic original created by the artist named here. The details recorded on this document are accurate to the best of the artist's knowledge.</p>
+  <div class="c-grid">
+   ${F('Artist',$('f-artist').value,1)}${F('Title of work',$('f-title').value,1)}
+   ${F('Year created',$('f-year').value)}${F('Medium',$('f-medium').value)}
+   ${F($('l-detail').textContent,$('f-detail').value)}${F($('l-dims').textContent,$('f-dims').value)}
+   ${F($('l-ed').textContent,$('f-ed').value)}${F('Certificate no.',certNo)}
+   ${$('f-coll').value?F('Collector',$('f-coll').value,1):''}
+   ${$('f-notes').value?F('Notes and provenance',$('f-notes').value,1):''}
+  </div>
+  <div class="c-foot"><div class="c-seal"><span>Authentic</span><b>${esc(($('f-artist').value||'A').split(/\s+/).map(w=>w[0]).join('').slice(0,3).toUpperCase())}</b><span>${esc($('f-year').value)}</span></div>
+   <div class="c-sig"><div class="c-sigline"></div><div class="c-siglab"><span>Artist signature</span><span>Date</span></div></div></div>
+  <div class="c-web">${esc($('f-web').value)}</div>
+ </div>`;fitCert();}
+$('coa-int').oninput=drawCert;
+function fitCert(){const st=$('coa-stage');const w=st.clientWidth-36;if(w<=0)return;const s=Math.min(1,w/816);$('cert-scale').style.transform=`scale(${s})`;$('cert-scale').style.height=(1056*s)+'px';$('cert-scale').style.width=(816*s)+'px';}
+addEventListener('resize',()=>{fitCert();scaleKit();});
+drawCert();
+
+/* ---------- Event kit ---------- */
+const FMT=[
+{id:'instagram-post',n:'Instagram post',w:1080,h:1080,tH:.30,dH:.13,cls:'sq'},
+{id:'instagram-story',n:'Instagram story',w:1080,h:1920,tH:.22,dH:.10,cls:'tall'},
+{id:'eventbrite-banner',n:'Eventbrite banner',w:2160,h:1080,tH:.36,dH:.14,cls:'wide'},
+{id:'facebook-event-cover',n:'Facebook event cover',w:1920,h:1005,tH:.36,dH:.13,cls:'wide'},
+{id:'flyer-letter',n:'Flyer (8.5 × 11)',w:1275,h:1650,tH:.24,dH:.12,cls:'tall'}];
+const PAL=[['Midnight gold','#1f2a44','#e9b44c'],['Ember','#3b1f14','#f08a4b'],['Sage','#2f3e2e','#d9c59a'],['Ivory ink','#f4efe6','#b5562f']];
+const FONTS={bold:["'Bebas Neue',sans-serif","'Inter',sans-serif",400,'uppercase'],editorial:["'Playfair Display',serif","'Inter',sans-serif",700,'none'],classic:["'Cinzel',serif","'Cormorant Garamond',serif",600,'uppercase'],modern:["'Space Grotesk',sans-serif","'Space Grotesk',sans-serif",700,'none']};
+let tier='basic',pal=0,logoURL='',photoURL='';
+$('k-pal').innerHTML=PAL.map((p,i)=>`<button data-p="${i}" class="${i===pal?'on':''}"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${p[1]};outline:2px solid ${p[2]};margin-right:6px"></span>${p[0]}</button>`).join('');
+$('k-pal').querySelectorAll('button').forEach(b=>b.onclick=()=>{pal=+b.dataset.p;$('k-pal').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));$('k-bg').value=PAL[pal][1];$('k-acc').value=PAL[pal][2];renderKit();});
+$('tier').querySelectorAll('button').forEach(b=>b.onclick=()=>{tier=b.dataset.t;$('tier').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));$('pro-box').classList.toggle('disabled',tier!=='pro');renderKit();});
+['k-title','k-kick','k-date','k-time','k-loc','k-desc','k-layout','k-font','k-bg','k-acc','k-nodesc'].forEach(id=>$(id).addEventListener('input',renderKit));
+const readImg=(inp,cb)=>inp.addEventListener('change',()=>{const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{cb(e.target.result);renderKit();};r.readAsDataURL(f);});
+readImg($('k-logo'),u=>logoURL=u);readImg($('k-photo'),u=>photoURL=u);
+function light(hex){const n=parseInt(hex.slice(1),16);return((n>>16)*299+((n>>8)&255)*587+(n&255)*114)/1000>150;}
+function fit(el,max,min){let s=max;el.style.fontSize=s+'px';let n=0;while((el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1)&&s>min&&n<200){s-=Math.max(1,s*.04);el.style.fontSize=s+'px';n++;}}
+function artHTML(f){const pro=tier==='pro';const layout=pro?$('k-layout').value:'marquee';const fp=FONTS[pro?$('k-font').value:'bold'];
+ const bg=pro?$('k-bg').value:PAL[pal][1],acc=pro?$('k-acc').value:PAL[pal][2];
+ const u=Math.min(f.w,f.h)/100;const fg=light(bg)?'#1d1b18':'#ffffff';
+ const hideDesc=pro&&$('k-nodesc').checked&&f.id!=='flyer-letter';
+ const meta=[$('k-date').value,$('k-time').value,$('k-loc').value].filter(Boolean).map(t=>`<span>${esc(t)}</span>`).join('');
+ return `<div class="art L-${layout} ${f.cls}" data-f="${f.id}" style="width:${f.w}px;height:${f.h}px;--u:${u}px;--tH:${f.h*f.tH}px;--dH:${f.h*f.dH}px;--k-bg:${bg};--k-acc:${acc};--k-fg:${layout==='marquee'?'#fff':fg};--k-hf:${fp[0]};--k-bf:${fp[1]};--k-hw:${fp[2]};--k-ht:${fp[3]}">
+  <div class="a-photo ${photoURL?'has':''}" style="${photoURL?`background-image:url(${photoURL})`:''}">${photoURL?'':'Drop photo here'}</div>
+  <div class="a-shade"></div>
+  <div class="a-logo ${logoURL?'has':''}" style="${logoURL?`background-image:url(${logoURL})`:''}">${logoURL?'':'LOGO'}</div>
+  <div class="a-body"><div class="a-kick">${esc($('k-kick').value)}</div><div class="a-title"><span>${esc($('k-title').value)}</span></div><div class="a-meta">${meta}</div>${hideDesc?'':`<div class="a-desc">${esc($('k-desc').value)}</div>`}</div></div>`;}
+function renderKit(){const g=$('kit-grid');g.innerHTML=FMT.map(f=>`<div class="fmt"><div class="fh"><span>${f.n}</span><span>${f.w}×${f.h}</span></div><div class="box" style="aspect-ratio:${f.w}/${f.h}">${artHTML(f)}</div></div>`).join('');
+ g.querySelectorAll('.art').forEach(a=>{const f=FMT.find(x=>x.id===a.dataset.f);const t=a.querySelector('.a-title');const sp=t.querySelector('span');const u=Math.min(f.w,f.h)/100;
+  let s=u*(f.cls==='wide'?13:16);sp.style.fontSize=s+'px';let n=0;while((sp.scrollHeight>t.clientHeight||sp.scrollWidth>t.clientWidth+1)&&s>u*4&&n<200){s*=.96;sp.style.fontSize=s+'px';n++;}
+  const d=a.querySelector('.a-desc');if(d)fit(d,u*2.9,u*1.8);});scaleKit();}
+function scaleKit(){document.querySelectorAll('#kit-grid .box').forEach(b=>{const a=b.querySelector('.art');if(!a)return;const s=b.clientWidth/parseFloat(a.style.width);a.style.transform=`scale(${s})`;});}
+$('k-dl').onclick=async()=>{const st=$('k-status');try{st.textContent='Building your pack…';const zip=new JSZip();
+ const host=document.createElement('div');host.style.cssText='position:fixed;left:-99999px;top:0';document.body.appendChild(host);
+ for(const f of FMT){host.innerHTML=artHTML(f);const a=host.firstElementChild;const t=a.querySelector('.a-title'),sp=t.querySelector('span'),u=Math.min(f.w,f.h)/100;let s=u*(f.cls==='wide'?13:16);sp.style.fontSize=s+'px';let n=0;while((sp.scrollHeight>t.clientHeight||sp.scrollWidth>t.clientWidth+1)&&s>u*4&&n<200){s*=.96;sp.style.fontSize=s+'px';n++;}const d=a.querySelector('.a-desc');if(d)fit(d,u*2.9,u*1.8);
+  const url=await htmlToImage.toPng(a,{width:f.w,height:f.h,pixelRatio:1,cacheBust:true});zip.file(f.id+'.png',url.split(',')[1],{base64:true});}
+ host.remove();const blob=await zip.generateAsync({type:'blob'});const l=document.createElement('a');l.href=URL.createObjectURL(blob);l.download='studio-ln-event-kit.zip';l.click();st.textContent='Pack downloaded: 5 PNGs.';}catch(e){st.textContent='Download failed. Try again, or use Chrome or Safari.';console.error(e);}};
+
+route();
+</script>
+</body>
+</html>
